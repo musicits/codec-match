@@ -81,18 +81,30 @@ export const PHONE_CODEC_SETS = {
   pixel_classic: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC'],
   pixel_le: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC', 'LC3'],
   snapdragon_flagship: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC', 'LHDC', 'LC3'],
+  // LE Audio 이전 세대 스냅드래곤 (낫싱 폰 (1) 등)
+  snapdragon_hires: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC', 'LHDC'],
+  // 미디어텍 디멘시티 계열은 aptX 라이선스가 없어 LDAC·LHDC 위주입니다 (낫싱 폰 (2a) 등)
+  mediatek_hires: ['SBC', 'AAC', 'LDAC', 'LHDC', 'LC3'],
   xperia_le: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC', 'LC3'],
   lg_legacy: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC'],
 }
 
+// aptX Lossless 는 aptX Adaptive 의 상위 모드라 별도 코덱으로 나누지 않고
+// aptX Adaptive 로 묶습니다. (지원 기기: 슈어 AONIC 50 Gen 2, 데논 PerL Pro, 이어펀 Air Pro 4 등)
 export const AUDIO_CODEC_SETS = {
+  sbc_only: ['SBC'],
   aac: ['SBC', 'AAC'],
+  aac_le: ['SBC', 'AAC', 'LC3'],
   ssc: ['SBC', 'AAC', 'SSC'],
   ssc_le: ['SBC', 'AAC', 'SSC', 'LC3'],
   ldac: ['SBC', 'AAC', 'LDAC'],
   ldac_le: ['SBC', 'AAC', 'LDAC', 'LC3'],
+  lhdc: ['SBC', 'AAC', 'LHDC'],
+  ldac_lhdc: ['SBC', 'AAC', 'LDAC', 'LHDC'],
   aptx_adaptive: ['SBC', 'AAC', 'aptX', 'aptX Adaptive'],
   aptx_adaptive_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LC3'],
+  aptx_adaptive_ldac_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LDAC', 'LC3'],
+  aptx_full: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC'],
 }
 
 export const codecsOf = (device) =>

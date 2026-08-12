@@ -21,6 +21,9 @@ export const PHONES = [
     '샤오미 15', '샤오미 15 프로', '샤오미 15 울트라',
   ]),
   ...phoneGroup(2025, '소니', 'xperia_le', ['엑스페리아 1 VII']),
+  ...phoneGroup(2025, '낫싱', 'snapdragon_flagship', [
+    '낫싱 폰 (3)', '낫싱 폰 (3a)', '낫싱 폰 (3a) 프로',
+  ]),
 
   // 2024
   ...phoneGroup(2024, '애플', 'iphone', [
@@ -36,6 +39,8 @@ export const PHONES = [
     '샤오미 14', '샤오미 14 프로', '샤오미 14 울트라',
   ]),
   ...phoneGroup(2024, '소니', 'xperia_le', ['엑스페리아 1 VI', '엑스페리아 10 VI']),
+  // 디멘시티 7200 Pro 탑재라 aptX 계열이 빠지고 LDAC·LHDC 위주입니다.
+  ...phoneGroup(2024, '낫싱', 'mediatek_hires', ['낫싱 폰 (2a)', '낫싱 폰 (2a) 플러스']),
 
   // 2023
   ...phoneGroup(2023, '애플', 'iphone', [
@@ -49,6 +54,7 @@ export const PHONES = [
     '샤오미 13', '샤오미 13 프로', '샤오미 13 울트라',
   ]),
   ...phoneGroup(2023, '소니', 'xperia_le', ['엑스페리아 1 V', '엑스페리아 5 V']),
+  ...phoneGroup(2023, '낫싱', 'snapdragon_flagship', ['낫싱 폰 (2)']),
 
   // 2022
   ...phoneGroup(2022, '애플', 'iphone', [
@@ -59,6 +65,7 @@ export const PHONES = [
   ], { seamless: true }),
   ...phoneGroup(2022, '삼성', 'galaxy_le', ['갤럭시 Z 폴드4', '갤럭시 Z 플립4'], { seamless: true }),
   ...phoneGroup(2022, '구글', 'pixel_classic', ['픽셀 7', '픽셀 7 프로', '픽셀 6a']),
+  ...phoneGroup(2022, '낫싱', 'snapdragon_hires', ['낫싱 폰 (1)']),
 
   // 2021
   ...phoneGroup(2021, '애플', 'iphone', [

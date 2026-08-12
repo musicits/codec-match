@@ -55,11 +55,15 @@ export function sscTier(phone, audioDevice) {
   return { name: 'SSC (Scalable)', bitrate: '최대 512 kbps', note: '' }
 }
 
+// 브랜드명이 모델명에 안 들어가는 기기가 많아서(예: 보스 "QC 울트라 이어버드")
+// 검색어는 모델명과 브랜드명 양쪽에 대조합니다.
 export const filterDevices = (devices, brand, query) => {
   const keyword = query.trim().toLowerCase()
   return devices.filter(
     (device) =>
       (!brand || device.brand === brand) &&
-      (!keyword || device.name.toLowerCase().includes(keyword)),
+      (!keyword ||
+        device.name.toLowerCase().includes(keyword) ||
+        device.brand.toLowerCase().includes(keyword)),
   )
 }

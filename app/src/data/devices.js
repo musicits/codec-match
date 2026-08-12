@@ -26,14 +26,16 @@ export const phone = (year, brand, codecSet, model, { seamless = false } = {}) =
  * 이어폰·헤드폰 한 대.
  * sscMax: 'scalable' | 'hifi' | 'uhq' — 삼성 기기에만 의미가 있습니다.
  * leAudioNote: LE Audio 하드웨어는 있으나 제조사가 LC3 지원을 명시하지 않은 경우.
+ * note: 기기 선택란에 함께 보여줄 한 줄 주석. 코덱 표기만으로 오해가 생기는 기기에 씁니다.
  */
-export const audio = (year, brand, codecSet, model, { sscMax, leAudioNote = false } = {}) => ({
+export const audio = (year, brand, codecSet, model, { sscMax, leAudioNote = false, note } = {}) => ({
   id: slugify(`${year}-${model}`),
   name: `${year} ${model}`,
   brand,
   codecSet,
   sscMax,
   leAudioNote,
+  note,
 })
 
 /** 같은 연도·브랜드·코덱셋을 공유하는 모델을 한 번에 정의합니다. */

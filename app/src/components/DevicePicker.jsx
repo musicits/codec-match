@@ -81,6 +81,7 @@ export default function DevicePicker({ title, icon, devices, selectedId, onChang
       {current?.leAudioNote && (
         <p className="device-note">LE Audio 지원 · LC3 명시 없음</p>
       )}
+      {current?.note && <p className="device-note">{current.note}</p>}
     </section>
   )
 }
