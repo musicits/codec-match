@@ -8,6 +8,7 @@
 | 버전 | 주소 |
 | --- | --- |
 | 최신 | https://musicits.github.io/codec-match/ |
+| v4 | https://musicits.github.io/codec-match/v4/ |
 | v3 | https://musicits.github.io/codec-match/v3/ |
 | v2 | https://musicits.github.io/codec-match/v2/ |
 | v1 | https://musicits.github.io/codec-match/v1/ |
@@ -16,6 +17,23 @@ GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 �
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
 
 ---
+
+## v5.0.0 — aptX Lossless 안내
+
+**2026-08-12** · 스마트폰 126종 · 이어폰 91종
+
+- aptX Lossless 로 무손실 전송이 되는 조합에 결과 카드 안내 추가 (11,466 조합 중 25건)
+- 폰: 샤오미 15·15 프로·15 울트라·14 울트라, 소니 엑스페리아 1 VII
+- 이어폰: 젠하이저 모멘텀 5 와이어리스·모멘텀 TW4, 슈어 AONIC 50 Gen 2, 데논 PerL Pro, 이어펀 Air Pro 4
+
+aptX Lossless 는 독립 코덱이 아니라 aptX Adaptive 의 무손실 모드입니다. 그래서 협상 코덱 이름은
+aptX Adaptive 그대로 두고, 양쪽 다 지원할 때만 별도 안내를 띄웁니다. LC3 안내와 같은 방식입니다.
+
+플래그는 해당 모델에 aptX Lossless 가 명시된 자료가 있는 경우에만 답니다. 같은 시리즈여도
+갈리는데, 샤오미 14 울트라는 실기 확인이 있지만 14 프로는 ROM 에 따라 aptX Adaptive 까지만
+잡힌 사례가 보고돼 제외했습니다. 삼성 갤럭시는 하드웨어가 지원하더라도 One UI 에서 aptX HD·
+Adaptive 라이브러리를 빼기 때문에 전 기종 해당 없음이고, 구글 픽셀은 Snapdragon Sound 인증이
+없습니다.
 
 ## v4.0.0 — 앤커 신모델 및 이전 버전 보관
 

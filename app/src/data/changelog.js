@@ -10,10 +10,21 @@
 
 export const CHANGELOG = [
   {
+    version: 'v5',
+    date: '2026-08-12',
+    phones: 126,
+    audio: 91,
+    changes: [
+      'aptX Lossless 로 무손실 전송이 되는 조합에 안내 표시 추가',
+      '샤오미 15 시리즈·14 울트라·엑스페리아 1 VII 와 젠하이저·슈어·데논·이어펀 일부 모델에 적용',
+    ],
+  },
+  {
     version: 'v4',
     date: '2026-08-12',
     phones: 126,
     audio: 91,
+    archiveUrl: './v4/',
     changes: [
       '앤커 사운드코어 리버티 5 프로 맥스·리버티 5 프로·리버티 5·P31i·P40i·P30i 추가',
       '젠하이저 모멘텀 5 와이어리스 추가',

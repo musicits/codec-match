@@ -14,12 +14,13 @@ export const slugify = (value) =>
  * 스마트폰 한 대.
  * seamless: 삼성 심리스 코덱(Scalable 상위 등급) 협상이 가능한 기기인지. 삼성 기기에만 의미가 있습니다.
  */
-export const phone = (year, brand, codecSet, model, { seamless = false } = {}) => ({
+export const phone = (year, brand, codecSet, model, { seamless = false, aptxLossless = false } = {}) => ({
   id: slugify(`${year}-${model}`),
   name: `${year} ${model}`,
   brand,
   codecSet,
   seamless: brand === '삼성' ? seamless : undefined,
+  aptxLossless,
 })
 
 /**
@@ -27,8 +28,15 @@ export const phone = (year, brand, codecSet, model, { seamless = false } = {}) =
  * sscMax: 'scalable' | 'hifi' | 'uhq' — 삼성 기기에만 의미가 있습니다.
  * leAudioNote: LE Audio 하드웨어는 있으나 제조사가 LC3 지원을 명시하지 않은 경우.
  * note: 기기 선택란에 함께 보여줄 한 줄 주석. 코덱 표기만으로 오해가 생기는 기기에 씁니다.
+ * aptxLossless: aptX Adaptive 의 무손실 모드까지 지원하는지. 양쪽 다 참일 때만 의미가 있습니다.
  */
-export const audio = (year, brand, codecSet, model, { sscMax, leAudioNote = false, note } = {}) => ({
+export const audio = (
+  year,
+  brand,
+  codecSet,
+  model,
+  { sscMax, leAudioNote = false, note, aptxLossless = false } = {},
+) => ({
   id: slugify(`${year}-${model}`),
   name: `${year} ${model}`,
   brand,
@@ -36,6 +44,7 @@ export const audio = (year, brand, codecSet, model, { sscMax, leAudioNote = fals
   sscMax,
   leAudioNote,
   note,
+  aptxLossless,
 })
 
 /** 같은 연도·브랜드·코덱셋을 공유하는 모델을 한 번에 정의합니다. */

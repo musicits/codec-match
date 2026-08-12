@@ -59,13 +59,26 @@ for (const device of AUDIO_DEVICES) {
   }
 }
 
+// 4-1. aptX Lossless 는 aptX Adaptive 의 무손실 모드라, aptX Adaptive 없이 성립할 수 없습니다.
+for (const [label, devices] of [['폰', PHONES], ['이어폰', AUDIO_DEVICES]]) {
+  for (const device of devices) {
+    if (!device.aptxLossless) continue
+    check(
+      codecsOf(device).includes('aptX Adaptive'),
+      `${label} "${device.name}" 은 aptX Lossless 로 표시됐지만 코덱셋에 aptX Adaptive 가 없습니다`,
+    )
+  }
+}
+
 // 5. 모든 조합을 실제로 계산해 봅니다.
 let pairs = 0
+let losslessPairs = 0
 const codecUsage = new Map()
 for (const p of PHONES) {
   for (const a of AUDIO_DEVICES) {
     pairs += 1
-    const { codec, common } = resolveMatch(p, a)
+    const { codec, common, losslessAvailable } = resolveMatch(p, a)
+    if (losslessAvailable) losslessPairs += 1
     check(codec !== null, `"${p.name}" + "${a.name}" 조합에 공통 코덱이 없습니다`)
     if (!codec) continue
     check(CODEC_INFO[codec] !== undefined, `"${p.name}" + "${a.name}" → "${codec}" 설명이 CODEC_INFO 에 없습니다`)
@@ -105,6 +118,7 @@ console.log('결과 코덱 분포:')
 for (const [codec, count] of [...codecUsage].sort((a, b) => b[1] - a[1])) {
   console.log(`  ${codec.padEnd(15)} ${count.toLocaleString()}`)
 }
+console.log(`aptX Lossless 가능 조합: ${losslessPairs.toLocaleString()}건`)
 
 if (errors.length) {
   console.error(`\n실패 ${errors.length}건:`)

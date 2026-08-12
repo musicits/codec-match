@@ -19,8 +19,8 @@ export const PHONES = [
   ]),
   ...phoneGroup(2025, '샤오미', 'snapdragon_flagship', [
     '샤오미 15', '샤오미 15 프로', '샤오미 15 울트라',
-  ]),
-  ...phoneGroup(2025, '소니', 'xperia_le', ['엑스페리아 1 VII']),
+  ], { aptxLossless: true }),
+  ...phoneGroup(2025, '소니', 'xperia_le', ['엑스페리아 1 VII'], { aptxLossless: true }),
   ...phoneGroup(2025, '낫싱', 'snapdragon_flagship', [
     '낫싱 폰 (3)', '낫싱 폰 (3a)', '낫싱 폰 (3a) 프로',
   ]),
@@ -35,9 +35,10 @@ export const PHONES = [
   ...phoneGroup(2024, '구글', 'pixel_le', [
     '픽셀 9', '픽셀 9 프로', '픽셀 9 프로 XL', '픽셀 9 프로 폴드', '픽셀 8a',
   ]),
-  ...phoneGroup(2024, '샤오미', 'snapdragon_flagship', [
-    '샤오미 14', '샤오미 14 프로', '샤오미 14 울트라',
-  ]),
+  // 14 울트라만 aptX Lossless 연결이 실기로 확인됐습니다. 같은 시리즈여도 ROM 에 따라
+  // 14 프로는 aptX Adaptive 까지만 잡히는 사례가 보고돼 플래그를 달지 않았습니다.
+  ...phoneGroup(2024, '샤오미', 'snapdragon_flagship', ['샤오미 14', '샤오미 14 프로']),
+  phone(2024, '샤오미', 'snapdragon_flagship', '샤오미 14 울트라', { aptxLossless: true }),
   ...phoneGroup(2024, '소니', 'xperia_le', ['엑스페리아 1 VI', '엑스페리아 10 VI']),
   // 디멘시티 7200 Pro 탑재라 aptX 계열이 빠지고 LDAC·LHDC 위주입니다.
   ...phoneGroup(2024, '낫싱', 'mediatek_hires', ['낫싱 폰 (2a)', '낫싱 폰 (2a) 플러스']),

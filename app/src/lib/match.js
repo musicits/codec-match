@@ -19,18 +19,22 @@ export function resolveMatch(phone, audioDevice) {
   )
   const lc3Available = phoneCodecs.includes('LC3') && audioCodecs.includes('LC3')
 
+  // aptX Lossless 는 독립 코덱이 아니라 aptX Adaptive 의 무손실 모드입니다.
+  // 협상되는 코덱 이름은 그대로 aptX Adaptive 이므로, 별도 안내로만 알립니다.
+  const losslessAvailable = Boolean(phone.aptxLossless && audioDevice.aptxLossless)
+
   // 삼성 폰 + 삼성 이어폰은 One UI 가 SSC 를 우선 협상합니다.
   if (phone.brand === '삼성' && audioDevice.brand === '삼성' && common.includes('SSC')) {
-    return { codec: 'SSC', common, lc3Available }
+    return { codec: 'SSC', common, lc3Available, losslessAvailable }
   }
 
   // 아이폰은 SBC / AAC 외에는 협상하지 않습니다.
   if (phone.brand === '애플') {
     const codec = common.includes('AAC') ? 'AAC' : common.includes('SBC') ? 'SBC' : null
-    return { codec, common, lc3Available }
+    return { codec, common, lc3Available, losslessAvailable }
   }
 
-  return { codec: common[0] ?? null, common, lc3Available }
+  return { codec: common[0] ?? null, common, lc3Available, losslessAvailable }
 }
 
 /** SSC 는 폰의 심리스 지원 여부와 이어폰 등급에 따라 표시가 달라집니다. */
