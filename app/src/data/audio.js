@@ -6,6 +6,7 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2026, '삼성', 'ssc_le', ['갤럭시 버즈4', '갤럭시 버즈4 프로'], { sscMax: 'uhq' }),
   audio(2026, '소니', 'ldac_le', 'WF-1000XM6'),
   audio(2026, '낫싱', 'ldac', 'Ear (3a)'),
+  audio(2026, '앤커', 'ldac', '사운드코어 리버티 5 프로'),
 
   // 2025
   audio(2025, '애플', 'aac', '에어팟 프로 3'),
@@ -18,6 +19,7 @@ export const AUDIO_DEVICES = [
   audio(2025, '테크닉스', 'ldac_le', 'EAH-AZ100'),
   audio(2025, '뱅앤올룹슨', 'aptx_adaptive', 'Beoplay Eleven'),
   audio(2025, '파이널', 'ldac', 'ZE3000 SV'),
+  ...audioGroup(2025, '앤커', 'ldac', ['사운드코어 리버티 5', '사운드코어 P31i']),
 
   // 2024
   ...audioGroup(2024, '애플', 'aac', ['에어팟 4세대', '에어팟 4세대 ANC', '에어팟 맥스 USB-C']),
@@ -31,6 +33,8 @@ export const AUDIO_DEVICES = [
   audio(2024, '낫싱', 'ldac_lhdc', 'Ear'),
   ...audioGroup(2024, '낫싱', 'ldac', ['Ear (a)', 'Ear (open)']),
   ...audioGroup(2024, '앤커', 'ldac', ['사운드코어 리버티 4 프로', '사운드코어 스페이스 원 프로']),
+  // P 시리즈 보급형은 LDAC 없이 SBC/AAC 입니다. (P31i 는 LDAC 지원)
+  audio(2024, '앤커', 'aac', '사운드코어 P40i'),
   audio(2024, 'LG', 'aptx_adaptive', '톤프리 T80S'),
   ...audioGroup(2024, '자브라', 'aac', ['엘리트 10 Gen 2', '엘리트 8 액티브 Gen 2'], {
     note: 'LC3 는 케이스→이어버드 구간 전용 · 폰 연결은 SBC/AAC',

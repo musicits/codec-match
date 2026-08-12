@@ -317,6 +317,8 @@ main { padding: 36px 20px 52px; }
 }
 
 .changelog__counts { margin: 6px 0 10px; color: var(--color-muted); font-size: 12px; }
+.changelog__archive { color: var(--color-accent); text-decoration: none; border-bottom: 1px solid rgba(135, 231, 209, .4); }
+.changelog__archive:hover { color: var(--color-primary); border-bottom-color: var(--color-primary); }
 
 .changelog__changes { margin: 0; padding-left: 16px; color: #c9d0c9; }
 .changelog__changes li { font-size: 13px; line-height: 1.7; }

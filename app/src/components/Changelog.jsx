@@ -16,6 +16,14 @@ export default function Changelog() {
             </div>
             <p className="changelog__counts">
               스마트폰 {entry.phones}종 · 이어폰 {entry.audio}종
+              {entry.archiveUrl && (
+                <>
+                  {' · '}
+                  <a className="changelog__archive" href={entry.archiveUrl}>
+                    이 버전 열어보기 →
+                  </a>
+                </>
+              )}
             </p>
             <ul className="changelog__changes">
               {entry.changes.map((change) => (

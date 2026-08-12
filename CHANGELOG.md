@@ -3,10 +3,29 @@
 사이트 하단 "업데이트 기록" 섹션과 같은 내용입니다.
 사이트에 표시되는 쪽은 `app/src/data/changelog.js` 이며, 두 파일을 함께 갱신하세요.
 
+이전 버전은 배포 당시 화면 그대로 보관돼 있습니다.
+
+| 버전 | 주소 |
+| --- | --- |
+| 최신 | https://musicits.github.io/codec-match/ |
+| v3 | https://musicits.github.io/codec-match/v3/ |
+| v2 | https://musicits.github.io/codec-match/v2/ |
+| v1 | https://musicits.github.io/codec-match/v1/ |
+
 GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 됩니다.
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
 
 ---
+
+## v4.0.0 — 앤커 신모델 및 이전 버전 보관
+
+**2026-08-12** · 스마트폰 126종 · 이어폰 88종
+
+- 앤커 사운드코어 리버티 5 프로·리버티 5·P31i·P40i 추가
+- 이전 버전(v1~v3)을 `/v1/`, `/v2/`, `/v3/` 에 당시 화면 그대로 보관
+- 보관본에는 검색엔진 색인 제외(noindex)와 최신 버전으로 돌아가는 안내 배너를 덧붙였습니다
+
+앤커 P 시리즈는 보급형이라 코덱이 갈립니다. P31i 는 LDAC 을 지원하지만 P40i 는 SBC/AAC 뿐입니다.
 
 ## v3.0.0 — 국내 유통 브랜드 및 업데이트 기록
 
