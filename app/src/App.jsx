@@ -63,6 +63,7 @@ export default function App() {
             codec={match.codec}
             common={match.common}
             lc3Available={match.lc3Available}
+            losslessAvailable={match.losslessAvailable}
             verified={isVerified(phoneId, audioId)}
             phone={phone}
             audio={audio}

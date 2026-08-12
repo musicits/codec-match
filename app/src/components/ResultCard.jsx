@@ -1,7 +1,15 @@
 import { CODEC_INFO } from '../data/codecs.js'
 import { sscTier } from '../lib/match.js'
 
-export default function ResultCard({ codec, common, verified, phone, audio, lc3Available }) {
+export default function ResultCard({
+  codec,
+  common,
+  verified,
+  phone,
+  audio,
+  lc3Available,
+  losslessAvailable,
+}) {
   if (!codec) {
     return (
       <section className="result-card result-card--empty">
@@ -61,6 +69,15 @@ export default function ResultCard({ codec, common, verified, phone, audio, lc3A
         <p className="le-audio-note">
           <b>LE Audio 사용 가능</b>
           <span>LE Audio 모드로 전환 시 LC3 사용 가능</span>
+        </p>
+      )}
+      {losslessAvailable && (
+        <p className="le-audio-note lossless-note">
+          <b>aptX Lossless 사용 가능</b>
+          <span>
+            양쪽 다 Snapdragon Sound 인증 · aptX Adaptive 로 연결될 때 16bit 44.1kHz 무손실 전송,
+            전파 상태가 나빠지면 손실 압축으로 자동 전환
+          </span>
         </p>
       )}
 

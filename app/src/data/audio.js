@@ -10,6 +10,7 @@ export const AUDIO_DEVICES = [
   // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
   audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', {
     note: 'LE Audio·LC3 는 펌웨어 업데이트 예정 (현재 미적용)',
+    aptxLossless: true,
   }),
 
   // 2025
@@ -30,7 +31,7 @@ export const AUDIO_DEVICES = [
   audio(2024, '삼성', 'ssc', '갤럭시 버즈3 FE', { sscMax: 'hifi' }),
   ...audioGroup(2024, '삼성', 'ssc_le', ['갤럭시 버즈3', '갤럭시 버즈3 프로'], { sscMax: 'uhq' }),
   audio(2024, '보스', 'aac', 'QC 헤드폰'),
-  audio(2024, '젠하이저', 'aptx_adaptive_le', '모멘텀 트루 와이어리스 4'),
+  audio(2024, '젠하이저', 'aptx_adaptive_le', '모멘텀 트루 와이어리스 4', { aptxLossless: true }),
   audio(2024, 'JBL', 'ldac_le', '투어 프로 3'),
   audio(2024, 'JBL', 'ldac', '라이브 빔 3'),
   // Ear (2024) 는 LDAC 과 LHDC 5.0 을 모두 지원합니다.
@@ -50,7 +51,7 @@ export const AUDIO_DEVICES = [
   audio(2024, 'AKG', 'ldac', 'N5 Hybrid'),
   audio(2024, '파이널', 'aptx_adaptive', 'ZE8000 MK2'),
   audio(2024, 'QCY', 'ldac', '멜로버즈 프로'),
-  audio(2024, '이어펀', 'aptx_adaptive_ldac_le', 'Air Pro 4'),
+  audio(2024, '이어펀', 'aptx_adaptive_ldac_le', 'Air Pro 4', { aptxLossless: true }),
 
   // 2023
   audio(2023, '삼성', 'ssc', '갤럭시 버즈 FE', { sscMax: 'scalable' }),
@@ -65,8 +66,8 @@ export const AUDIO_DEVICES = [
   audio(2023, 'LG', 'aptx_adaptive', '톤프리 T90S'),
   ...audioGroup(2023, '자브라', 'aac', ['엘리트 10', '엘리트 8 액티브']),
   audio(2023, '마샬', 'aac_le', '모티프 II A.N.C.'),
-  audio(2023, '슈어', 'aptx_full', 'AONIC 50 Gen 2'),
-  audio(2023, '데논', 'aptx_adaptive', 'PerL Pro'),
+  audio(2023, '슈어', 'aptx_full', 'AONIC 50 Gen 2', { aptxLossless: true }),
+  audio(2023, '데논', 'aptx_adaptive', 'PerL Pro', { aptxLossless: true }),
 
   // 2022
   audio(2022, '애플', 'aac', '에어팟 프로 2세대'),

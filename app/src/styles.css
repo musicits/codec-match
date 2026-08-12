@@ -248,8 +248,11 @@ main { padding: 36px 20px 52px; }
   font-size: 12px;
 }
 
-.le-audio-note b { color: var(--color-accent); }
-.le-audio-note span { color: #d7e9df; }
+.le-audio-note b { color: var(--color-accent); white-space: nowrap; }
+.le-audio-note span { color: #d7e9df; flex: 1 1 240px; line-height: 1.6; }
+
+.lossless-note { border-color: rgba(223, 251, 81, .35); background: #dffb510f; }
+.lossless-note b { color: var(--color-primary); }
 
 .common-codecs { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
 .common-codecs > span { margin: 0 5px 0 0; }
