@@ -13,9 +13,10 @@ export const CHANGELOG = [
     version: 'v4',
     date: '2026-08-12',
     phones: 126,
-    audio: 88,
+    audio: 89,
     changes: [
       '앤커 사운드코어 리버티 5 프로·리버티 5·P31i·P40i 추가',
+      '젠하이저 모멘텀 5 와이어리스 추가',
       '이전 버전(v1~v3)을 당시 화면 그대로 열어볼 수 있도록 보관',
     ],
   },

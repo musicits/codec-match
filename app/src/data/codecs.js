@@ -103,6 +103,7 @@ export const AUDIO_CODEC_SETS = {
   ldac_lhdc: ['SBC', 'AAC', 'LDAC', 'LHDC'],
   aptx_adaptive: ['SBC', 'AAC', 'aptX', 'aptX Adaptive'],
   aptx_adaptive_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LC3'],
+  aptx_adaptive_hd: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive'],
   aptx_adaptive_ldac_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LDAC', 'LC3'],
   aptx_full: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC'],
 }

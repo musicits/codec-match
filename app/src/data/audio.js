@@ -7,6 +7,10 @@ export const AUDIO_DEVICES = [
   audio(2026, '소니', 'ldac_le', 'WF-1000XM6'),
   audio(2026, '낫싱', 'ldac', 'Ear (3a)'),
   audio(2026, '앤커', 'ldac', '사운드코어 리버티 5 프로'),
+  // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
+  audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', {
+    note: 'LE Audio·LC3 는 펌웨어 업데이트 예정 (현재 미적용)',
+  }),
 
   // 2025
   audio(2025, '애플', 'aac', '에어팟 프로 3'),
