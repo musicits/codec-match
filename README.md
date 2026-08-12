@@ -113,6 +113,19 @@ export const AUDIO_CODEC_SETS = {
 cd app && npm run deploy
 ```
 
+### 6. 직전 버전 보관 (선택)
+
+새 버전을 배포하기 전에 직전 배포본을 `/vN/` 으로 남겨두면
+사이트의 "업데이트 기록"에서 그 버전을 그대로 열어볼 수 있습니다.
+
+```bash
+cd app && node scripts/archive-version.mjs v3 a2ecddf   # <버전> <그 시점의 배포 커밋>
+```
+
+보관본은 검색엔진 색인에서 제외되고(noindex) 최신 버전으로 돌아가는 배너가 붙습니다.
+보관 후 `changelog.js` 의 해당 항목에 `archiveUrl: './v3/'` 을 넣으면 링크가 노출됩니다.
+`npm run deploy` 는 루트의 `assets/` 만 교체하므로 보관본을 건드리지 않습니다.
+
 `npm run check` 가 자동으로 먼저 돌면서 다음을 확인합니다.
 
 - `CODEC_PRIORITY` 의 모든 코덱에 `CODEC_INFO` 설명이 있는지
