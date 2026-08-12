@@ -88,7 +88,26 @@ export const AUDIO_CODEC_SETS = {
 그 외 브랜드는 `CODEC_PRIORITY` 순서에 따라 공통 코덱 중 가장 앞선 것이 선택됩니다.
 새 제조사에 특별한 협상 규칙이 있다면 이 함수에 분기를 추가하세요.
 
-### 4. 마지막으로
+### 4. 변경 이력 갱신
+
+`app/src/data/changelog.js` 맨 위에 새 버전을 추가합니다. 이 배열이 사이트 하단의
+"업데이트 기록" 섹션과 푸터의 버전 표기를 만듭니다.
+
+```js
+{
+  version: 'v4',
+  date: '2026-09-01',
+  commit: 'abc1234',
+  phones: 130,          // 그 시점의 실제 등록 대수
+  audio: 90,
+  changes: ['...'],
+}
+```
+
+맨 위 항목의 `phones` / `audio` 는 `npm run check` 가 실제 데이터와 대조하므로,
+기기만 추가하고 이력 갱신을 잊으면 빌드가 실패합니다.
+
+### 5. 배포
 
 ```bash
 cd app && npm run deploy

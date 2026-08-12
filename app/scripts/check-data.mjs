@@ -7,6 +7,7 @@ import { CODEC_INFO, CODEC_PRIORITY, PHONE_CODEC_SETS, AUDIO_CODEC_SETS, codecsO
 import { PHONES } from '../src/data/phones.js'
 import { AUDIO_DEVICES } from '../src/data/audio.js'
 import { resolveMatch, sscTier } from '../src/lib/match.js'
+import { CHANGELOG } from '../src/data/changelog.js'
 
 const errors = []
 const check = (condition, message) => { if (!condition) errors.push(message) }
@@ -77,7 +78,29 @@ for (const p of PHONES) {
   }
 }
 
+// 6. 변경 이력의 맨 위 항목은 현재 데이터와 대수가 맞아야 합니다.
+//    기기만 추가하고 이력 갱신을 잊는 실수를 막습니다.
+const latest = CHANGELOG[0]
+check(
+  latest.phones === PHONES.length,
+  `변경 이력 ${latest.version} 의 폰 대수(${latest.phones})가 실제(${PHONES.length})와 다릅니다`,
+)
+check(
+  latest.audio === AUDIO_DEVICES.length,
+  `변경 이력 ${latest.version} 의 이어폰 대수(${latest.audio})가 실제(${AUDIO_DEVICES.length})와 다릅니다`,
+)
+const versions = CHANGELOG.map((entry) => entry.version)
+check(new Set(versions).size === versions.length, `변경 이력에 중복된 버전이 있습니다: ${versions}`)
+for (const entry of CHANGELOG) {
+  check(
+    /^\d{4}-\d{2}-\d{2}$/.test(entry.date),
+    `변경 이력 ${entry.version} 의 날짜 "${entry.date}" 형식이 YYYY-MM-DD 가 아닙니다`,
+  )
+  check(entry.changes.length > 0, `변경 이력 ${entry.version} 에 변경 내용이 비어 있습니다`)
+}
+
 console.log(`폰 ${PHONES.length}종 · 이어폰 ${AUDIO_DEVICES.length}종 · 조합 ${pairs.toLocaleString()}건 검사`)
+console.log(`변경 이력 ${CHANGELOG.length}개 버전 (최신 ${latest.version})`)
 console.log('결과 코덱 분포:')
 for (const [codec, count] of [...codecUsage].sort((a, b) => b[1] - a[1])) {
   console.log(`  ${codec.padEnd(15)} ${count.toLocaleString()}`)

@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
+import Changelog from './components/Changelog.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
+import { CURRENT_VERSION } from './data/changelog.js'
 import { PHONES } from './data/phones.js'
 import { AUDIO_DEVICES } from './data/audio.js'
 import { brandsOf } from './data/devices.js'
@@ -66,9 +68,13 @@ export default function App() {
             audio={audio}
           />
         </section>
+
+        <Changelog />
       </main>
 
-      <footer>CODEC MATCH · 제조사 공개 사양을 바탕으로 정리했습니다</footer>
+      <footer>
+        CODEC MATCH · {CURRENT_VERSION} · 제조사 공개 사양을 바탕으로 정리했습니다
+      </footer>
     </div>
   )
 }
