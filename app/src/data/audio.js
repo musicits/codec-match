@@ -38,7 +38,7 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2024, '낫싱', 'ldac', ['Ear (a)', 'Ear (open)']),
   ...audioGroup(2024, '앤커', 'ldac', ['사운드코어 리버티 4 프로', '사운드코어 스페이스 원 프로']),
   // P 시리즈 보급형은 LDAC 없이 SBC/AAC 입니다. (P31i 는 LDAC 지원)
-  audio(2024, '앤커', 'aac', '사운드코어 P40i'),
+  ...audioGroup(2024, '앤커', 'aac', ['사운드코어 P40i', '사운드코어 P30i']),
   audio(2024, 'LG', 'aptx_adaptive', '톤프리 T80S'),
   ...audioGroup(2024, '자브라', 'aac', ['엘리트 10 Gen 2', '엘리트 8 액티브 Gen 2'], {
     note: 'LC3 는 케이스→이어버드 구간 전용 · 폰 연결은 SBC/AAC',
