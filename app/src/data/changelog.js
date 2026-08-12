@@ -10,10 +10,21 @@
 
 export const CHANGELOG = [
   {
+    version: 'v6',
+    date: '2026-08-12',
+    phones: 126,
+    audio: 100,
+    changes: [
+      '바워스앤윌킨스(B&W) 9종 추가 — Px8 S2·Px7 S3·Pi8·Pi6·Px7 S2e·Pi7 S2·Pi5 S2·Px8·Px7 S2',
+      'Px8 S2·Px7 S3·Pi8 은 aptX Lossless 까지 지원',
+    ],
+  },
+  {
     version: 'v5',
     date: '2026-08-12',
     phones: 126,
     audio: 91,
+    archiveUrl: './v5/',
     changes: [
       'aptX Lossless 로 무손실 전송이 되는 조합에 안내 표시 추가',
       '샤오미 15 시리즈·14 울트라·엑스페리아 1 VII 와 젠하이저·슈어·데논·이어펀 일부 모델에 적용',

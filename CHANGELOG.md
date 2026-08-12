@@ -8,6 +8,7 @@
 | 버전 | 주소 |
 | --- | --- |
 | 최신 | https://musicits.github.io/codec-match/ |
+| v5 | https://musicits.github.io/codec-match/v5/ |
 | v4 | https://musicits.github.io/codec-match/v4/ |
 | v3 | https://musicits.github.io/codec-match/v3/ |
 | v2 | https://musicits.github.io/codec-match/v2/ |
@@ -17,6 +18,17 @@ GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 �
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
 
 ---
+
+## v6.0.0 — 바워스앤윌킨스(B&W) 추가
+
+**2026-08-12** · 스마트폰 126종 · 이어폰 100종
+
+- 바워스앤윌킨스 9종 추가 — Px8 S2, Px7 S3, Pi8, Pi6, Px7 S2e, Pi7 S2, Pi5 S2, Px8, Px7 S2
+- Px8 S2·Px7 S3·Pi8 은 aptX Lossless 까지 지원 (무손실 가능 조합 25건 → 40건)
+
+B&W 도 같은 세대 안에서 갈립니다. Pi8 에는 aptX Lossless 가 있지만 Pi6 에는 없고,
+Pi5 S2 는 상위 모델과 달리 aptX Adaptive 없이 기본 aptX 까지만 지원해 `aptx_classic` 프리셋을
+새로 만들었습니다.
 
 ## v5.0.0 — aptX Lossless 안내
 

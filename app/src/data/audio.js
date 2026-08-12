@@ -25,6 +25,9 @@ export const AUDIO_DEVICES = [
   audio(2025, '뱅앤올룹슨', 'aptx_adaptive', 'Beoplay Eleven'),
   audio(2025, '파이널', 'ldac', 'ZE3000 SV'),
   ...audioGroup(2025, '앤커', 'ldac', ['사운드코어 리버티 5', '사운드코어 P31i']),
+  ...audioGroup(2025, '바워스앤윌킨스', 'aptx_adaptive_hd', ['Px8 S2', 'Px7 S3'], {
+    aptxLossless: true,
+  }),
 
   // 2024
   ...audioGroup(2024, '애플', 'aac', ['에어팟 4세대', '에어팟 4세대 ANC', '에어팟 맥스 USB-C']),
@@ -52,6 +55,9 @@ export const AUDIO_DEVICES = [
   audio(2024, '파이널', 'aptx_adaptive', 'ZE8000 MK2'),
   audio(2024, 'QCY', 'ldac', '멜로버즈 프로'),
   audio(2024, '이어펀', 'aptx_adaptive_ldac_le', 'Air Pro 4', { aptxLossless: true }),
+  // 같은 세대여도 aptX Lossless 는 Pi8 에만 있습니다.
+  audio(2024, '바워스앤윌킨스', 'aptx_adaptive', 'Pi8', { aptxLossless: true }),
+  audio(2024, '바워스앤윌킨스', 'aptx_adaptive', 'Pi6'),
 
   // 2023
   audio(2023, '삼성', 'ssc', '갤럭시 버즈 FE', { sscMax: 'scalable' }),
@@ -68,6 +74,10 @@ export const AUDIO_DEVICES = [
   audio(2023, '마샬', 'aac_le', '모티프 II A.N.C.'),
   audio(2023, '슈어', 'aptx_full', 'AONIC 50 Gen 2', { aptxLossless: true }),
   audio(2023, '데논', 'aptx_adaptive', 'PerL Pro', { aptxLossless: true }),
+  audio(2023, '바워스앤윌킨스', 'aptx_adaptive_hd', 'Px7 S2e'),
+  audio(2023, '바워스앤윌킨스', 'aptx_adaptive', 'Pi7 S2'),
+  // Pi5 S2 는 상위 모델과 달리 aptX Adaptive 없이 기본 aptX 까지입니다.
+  audio(2023, '바워스앤윌킨스', 'aptx_classic', 'Pi5 S2'),
 
   // 2022
   audio(2022, '애플', 'aac', '에어팟 프로 2세대'),
@@ -80,6 +90,7 @@ export const AUDIO_DEVICES = [
   audio(2022, 'LG', 'aptx_adaptive', '톤프리 T90'),
   audio(2022, '뱅앤올룹슨', 'aptx_adaptive', 'Beoplay EX'),
   audio(2022, '파이널', 'aptx_adaptive', 'ZE8000'),
+  ...audioGroup(2022, '바워스앤윌킨스', 'aptx_adaptive_hd', ['Px8', 'Px7 S2']),
 
   // 2021
   audio(2021, '애플', 'aac', '에어팟 3세대'),
