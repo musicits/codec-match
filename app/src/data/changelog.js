@@ -18,6 +18,7 @@ export const CHANGELOG = [
       '만든이 블로그(쭈뉘의 뮤직잇츠 music ITs) 링크를 푸터에 추가',
       '저자 정보를 검색엔진이 읽는 구조화 데이터(JSON-LD)로 명시',
       'robots.txt · sitemap.xml 추가 — 보관본은 색인에서 제외',
+      '구글 서치 콘솔 소유권 확인 파일 등록',
     ],
   },
   {
