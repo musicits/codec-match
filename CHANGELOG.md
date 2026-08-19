@@ -22,7 +22,7 @@ GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 �
 
 ## v7.0.0 — 만든이 표기 및 검색 최적화
 
-**2026-08-12** · 스마트폰 126종 · 이어폰 100종
+**2026-08-19** · 스마트폰 126종 · 이어폰 100종
 
 - 푸터에 만든이 블로그 링크 추가 — [쭈뉘의 뮤직잇츠 music ITs](https://blog.naver.com/musicits)
 - 저자 정보를 schema.org 구조화 데이터(JSON-LD)로 명시. `meta author` 와 `link rel="me"` 도 함께 추가
