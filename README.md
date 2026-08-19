@@ -5,6 +5,8 @@
 
 **https://musicits.github.io/codec-match/**
 
+검색엔진 등록·애널리틱스·릴리즈 태그 등 운영 작업은 [운영 가이드](docs/운영-가이드.md) 를 보세요.
+
 ## 저장소 구조
 
 ```
