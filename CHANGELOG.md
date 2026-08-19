@@ -8,6 +8,7 @@
 | 버전 | 주소 |
 | --- | --- |
 | 최신 | https://musicits.github.io/codec-match/ |
+| v6 | https://musicits.github.io/codec-match/v6/ |
 | v5 | https://musicits.github.io/codec-match/v5/ |
 | v4 | https://musicits.github.io/codec-match/v4/ |
 | v3 | https://musicits.github.io/codec-match/v3/ |
@@ -18,6 +19,19 @@ GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 �
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
 
 ---
+
+## v7.0.0 — 만든이 표기 및 검색 최적화
+
+**2026-08-12** · 스마트폰 126종 · 이어폰 100종
+
+- 푸터에 만든이 블로그 링크 추가 — [쭈뉘의 뮤직잇츠 music ITs](https://blog.naver.com/musicits)
+- 저자 정보를 schema.org 구조화 데이터(JSON-LD)로 명시. `meta author` 와 `link rel="me"` 도 함께 추가
+- `robots.txt` · `sitemap.xml` 추가
+
+푸터 링크에는 `rel="noreferrer"` 를 넣지 않았습니다. 넣으면 블로그 유입 통계에 출처가 안 잡힙니다.
+
+보관본(`/v1/` ~)은 각 페이지의 noindex 메타 태그로 색인에서 빠지므로 sitemap 에 넣지 않았고,
+robots.txt 에서 Disallow 로 막지도 않았습니다. 막으면 크롤러가 noindex 태그 자체를 못 읽습니다.
 
 ## v6.0.0 — 바워스앤윌킨스(B&W) 추가
 

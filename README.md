@@ -110,6 +110,9 @@ export const AUDIO_CODEC_SETS = {
 맨 위 항목의 `phones` / `audio` 는 `npm run check` 가 실제 데이터와 대조하므로,
 기기만 추가하고 이력 갱신을 잊으면 빌드가 실패합니다.
 
+`app/index.html` 의 JSON-LD 안에 있는 `softwareVersion` 과 `dateModified` 도 함께 맞춰 주세요.
+검색엔진에 노출되는 값이라 자동 검사가 걸리지 않습니다.
+
 ### 5. 배포
 
 ```bash

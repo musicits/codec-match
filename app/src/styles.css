@@ -336,6 +336,17 @@ footer {
   text-align: center;
 }
 
+footer p { margin: 0; }
+footer p + p { margin-top: 7px; }
+
+.author-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(135, 231, 209, .35);
+}
+
+.author-link:hover { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
 .sr-only {
   position: absolute;
   width: 1px;

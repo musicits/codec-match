@@ -10,10 +10,22 @@
 
 export const CHANGELOG = [
   {
+    version: 'v7',
+    date: '2026-08-12',
+    phones: 126,
+    audio: 100,
+    changes: [
+      '만든이 블로그(쭈뉘의 뮤직잇츠 music ITs) 링크를 푸터에 추가',
+      '저자 정보를 검색엔진이 읽는 구조화 데이터(JSON-LD)로 명시',
+      'robots.txt · sitemap.xml 추가 — 보관본은 색인에서 제외',
+    ],
+  },
+  {
     version: 'v6',
     date: '2026-08-12',
     phones: 126,
     audio: 100,
+    archiveUrl: './v6/',
     changes: [
       '바워스앤윌킨스(B&W) 9종 추가 — Px8 S2·Px7 S3·Pi8·Pi6·Px7 S2e·Pi7 S2·Pi5 S2·Px8·Px7 S2',
       'Px8 S2·Px7 S3·Pi8 은 aptX Lossless 까지 지원',

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# 보관된 이전 버전(/v1/ ~ )은 각 페이지의 robots noindex 메타 태그로 색인에서 빠집니다.
+# 여기서 Disallow 로 막으면 크롤러가 그 메타 태그 자체를 못 읽어 오히려 역효과라 막지 않습니다.
+
+Sitemap: https://musicits.github.io/codec-match/sitemap.xml
