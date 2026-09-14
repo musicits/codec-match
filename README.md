@@ -3,7 +3,7 @@
 스마트폰과 이어폰·헤드폰을 고르면 두 기기가 실제로 협상할 것으로 예상되는 블루투스 코덱과
 최대 비트레이트·지연시간을 알려주는 도구입니다.
 
-**https://musicits.github.io/codec-match/**
+**https://tools.musicits.com/codec-match/**
 
 검색엔진 등록·애널리틱스·릴리즈 태그 등 운영 작업은 [운영 가이드](docs/운영-가이드.md) 를 보세요.
 

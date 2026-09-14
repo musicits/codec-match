@@ -7,13 +7,13 @@
 
 | 버전 | 주소 |
 | --- | --- |
-| 최신 | https://musicits.github.io/codec-match/ |
-| v6 | https://musicits.github.io/codec-match/v6/ |
-| v5 | https://musicits.github.io/codec-match/v5/ |
-| v4 | https://musicits.github.io/codec-match/v4/ |
-| v3 | https://musicits.github.io/codec-match/v3/ |
-| v2 | https://musicits.github.io/codec-match/v2/ |
-| v1 | https://musicits.github.io/codec-match/v1/ |
+| 최신 | https://tools.musicits.com/codec-match/ |
+| v6 | https://tools.musicits.com/codec-match/v6/ |
+| v5 | https://tools.musicits.com/codec-match/v5/ |
+| v4 | https://tools.musicits.com/codec-match/v4/ |
+| v3 | https://tools.musicits.com/codec-match/v3/ |
+| v2 | https://tools.musicits.com/codec-match/v2/ |
+| v1 | https://tools.musicits.com/codec-match/v1/ |
 
 GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 됩니다.
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
