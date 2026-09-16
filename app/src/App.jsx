@@ -76,7 +76,7 @@ export default function App() {
       <footer>
         <p>CODEC MATCH · {CURRENT_VERSION} · 제조사 공개 사양을 바탕으로 정리했습니다</p>
         <p>
-          만든이{' '}
+          Crafted by{' '}
           {/* rel 에 noreferrer 를 넣지 않습니다. 넣으면 블로그 유입 통계에 출처가 안 잡힙니다. */}
           <a
             className="author-link"
