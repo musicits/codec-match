@@ -87,6 +87,7 @@ export default function App() {
             쭈뉘의 뮤직잇츠 music ITs
           </a>
         </p>
+        <p>© 2026 music ITs. All rights reserved.</p>
       </footer>
     </div>
   )
