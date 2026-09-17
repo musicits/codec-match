@@ -8,6 +8,7 @@
 | 버전 | 주소 |
 | --- | --- |
 | 최신 | https://tools.musicits.com/codec-match/ |
+| v7 | https://tools.musicits.com/codec-match/v7/ |
 | v6 | https://tools.musicits.com/codec-match/v6/ |
 | v5 | https://tools.musicits.com/codec-match/v5/ |
 | v4 | https://tools.musicits.com/codec-match/v4/ |
@@ -17,6 +18,19 @@
 
 GitHub Releases 를 만들 때는 아래 커밋과 본문을 그대로 쓰면 됩니다.
 (Releases → Draft a new release → Choose a tag → 아래 커밋 지정)
+
+---
+
+## v8.0.0 — 화면 새 단장 · 제조사별 주색 · 기기 아이콘
+
+**2026-09-17** · 스마트폰 126종 · 이어폰 100종
+
+- music ITs 도구 공통 화면(ver. 02 리퀴드 글래스)으로 새 단장 — 폰 목업 스튜디오·매거진 커버 메이커와 같은 머리말·유리 재질·Pretendard 글꼴
+- 왼쪽 결과 판 · 오른쪽 기기 선택 칸 배치, 좁은 화면에서는 선택 → 결과 → 기록 순서
+- 고른 스마트폰 제조사에 따라 주색 변경 — 삼성 블루 · 애플 에메랄드 · 그 밖 앰버
+- 기기 형태 아이콘 5종(일반폰·폴드·플립·무선 이어폰·헤드폰) — 직접 그린 SVG, 기기 이름으로 자동 구분
+- 다크 모드 지원
+- 이전 화면은 `/v7/` 에 보관, git 태그 `v7-final`
 
 ---
 

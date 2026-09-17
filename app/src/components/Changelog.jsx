@@ -3,8 +3,7 @@ import { CHANGELOG } from '../data/changelog.js'
 export default function Changelog() {
   return (
     <section className="changelog" aria-labelledby="changelog-title">
-      <p className="eyebrow">03 · 업데이트 기록</p>
-      <h2 id="changelog-title">무엇이 바뀌었나요</h2>
+      <h2 id="changelog-title">업데이트 기록</h2>
 
       <ol className="changelog__list">
         {CHANGELOG.map((entry, index) => (
@@ -12,7 +11,7 @@ export default function Changelog() {
             <div className="changelog__head">
               <span className="changelog__version">{entry.version}</span>
               <time dateTime={entry.date}>{entry.date}</time>
-              {index === 0 && <span className="changelog__current">현재</span>}
+              {index === 0 && <span className="badge">현재</span>}
             </div>
             <p className="changelog__counts">
               스마트폰 {entry.phones}종 · 이어폰 {entry.audio}종
@@ -20,7 +19,7 @@ export default function Changelog() {
                 <>
                   {' · '}
                   <a className="changelog__archive" href={entry.archiveUrl}>
-                    이 버전 열어보기 →
+                    이 버전 열어보기
                   </a>
                 </>
               )}

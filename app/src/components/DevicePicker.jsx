@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 import { codecsOf } from '../data/codecs.js'
 import { filterDevices } from '../lib/match.js'
+import DeviceIcon from './DeviceIcon.jsx'
 
-export default function DevicePicker({ title, icon, devices, selectedId, onChange, brands }) {
+export default function DevicePicker({ title, formOf, devices, selectedId, onChange, brands }) {
   const [query, setQuery] = useState('')
   const [brand, setBrand] = useState('')
+  const headingId = useId()
 
   const visible = useMemo(() => filterDevices(devices, brand, query), [devices, brand, query])
 
@@ -29,35 +31,37 @@ export default function DevicePicker({ title, icon, devices, selectedId, onChang
   }
 
   return (
-    <section className="picker" aria-labelledby={`${title}-title`}>
-      <div className="picker__heading">
-        <span className="picker__icon" aria-hidden="true">{icon}</span>
-        <div>
-          <p className="eyebrow">{title}</p>
-          <h2 id={`${title}-title`}>기기를 선택하세요</h2>
-        </div>
-      </div>
+    <section className="grp" aria-labelledby={headingId}>
+      <h2 id={headingId}>
+        <span className="grp__icon">
+          <DeviceIcon form={current ? formOf(current) : undefined} />
+        </span>
+        {title}
+      </h2>
 
-      <label className="search-label">
+      <label className="field field--search">
         <span className="sr-only">{title} 이름 필터</span>
         <input
+          type="search"
           value={query}
           onChange={(event) => handleQuery(event.target.value)}
           placeholder={title === '스마트폰' ? '예: S24, 아이폰 15, 픽셀' : '예: 버즈, 에어팟, 보스'}
         />
       </label>
 
-      <label className="select-label">
-        <span className="sr-only">{title} 브랜드 선택</span>
-        <select value={brand} onChange={(event) => handleBrand(event.target.value)}>
-          <option value="">브랜드 전체</option>
-          {brands.map((name) => (
-            <option key={name} value={name}>{name}</option>
-          ))}
-        </select>
-      </label>
+      <div className="field-row">
+        <label className="field">
+          <span className="sr-only">{title} 브랜드 선택</span>
+          <select value={brand} onChange={(event) => handleBrand(event.target.value)}>
+            <option value="">브랜드 전체</option>
+            {brands.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+      </div>
 
-      <label className="select-label">
+      <label className="field">
         <span className="sr-only">{title} 모델 선택</span>
         <select
           value={currentId}
@@ -72,15 +76,16 @@ export default function DevicePicker({ title, icon, devices, selectedId, onChang
 
       {!visible.length && <p className="filter-empty">일치하는 기기가 없어요.</p>}
 
-      <div className="codec-list" aria-label="지원 코덱">
-        {current && codecsOf(current).map((codec) => (
-          <span key={codec} className="codec-chip">{codec}</span>
-        ))}
-      </div>
-
-      {current?.leAudioNote && (
-        <p className="device-note">LE Audio 지원 · LC3 명시 없음</p>
+      {current && (
+        <div className="codec-list">
+          <span className="codec-list__label">지원 코덱</span>
+          {codecsOf(current).map((codec) => (
+            <span key={codec} className="chip">{codec}</span>
+          ))}
+        </div>
       )}
+
+      {current?.leAudioNote && <p className="device-note">LE Audio 지원 · LC3 명시 없음</p>}
       {current?.note && <p className="device-note">{current.note}</p>}
     </section>
   )
