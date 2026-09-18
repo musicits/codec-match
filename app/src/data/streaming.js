@@ -17,13 +17,14 @@ export const STREAMING = [
     maxNote: '24bit 는 일부 음원',
   },
   {
-    region: 'kr', name: '지니뮤직', en: 'Genie', won: 14000,
-    depth: 24, rate: 192, format: 'FLAC', price: '프리미어 월 14,000원',
-    maxNote: '24bit 는 프리미어 요금제',
+    region: 'kr', name: '지니뮤직', en: 'Genie', won: 15400,
+    depth: 24, rate: 192, format: 'FLAC', price: '초고음질 월 15,400원',
+    maxNote: '24bit 는 초고음질 전용관(모바일)',
   },
   {
-    region: 'kr', name: '플로', en: 'FLO', won: 11000,
-    depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 월 11,000원',
+    region: 'kr', name: '플로', en: 'FLO', won: 7900,
+    depth: 24, rate: 192, format: 'FLAC', price: '무제한 듣기 월 7,900원',
+    maxNote: '기본도 FLAC · 24bit 는 하이파이 단계',
   },
   {
     region: 'kr', name: '애플 뮤직', en: 'Apple Music', won: 8900,
