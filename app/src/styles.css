@@ -618,15 +618,36 @@ input { caret-color: var(--main); }
   border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim);
 }
 .toolswitch__btn:hover { color: var(--main-deep); border-color: color-mix(in srgb, var(--main) 40%, transparent); }
+/* 결과 판과 같은 유리 — 두 겹 테두리에 모서리로 뭉치는 빛까지 */
 .toolswitch__menu {
-  position: absolute; right: 0; top: calc(100% + 8px); width: 286px; padding: 8px; z-index: 40;
-  border-radius: var(--r-lg);
-  /* 뒤 글자가 비쳐 읽기 힘들어서 유리 대신 거의 불투명하게 둡니다 */
-  background: color-mix(in srgb, var(--canvas) 97%, transparent);
-  -webkit-backdrop-filter: var(--glass); backdrop-filter: var(--glass);
-  border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim), var(--glass-drop);
+  position: absolute; right: 0; top: calc(100% + 10px); width: 300px; padding: 10px; z-index: 40;
+  isolation: isolate; border-radius: var(--r-outer);
+  /* 목록 글자가 뒤 화면과 겹치면 못 읽습니다 — 유리는 두되 뒤는 확실히 흩뜨립니다 */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--canvas) 96%, transparent), color-mix(in srgb, var(--canvas) 91%, transparent));
+  -webkit-backdrop-filter: saturate(200%) blur(40px); backdrop-filter: saturate(200%) blur(40px);
+  border: 1px solid var(--glass-hairline); border-top-color: var(--glass-sheen);
+  box-shadow: var(--glass-rim), var(--glass-drop);
+  animation: menupop .2s cubic-bezier(.16, 1, .3, 1);
+  transform-origin: 100% 0;
 }
-.toolswitch__label { margin: 4px 8px 8px; font-size: 11.5px; font-weight: 600; color: var(--stone); }
+.toolswitch__menu::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 110px; border-radius: inherit;
+  z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 12% 0%, var(--glass-sheen), transparent 62%),
+    linear-gradient(180deg, color-mix(in srgb, var(--glass-sheen) 62%, transparent), transparent 24%);
+}
+@supports (corner-shape: squircle) { .toolswitch__menu { corner-shape: squircle; border-radius: 26px; } }
+@keyframes menupop { from { opacity: 0; transform: translateY(-6px) scale(.97); } }
+@media (prefers-reduced-motion: reduce) { .toolswitch__menu { animation: none; } }
+
+/* 머리말 — 이름 옆에 도구 개수를 작게 */
+.toolswitch__label { margin: 6px 10px 10px; display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700; letter-spacing: .02em; color: var(--steel); text-transform: none; }
+.toolswitch__label span { padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 800;
+  color: var(--main-deep); background: var(--tint); }
+.toolswitch__label::after { content: ""; flex: 1 1 auto; height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent); }
 .toolswitch__item {
   display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: start; gap: 10px;
   padding: 9px 10px; border-radius: var(--r-md); color: var(--ink); text-decoration: none;
@@ -637,12 +658,13 @@ input { caret-color: var(--main); }
 .toolswitch__item em { display: block; margin-top: 2px; font-style: normal; font-size: 11.5px; line-height: 1.5;
   color: var(--steel); word-break: keep-all; }
 .toolswitch__here { grid-column: 2; margin-top: 4px; font-size: 11px; font-weight: 700; color: var(--main-deep); }
-/* 목록 아래 — 도구 모음 첫 화면과 만든이 블로그 */
-.toolswitch__foot { margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line);
-  display: grid; gap: 2px; }
-.toolswitch__link { display: block; padding: 7px 10px; border-radius: 9px; text-decoration: none;
-  font-size: 12.5px; font-weight: 600; color: var(--steel); }
-.toolswitch__link:hover { background: color-mix(in srgb, var(--canvas) 70%, transparent); color: var(--main-deep); }
+/* 목록 아래 — 도구 모음 첫 화면 한 줄 */
+.toolswitch__home { margin-top: 8px; display: flex; align-items: center; gap: 8px;
+  padding: 9px 10px; border-radius: var(--r-md); text-decoration: none;
+  font-size: 12.5px; font-weight: 700; color: var(--steel);
+  border-top: 1px solid var(--line); border-radius: 0 0 var(--r-md) var(--r-md);
+  transition: color .18s ease, background-color .18s ease; }
+.toolswitch__home:hover { color: var(--main-deep); background: color-mix(in srgb, var(--canvas) 70%, transparent); }
 
 /* ---- 푸터 위 형제 도구 카드 ---- */
 .siblings { margin: 0 20px 16px; }

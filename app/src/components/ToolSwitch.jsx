@@ -1,6 +1,6 @@
 // 머리말 오른쪽 도구 전환기. 폰 목업의 도움말 단추·매거진의 테마 단추와 같은 자리입니다.
 import { useEffect, useRef, useState } from 'react'
-import { BLOG, HUB, SELF, TOOLS } from '../data/tools.js'
+import { HUB, SELF, TOOLS } from '../data/tools.js'
 
 const ICONS = {
   codec: <path d="M4 12h3l2.5-6 3 12 2.5-6H20" />,
@@ -62,7 +62,7 @@ export default function ToolSwitch() {
 
       {open && (
         <div className="toolswitch__menu" role="menu">
-          <p className="toolswitch__label">music ITs 도구</p>
+          <p className="toolswitch__label">music ITs 도구<span>{TOOLS.length}</span></p>
           {TOOLS.map((tool) => {
             const here = tool.id === SELF
             return (
@@ -86,14 +86,15 @@ export default function ToolSwitch() {
             )
           })}
 
-          <div className="toolswitch__foot">
-            <a href={HUB} className="toolswitch__link" role="menuitem">도구 모음 첫 화면</a>
-            {/* rel 에 noreferrer 를 넣지 않습니다 — 블로그 유입 통계에 출처가 안 잡힙니다 */}
-            <a href={BLOG.url} className="toolswitch__link" role="menuitem"
-              target="_blank" rel="author noopener">
-              {BLOG.name} ↗
-            </a>
-          </div>
+          {/* 블로그는 머리말 알약에 이미 있어 여기 두지 않습니다 */}
+          <a href={HUB} className="toolswitch__home" role="menuitem">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"
+              fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 10.5 12 4l8 6.5" />
+              <path d="M6 10v9.5h12V10" />
+            </svg>
+            도구 모음 첫 화면
+          </a>
         </div>
       )}
     </div>
