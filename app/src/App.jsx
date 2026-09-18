@@ -12,9 +12,26 @@ import { isVerified, resolveMatch, sscTier } from './lib/match.js'
 import { CODEC_INFO } from './data/codecs.js'
 
 // 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
+// 아이콘은 블로그 분석실 메뉴와 같은 자리·같은 크기로 답니다.
 const VIEWS = [
-  { id: 'codec', name: '코덱 매치', hash: '' },
-  { id: 'stream', name: '스트리밍 음질', hash: '#streaming' },
+  {
+    id: 'codec',
+    name: '코덱 매치',
+    hash: '',
+    icon: <path d="M3 12h3l2.5-6 3 12 2.5-6H21" />,
+  },
+  {
+    id: 'stream',
+    name: '스트리밍 음질',
+    hash: '#streaming',
+    icon: (
+      <>
+        <path d="M9 18V6l10-2v12" />
+        <circle cx="6.5" cy="18" r="2.5" />
+        <circle cx="16.5" cy="16" r="2.5" />
+      </>
+    ),
+  },
 ]
 
 const PHONE_BRANDS = brandsOf(PHONES)
@@ -24,6 +41,7 @@ export default function App() {
   const [phoneId, setPhoneId] = useState(PHONES[0].id)
   const [audioId, setAudioId] = useState(AUDIO_DEVICES[0].id)
   const headRef = useRef(null)
+  const navRef = useRef(null)
 
   const [view, setView] = useState(() =>
     typeof window !== 'undefined' && window.location.hash === '#streaming' ? 'stream' : 'codec',
@@ -33,9 +51,9 @@ export default function App() {
   const match = useMemo(() => resolveMatch(phone, audio), [phone, audio])
 
   // 스트리밍 화면이 견줄 상한. SSC 는 등급에 따라 달라집니다.
-  const quality = match.codec === 'SSC'
-    ? sscTier(phone, audio).quality
-    : CODEC_INFO[match.codec]?.quality
+  const tier = match.codec === 'SSC' ? sscTier(phone, audio) : null
+  const quality = tier?.quality ?? CODEC_INFO[match.codec]?.quality
+  const bitrate = tier?.bitrate ?? CODEC_INFO[match.codec]?.bitrate
 
   const openView = (next) => {
     setView(next)
@@ -56,14 +74,20 @@ export default function App() {
     document.documentElement.dataset.accent = accent
   }, [phone.brand])
 
-  // 붙박이 머리말의 실제 높이를 재서 설정 칸이 붙는 자리(--hh)로 씁니다. 폰 목업 스튜디오와 같은 방식입니다.
+  // 머리말과 카테고리 줄의 실제 높이를 재서 --hh · --nh 로 씁니다.
+  // 둘 다 붙박이라, 그 아래 붙는 설정 칸과 결과 판이 이 값을 기준으로 자리를 잡습니다.
   useEffect(() => {
     const head = headRef.current
-    if (!head) return undefined
-    const set = () => document.documentElement.style.setProperty('--hh', `${head.offsetHeight}px`)
+    const nav = navRef.current
+    if (!head || !nav) return undefined
+    const set = () => {
+      document.documentElement.style.setProperty('--hh', `${head.offsetHeight}px`)
+      document.documentElement.style.setProperty('--nh', `${nav.offsetHeight}px`)
+    }
     set()
     const observer = new ResizeObserver(set)
     observer.observe(head)
+    observer.observe(nav)
     return () => observer.disconnect()
   }, [])
 
@@ -77,7 +101,7 @@ export default function App() {
             폰 목업·매거진 커버·루트 랜딩까지 같은 목록을 붙인 다음 셋을 한꺼번에 켭니다. */}
       </header>
 
-      <nav className="cats" aria-label="화면 고르기">
+      <nav className="cats" aria-label="화면 고르기" ref={navRef}>
         {VIEWS.map((item) => (
           <button
             type="button"
@@ -86,6 +110,10 @@ export default function App() {
             aria-current={item.id === view ? 'page' : undefined}
             onClick={() => openView(item.id)}
           >
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+              fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+              {item.icon}
+            </svg>
             {item.name}
           </button>
         ))}
@@ -106,7 +134,14 @@ export default function App() {
                 onOpenStreaming={() => openView('stream')}
               />
             ) : (
-              <Streaming codec={match.codec} quality={quality} phone={phone} audio={audio} />
+              <Streaming
+                codec={match.codec}
+                quality={quality}
+                bitrate={bitrate}
+                phone={phone}
+                audio={audio}
+                strength={Math.min(1, 0.55 + ((CODEC_INFO[match.codec]?.kbps ?? 300) / 990) * 0.45)}
+              />
             )}
           </section>
 

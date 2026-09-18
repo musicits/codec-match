@@ -5,18 +5,26 @@
 // 닿지는 않습니다 — 그 비교가 이 화면이 하는 일입니다.
 //
 // depth/rate 는 무손실 서비스의 상한, lossy 는 손실 압축만 되는 서비스입니다.
+// region: 'kr' 은 한국에서 정식으로 결제해 쓸 수 있는 서비스(해외 회사라도 포함),
+// 'global' 은 한국 정식 서비스가 없는 곳입니다.
 export const STREAMING = [
-  { name: '타이달', en: 'TIDAL', depth: 24, rate: 192, format: 'FLAC', price: '월 19.99$ (Max)' },
-  { name: '코부즈', en: 'Qobuz', depth: 24, rate: 192, format: 'FLAC', price: '월 12.99$' },
-  { name: '애플 뮤직', en: 'Apple Music', depth: 24, rate: 192, format: 'ALAC', price: '월 8,900원' },
-  { name: '아마존 뮤직', en: 'Amazon Music', depth: 24, rate: 192, format: 'FLAC', price: '월 9.99$ (Unlimited)' },
-  { name: '멜론', en: 'Melon', depth: 24, rate: 192, format: 'FLAC', price: '하이파이 월 12,000원' },
-  { name: '벅스', en: 'Bugs', depth: 24, rate: 192, format: 'FLAC', price: '프리미엄 월 12,000원' },
-  { name: '지니뮤직', en: 'Genie', depth: 24, rate: 192, format: 'FLAC', price: '무제한 월 12,000원' },
-  { name: '스포티파이', en: 'Spotify', depth: 24, rate: 44.1, format: 'FLAC', price: '프리미엄 월 11,990원' },
-  { name: '플로', en: 'FLO', depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 월 11,000원' },
-  { name: '유튜브 뮤직', en: 'YouTube Music', lossy: '256 kbps', format: 'AAC', price: '월 11,990원' },
+  { region: 'kr', name: '멜론', en: 'Melon', depth: 24, rate: 192, format: 'FLAC', price: '하이파이 월 12,000원' },
+  { region: 'kr', name: '벅스', en: 'Bugs', depth: 24, rate: 192, format: 'FLAC', price: '프리미엄 월 12,000원' },
+  { region: 'kr', name: '지니뮤직', en: 'Genie', depth: 24, rate: 192, format: 'FLAC', price: '무제한 월 12,000원' },
+  { region: 'kr', name: '애플 뮤직', en: 'Apple Music', depth: 24, rate: 192, format: 'ALAC', price: '월 8,900원' },
+  { region: 'kr', name: '스포티파이', en: 'Spotify', depth: 24, rate: 44.1, format: 'FLAC', price: '프리미엄 월 11,990원' },
+  { region: 'kr', name: '플로', en: 'FLO', depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 월 11,000원' },
+  { region: 'kr', name: '유튜브 뮤직', en: 'YouTube Music', lossy: '256 kbps', format: 'AAC', price: '월 11,990원' },
+  { region: 'global', name: '타이달', en: 'TIDAL', depth: 24, rate: 192, format: 'FLAC', price: '월 19.99$ (Max)' },
+  { region: 'global', name: '코부즈', en: 'Qobuz', depth: 24, rate: 192, format: 'FLAC', price: '월 12.99$' },
+  { region: 'global', name: '아마존 뮤직', en: 'Amazon Music', depth: 24, rate: 192, format: 'FLAC', price: '월 9.99$ (Unlimited)' },
 ]
+
+export const REGIONS = [
+  { id: 'kr', label: '국내에서 쓸 수 있는 곳' },
+  { id: 'global', label: '해외 전용 · 국내 정식 서비스 없음' },
+]
+
 
 /** '24bit 96kHz' 같은 문구에서 비트심도와 샘플레이트를 꺼냅니다. */
 export const parseCeiling = (quality) => {
