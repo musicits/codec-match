@@ -16,6 +16,8 @@ export default function CodecCompare({ common, picked, onPick, metric, onMetric,
       codec,
       quality: tier?.quality ?? info.quality,
       kbps: tier?.kbps ?? info.kbps,
+      // SSC-UHQ 처럼 제조사가 전송률을 공개하지 않은 등급은 숫자 대신 그 문구를 씁니다.
+      label: tier?.bitrate,
       ms: info.ms,
     }
   })
@@ -59,7 +61,7 @@ export default function CodecCompare({ common, picked, onPick, metric, onMetric,
                   <i style={{ width: `${width}%` }} />
                 </span>
                 <span className="compare__value">
-                  {isRate ? `${value.toLocaleString()} kbps` : `약 ${value} ms`}
+                  {isRate ? (row.label ?? `${value.toLocaleString()} kbps`) : `약 ${value} ms`}
                   <em>{isRate ? row.quality : '왕복 기준'}</em>
                 </span>
               </button>

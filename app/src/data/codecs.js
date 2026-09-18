@@ -157,3 +157,76 @@ export const codecsOf = (device) =>
   device.codecSet in PHONE_CODEC_SETS
     ? PHONE_CODEC_SETS[device.codecSet]
     : AUDIO_CODEC_SETS[device.codecSet]
+
+// 코덱 하나가 여러 등급·모드로 갈리는 경우를 따로 모았습니다.
+// 칩을 눌렀을 때 "이 코덱 안에서 내 조합은 어디쯤인가" 를 보여주는 데 씁니다.
+//
+// family 가 같은 코덱(aptX 3형제)은 사다리 하나를 같이 씁니다 —
+// 고른 코덱이 그 사다리의 몇 번째 칸인지 보이게 하려고요.
+export const CODEC_TIERS = {
+  SBC: {
+    label: '연결 품질에 따른 단계',
+    rows: [
+      { id: 'sbc-high', name: '고품질 (bitpool 53)', quality: '16bit 48kHz', value: '최대 345 kbps' },
+      { id: 'sbc-base', name: '기본', quality: '16bit 44.1kHz', value: '약 229 kbps' },
+    ],
+    foot: '기기와 전파 상태에 따라 bitpool 이 자동으로 오르내립니다',
+  },
+  AAC: {
+    label: 'OS 별 실제 전송률',
+    rows: [
+      { id: 'aac-ios', name: '아이폰 · 아이패드', quality: '16bit 44.1kHz', value: '256 kbps 고정' },
+      { id: 'aac-android', name: '안드로이드', quality: '16bit 44.1kHz', value: '128–320 kbps' },
+    ],
+    foot: '같은 AAC 라도 안드로이드는 제조사·OS 버전에 따라 전송률이 갈립니다',
+  },
+  LDAC: {
+    label: '전송률 단계',
+    rows: [
+      { id: 'ldac-990', name: '990 kbps · 음질 우선', quality: '24bit 96kHz', value: '990 kbps' },
+      { id: 'ldac-660', name: '660 kbps · 표준', quality: '24bit 96kHz', value: '660 kbps' },
+      { id: 'ldac-330', name: '330 kbps · 연결 우선', quality: '24bit 96kHz', value: '330 kbps' },
+    ],
+    foot: '기본값은 자동(적응형)이고 개발자 옵션·소니 헤드폰 앱에서 고정할 수 있습니다 · 44.1·88.2kHz 음원에서는 909/606/303 kbps 로 잡힙니다',
+  },
+  LHDC: {
+    label: '버전별 상한',
+    rows: [
+      { id: 'lhdc-5', name: 'LHDC 5.0', quality: '24bit 192kHz', value: '최대 1,000 kbps' },
+      { id: 'lhdc-4', name: 'LHDC 4.0', quality: '24bit 96kHz', value: '최대 900 kbps' },
+    ],
+    foot: '양쪽이 지원하는 가장 높은 버전으로 협상됩니다',
+  },
+  L2HC: {
+    label: '버전별 상한',
+    rows: [
+      { id: 'l2hc-4', name: 'L2HC 4.0 · 무손실', quality: '24bit 192kHz', value: '최대 2.3 Mbps' },
+      { id: 'l2hc-3', name: 'L2HC 3.0 · 가변', quality: '24bit 96kHz', value: '320–960 kbps' },
+    ],
+    foot: '무손실 모드는 EMUI 15·하모니OS 와 대응 화웨이 이어폰 조합에서만 열립니다',
+  },
+  SSC: {
+    label: '삼성 심리스 코덱 등급',
+    rows: [
+      { id: 'uhq', name: 'SSC-UHQ', quality: '24bit 96kHz', value: '고음질 설정 필요' },
+      { id: 'hifi', name: 'SSC Hi-Fi (심리스)', quality: '24bit 48kHz', value: '최대 2,304 kbps' },
+      { id: 'scalable', name: 'SSC Scalable', quality: '16bit 44.1kHz', value: '88–512 kbps 가변' },
+    ],
+    foot: 'UHQ 는 2024 언팩에서 공개됐고 갤럭시 웨어러블 > 고급 음질을 켜야 적용됩니다 · 삼성이 UHQ 전송률을 공개한 적은 없습니다',
+  },
+  // aptX 3형제는 사다리를 함께 씁니다. 무손실은 별도 코덱이 아니라 Adaptive 의 모드입니다.
+  aptX: {
+    label: 'aptX 계열에서 이 조합의 자리',
+    rows: [
+      { id: 'aptx-lossless', name: 'aptX Lossless', quality: '16bit 44.1kHz 무손실', value: '최대 약 1.2 Mbps', need: '양쪽 다 Snapdragon Sound' },
+      { id: 'aptX Adaptive', name: 'aptX Adaptive', quality: '24bit 96kHz', value: '279–420 kbps 가변' },
+      { id: 'aptX HD', name: 'aptX HD', quality: '24bit 48kHz', value: '576 kbps' },
+      { id: 'aptX', name: 'aptX', quality: '16bit 44.1kHz', value: '352 kbps' },
+    ],
+    foot: '무손실은 독립 코덱이 아니라 Adaptive 의 모드라 협상되는 이름은 그대로 aptX Adaptive 입니다',
+  },
+}
+
+/** 코덱 이름으로 등급표를 찾습니다. aptX 3형제는 한 표를 같이 씁니다. */
+export const tiersOf = (codec) =>
+  CODEC_TIERS[codec] ?? (codec?.startsWith('aptX') ? CODEC_TIERS.aptX : null)

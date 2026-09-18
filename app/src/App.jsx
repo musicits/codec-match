@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Changelog from './components/Changelog.jsx'
-import ToolSwitch from './components/ToolSwitch.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { CURRENT_VERSION } from './data/changelog.js'
 import { PHONES } from './data/phones.js'
 import { AUDIO_DEVICES } from './data/audio.js'
 import { brandsOf } from './data/devices.js'
-import { OTHERS } from './data/tools.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch } from './lib/match.js'
 
@@ -46,7 +44,8 @@ export default function App() {
         <img className="logo" src="./logo.png" width="1471" height="353" alt="music ITs" />
         <h1>코덱 매치</h1>
         <p>내 기기 조합에서 들리는 최적의 블루투스 코덱</p>
-        <ToolSwitch />
+        {/* 도구 전환기(components/ToolSwitch.jsx)와 아래 형제 도구 카드는 만들어 두고 껐습니다.
+            폰 목업·매거진 커버·루트 랜딩까지 같은 목록을 붙인 다음 셋을 한꺼번에 켭니다. */}
       </header>
 
       <main>
@@ -89,19 +88,6 @@ export default function App() {
             같은 격자에 있으면 스크롤할 때 기록 판이 설정 칸 위로 올라타 이어폰 칸이 잘립니다. */}
         <Changelog />
       </main>
-
-      <nav className="siblings" aria-label="다른 도구">
-        <p className="siblings__label">music ITs 의 다른 도구</p>
-        <div className="siblings__row">
-          {OTHERS.map((tool) => (
-            <a key={tool.id} className="siblings__card" href={tool.url}>
-              <b>{tool.name}</b>
-              <em>{tool.tagline}</em>
-              <span>열기 →</span>
-            </a>
-          ))}
-        </div>
-      </nav>
 
       <footer className="credit">
         <p>코덱 매치 {CURRENT_VERSION} · 제조사 공개 사양을 바탕으로 정리했습니다</p>

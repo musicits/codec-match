@@ -245,6 +245,26 @@ input { caret-color: var(--main); }
 .changelog__changes li { font-size: 13px; line-height: 1.7; word-break: keep-all; }
 .changelog__changes li::marker { color: var(--stone); }
 
+/* ---- 코덱 등급표 ---- */
+.tiers { margin-top: 16px; padding: 14px 16px 12px; border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
+.tiers__label { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: var(--steel); }
+.tiers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.tiers li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto auto; align-items: center;
+  column-gap: 10px; padding: 7px 8px; border-radius: var(--r-md); border: 1px solid transparent; }
+.tiers li.on { background: var(--tint); border-color: color-mix(in srgb, var(--main) 28%, transparent); }
+.tiers li.off { opacity: .55; }
+.tiers__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
+.tiers li.on .tiers__dot { background: var(--main); box-shadow: 0 0 0 3px color-mix(in srgb, var(--main) 20%, transparent); }
+.tiers__name { font-size: 13px; font-weight: 600; color: var(--slate); word-break: keep-all; }
+.tiers li.on .tiers__name { color: var(--main-deep); }
+.tiers__quality { font-size: 12px; color: var(--stone); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tiers__value { font-size: 12.5px; font-weight: 700; color: var(--slate); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tiers li.on .tiers__value { color: var(--main-deep); }
+.tiers__here { grid-column: 2 / -1; font-size: 11px; font-weight: 700; color: var(--main-deep); }
+.tiers__need { grid-column: 2 / -1; font-size: 11px; color: var(--stone); }
+.tiers__foot { margin: 9px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--stone); word-break: keep-all; }
+
 /* ---- 코덱 비교 막대 ---- */
 .compare { margin-top: 20px; padding: 16px 18px 14px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
@@ -343,6 +363,18 @@ input { caret-color: var(--main); }
   .metrics { grid-template-columns: 1fr 1fr; }
   .metrics > div { padding: 14px 10px 14px 0; }
   .compare { padding: 14px; }
+  /* 좁은 화면: 이름 한 줄 → 음질·전송률 한 줄 → 꼬리표 한 줄 */
+  .tiers { padding: 13px 14px 11px; }
+  .tiers li { grid-template-columns: 10px minmax(0, 1fr) auto; row-gap: 3px; padding: 9px 8px; }
+  .tiers__name { grid-column: 2 / -1; }
+  .tiers__quality { grid-column: 2; font-size: 11.5px; }
+  .tiers__value { grid-column: 3; text-align: right; }
+  .tiers__dot { align-self: start; margin-top: 7px; }
+  /* 지표 3번째 칸(음질 상한)은 한 줄을 다 쓰게 — 반 칸으로 남으면 허전합니다 */
+  .metrics > div:nth-child(3) { grid-column: 1 / -1; padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  /* 도구 단추는 설명글보다 먼저 놓아 첫 줄 오른쪽에 붙입니다 */
+  .topbar p { order: 3; }
+  .toolswitch { order: 2; }
   .compare__list button { grid-template-columns: 62px minmax(0, 1fr); row-gap: 4px; }
   .compare__value { grid-column: 1 / -1; text-align: left; }
   .compare__value em { display: inline; margin-left: 6px; }
@@ -350,6 +382,10 @@ input { caret-color: var(--main); }
   .metrics dd { font-size: 15px; }
   .credit { padding: 4px 14px 28px; }
   .siblings { margin: 0 12px 12px; }
+  /* 손가락으로 누르는 것들은 높이를 키웁니다 */
+  .chip--btn { min-height: 32px; padding: 5px 12px; font-size: 12.5px; }
+  .seg button { padding: 8px 13px; }
+  .compare__list button { padding: 9px 8px; }
   .toolswitch__menu { width: min(286px, calc(100vw - 28px)); }
 }
 @media (prefers-reduced-motion: reduce) { :root, *, *::before, *::after { animation: none !important; transition: none !important; } }

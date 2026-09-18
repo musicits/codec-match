@@ -10,10 +10,23 @@
 
 export const CHANGELOG = [
   {
+    version: 'v11',
+    date: '2026-09-18',
+    phones: 135,
+    audio: 104,
+    changes: [
+      '공통 지원 코덱을 누르면 그 코덱 기준으로 결과가 바뀝니다 — 실제 협상될 코덱에는 점 표시',
+      '지표에 음질 상한(비트심도·샘플링) 칸 추가',
+      '코덱 등급표 추가 — SSC 는 Scalable·Hi-Fi·UHQ, LDAC 은 330·660·990, aptX 는 HD·Adaptive·무손실까지 한눈에',
+      '공통 코덱 비교 막대 추가 — 비트레이트와 지연시간 두 기준으로 전환',
+    ],
+  },
+  {
     version: 'v10',
     date: '2026-09-18',
     phones: 135,
     audio: 104,
+    archiveUrl: './v10/',
     changes: [
       '폴더블 3사 추가 — 오포 파인드 N6·N5, 화웨이 메이트 X7, 샤오미 MIX 폴드4·MIX 플립',
       '화웨이 자체 코덱 L2HC 지원 — 메이트 X7 + 프리버즈 프로 5 조합에서 협상 (최대 2.3 Mbps)',

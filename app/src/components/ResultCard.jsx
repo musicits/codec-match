@@ -3,6 +3,7 @@ import { CODEC_INFO } from '../data/codecs.js'
 import { audioForm, phoneForm } from '../lib/form.js'
 import { sscTier } from '../lib/match.js'
 import CodecCompare from './CodecCompare.jsx'
+import CodecTiers from './CodecTiers.jsx'
 import DeviceIcon from './DeviceIcon.jsx'
 
 function Pair({ phone, audio, linked }) {
@@ -89,6 +90,13 @@ export default function ResultCard({
           <dd>{tier?.quality ?? info.quality}</dd>
         </div>
       </dl>
+
+      {/* 고른 코덱 안의 등급. SSC 는 내 조합의 등급을, aptX 는 3형제 중 어디인지를 짚어 줍니다. */}
+      <CodecTiers
+        codec={shown}
+        activeId={shown === 'SSC' ? tier?.id : shown}
+        unlocked={shown === 'aptX Adaptive' && losslessAvailable}
+      />
 
       {tier?.note && <p className="note">{tier.note}</p>}
 
