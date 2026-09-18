@@ -193,7 +193,7 @@ input { caret-color: var(--main); }
 /* 두 판을 같은 키로 세웁니다. 기록이 몇 줄이든(버전이 늘어도) 아래 선이 맞습니다 —
    남는 키는 용어 설명이 채우고, 넘치는 용어는 안쪽에서 구릅니다. */
 .bottom { margin: 16px 20px 20px; }
-.changelog { padding: 28px 32px 30px; }
+.changelog { padding: 20px 24px; }
 
 /* ---- 설정 칸 ---- */
 .grp { padding: 22px 24px 24px; border-bottom: 1px solid var(--glass-hairline); }
@@ -567,6 +567,17 @@ input { caret-color: var(--main); }
 }
 .backpick:hover { color: var(--main-deep); }
 .backpick:active { transform: scale(.96); }
+
+/* 접어 둔 업데이트 기록 — 펼치기 전에는 줄 하나입니다 */
+.changelog > summary { list-style: none; cursor: pointer; display: flex; align-items: center;
+  gap: 10px; font-size: 15px; font-weight: 700; color: var(--slate); }
+.changelog > summary::-webkit-details-marker { display: none; }
+.changelog > summary::after { content: "▾"; margin-left: auto; font-size: 13px; color: var(--steel);
+  transition: transform .2s ease; }
+.changelog[open] > summary { margin-bottom: 18px; }
+.changelog[open] > summary::after { transform: rotate(180deg); }
+.changelog > summary em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--steel); }
+.changelog > summary:hover { color: var(--main-deep); }
 
 /* ---- 머리말 물음표 — 용어 설명 ---- */
 .help { position: relative; flex: 0 0 auto; }

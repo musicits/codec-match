@@ -22,8 +22,13 @@ export default function Changelog() {
   const rows = CHANGELOG.slice(from, from + PER_PAGE)
 
   return (
-    <section className="changelog" aria-labelledby="changelog-title">
-      <h2 id="changelog-title">업데이트 기록</h2>
+    <details className="changelog">
+      {/* 평소에는 줄 하나로 접어 둡니다 — 도구를 쓰는 데 필요한 내용이 아니라
+          궁금할 때만 펴 보면 되는 기록입니다. */}
+      <summary>
+        <span>업데이트 기록</span>
+        <em>현재 Ver. {CHANGELOG[0].version}</em>
+      </summary>
 
       <table className="log">
         <thead>
@@ -106,6 +111,6 @@ export default function Changelog() {
           {CHANGELOG.length}개 중 {from + 1}–{from + rows.length}
         </p>
       </nav>
-    </section>
+    </details>
   )
 }

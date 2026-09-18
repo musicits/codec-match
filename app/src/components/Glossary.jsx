@@ -57,7 +57,8 @@ export default function Glossary() {
       </button>
 
       {open && (
-        <div className="help__panel" role="dialog" aria-label="용어 설명">
+        {/* 판 안쪽을 눌러도 닫힙니다 — 다 읽고 나서 바깥을 찾아 누를 까닭이 없습니다 */}
+        <div className="help__panel" role="dialog" aria-label="용어 설명" onClick={() => setOpen(false)}>
           <p className="help__label">용어 설명<span>{TERMS.length}</span></p>
           <dl>
             {TERMS.map((term) => (
