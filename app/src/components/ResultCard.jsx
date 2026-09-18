@@ -98,11 +98,7 @@ export default function ResultCard({
         <div>
           <dt>최대 비트레이트</dt>
           <dd>{tier?.bitrate ?? info.bitrate}</dd>
-          {shown === 'LDAC' && (
-            <p className="metrics__note">
-              990kbps는 ‘음질 우선’ 설정 기준이며, 기본 적응형에서는 660/330kbps로 조정됩니다
-            </p>
-          )}
+          {info.bitrateNote && <p className="metrics__note">{info.bitrateNote}</p>}
         </div>
         <div>
           <dt>대략적 지연시간</dt>

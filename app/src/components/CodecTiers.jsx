@@ -26,9 +26,16 @@ export default function CodecTiers({ codec, activeId, unlocked, platform }) {
               <span className="tiers__name">{row.name}</span>
               <span className="tiers__quality">{row.quality}</span>
               <span className="tiers__value">{row.value}</span>
-              {here && <span className="tiers__here">지금 조합</span>}
-              {row.need && !blocked && <span className="tiers__here">이 조합에서 열림</span>}
-              {blocked && <span className="tiers__need">{row.need} 필요</span>}
+              {/* '제조사마다 다름' 같은 꼬리표는 값 뒤에 붙이면 숫자가 밀립니다.
+                  꼬리표와 '지금 조합' 표시를 아랫줄 한 줄에 나란히 둡니다. */}
+              {(row.note || here || row.need) && (
+                <span className="tiers__sub">
+                  {row.note && <em>{row.note}</em>}
+                  {here && <b>지금 조합</b>}
+                  {row.need && !blocked && <b>이 조합에서 열림</b>}
+                  {blocked && <em>{row.need} 필요</em>}
+                </span>
+              )}
             </li>
           )
         })}

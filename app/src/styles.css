@@ -512,8 +512,11 @@ input { caret-color: var(--main); }
 .tiers__quality { font-size: 12px; color: var(--stone); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .tiers__value { font-size: 12.5px; font-weight: 700; color: var(--slate); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .tiers li.on .tiers__value { color: var(--main-deep); }
-.tiers__here { grid-column: 2 / -1; font-size: 11px; font-weight: 700; color: var(--main-deep); }
-.tiers__need { grid-column: 2 / -1; font-size: 11px; color: var(--stone); }
+/* 값 뒤에 붙던 꼬리표는 아랫줄로 내립니다 — 한 줄에 몰면 숫자가 밀립니다 */
+.tiers__sub { grid-column: 2 / -1; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 4px 8px; font-size: 11px; line-height: 1.5; }
+.tiers__sub em { font-style: normal; color: var(--stone); }
+.tiers__sub b { font-weight: 700; color: var(--main-deep); }
 
 /* ---- 코덱 비교 막대 ---- */
 .compare { margin-top: 20px; padding: 16px 18px; border-radius: var(--r-lg);
@@ -629,6 +632,7 @@ input { caret-color: var(--main); }
   .tiers__name { grid-column: 2 / -1; }
   .tiers__quality { grid-column: 2; font-size: 11.5px; }
   .tiers__value { grid-column: 3; text-align: right; }
+  .tiers__sub { grid-column: 2 / -1; }
   .tiers__dot { align-self: start; margin-top: 7px; }
   /* 지표 3번째 칸(음질 상한)은 한 줄을 다 쓰게 — 반 칸으로 남으면 허전합니다 */
   .metrics > div:nth-child(3) { grid-column: 1 / -1; padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }

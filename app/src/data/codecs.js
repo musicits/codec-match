@@ -71,7 +71,8 @@ export const CODEC_INFO = {
     quality: '24bit 192kHz',
     kbps: 2300,
     ms: 120,
-    bitrate: '320–960 kbps 가변 · L2HC 4.0 무손실은 최대 2.3 Mbps',
+    bitrate: '320–960 kbps 가변',
+    bitrateNote: 'L2HC 4.0 무손실은 최대 2.3 Mbps',
     latency: '약 90–150 ms',
     fallback: '화웨이 폰·태블릿(EMUI 15·하모니OS) 조합에서만 협상되며, 조건이 안 맞으면 LDAC·AAC 로 내려갈 때',
   },
@@ -81,6 +82,7 @@ export const CODEC_INFO = {
     kbps: 990,
     ms: 215,
     bitrate: '최대 990 kbps',
+    bitrateNote: '‘음질 우선’ 설정 기준 · 기본 적응형은 660/330 kbps',
     latency: '약 180–250 ms',
     fallback: '연결 품질이 낮아지면 660/330 kbps로 낮아지거나 SBC로 전환될 때',
   },
@@ -177,15 +179,15 @@ export const CODEC_TIERS = {
     // 안드로이드 줄이 같이 뜨면 읽는 사람에게는 남의 이야기입니다.
     rows: [
       { id: 'aac-ios', os: 'apple', name: '아이폰 · 아이패드', quality: '16bit 44.1kHz', value: '256 kbps 고정' },
-      { id: 'aac-android', os: 'android', name: '안드로이드', quality: '16bit 44.1kHz', value: '128–320 kbps · 제조사마다 다름' },
+      { id: 'aac-android', os: 'android', name: '안드로이드', quality: '16bit 44.1kHz', value: '128–320 kbps', note: '제조사마다 다름' },
     ],
   },
   LDAC: {
     label: '전송률 단계',
     rows: [
-      { id: 'ldac-990', name: '990 kbps · 음질 우선', quality: '24bit 96kHz', value: '990 kbps' },
-      { id: 'ldac-660', name: '660 kbps · 표준', quality: '24bit 96kHz', value: '660 kbps' },
-      { id: 'ldac-330', name: '330 kbps · 연결 우선', quality: '24bit 96kHz', value: '330 kbps' },
+      { id: 'ldac-990', name: '음질 우선', quality: '24bit 96kHz', value: '990 kbps' },
+      { id: 'ldac-660', name: '표준', quality: '24bit 96kHz', value: '660 kbps' },
+      { id: 'ldac-330', name: '연결 우선', quality: '24bit 96kHz', value: '330 kbps' },
     ],
   },
   LHDC: {
@@ -198,8 +200,8 @@ export const CODEC_TIERS = {
   L2HC: {
     label: '버전별 상한',
     rows: [
-      { id: 'l2hc-4', name: 'L2HC 4.0 · 무손실', quality: '24bit 192kHz', value: '최대 2.3 Mbps' },
-      { id: 'l2hc-3', name: 'L2HC 3.0 · 가변', quality: '24bit 96kHz', value: '320–960 kbps' },
+      { id: 'l2hc-4', name: 'L2HC 4.0', note: '무손실', quality: '24bit 192kHz', value: '최대 2.3 Mbps' },
+      { id: 'l2hc-3', name: 'L2HC 3.0', note: '가변', quality: '24bit 96kHz', value: '320–960 kbps' },
     ],
   },
   SSC: {
