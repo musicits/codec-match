@@ -278,26 +278,37 @@ input { caret-color: var(--main); }
 .disclaimer { margin: 22px 0 0; font-size: 12px; color: var(--steel); line-height: 1.6; word-break: keep-all; }
 
 /* ---- 업데이트 기록 ---- */
-.changelog h2 { margin: 0 0 20px; font-size: 18px; font-weight: 700; }
-.changelog__list { list-style: none; margin: 0; padding: 0 0 0 20px;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 24px 40px; }
-.changelog__head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; position: relative; }
-.changelog__item { position: relative; }
-.changelog__item::before { content: ""; position: absolute; left: -20px; top: 8px; width: 9px; height: 9px; border-radius: 50%;
-  background: var(--canvas); border: 2px solid var(--line-strong); }
-.changelog__item:first-child::before { background: var(--main); border-color: var(--main); }
-.changelog__version { font-size: 16px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
-.changelog__head time { font-size: 12.5px; color: var(--steel); font-variant-numeric: tabular-nums; }
-.changelog__counts { margin: 4px 0 8px; color: var(--steel); font-size: 12.5px; }
-.changelog__archive, .credit a { color: var(--main-deep); font-weight: 600; text-decoration: none;
+.changelog h2 { margin: 0 0 18px; font-size: 18px; font-weight: 700; }
+
+/* 업데이트 기록 표 — 버전마다 한 줄, 누르면 펼쳐집니다 */
+.log { width: 100%; border-collapse: collapse; }
+.log th { text-align: left; padding: 0 12px 8px 0; border-bottom: 1px solid var(--line);
+  font-size: 11.5px; font-weight: 600; color: var(--stone); white-space: nowrap; }
+.log td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line);
+  font-size: 13px; color: var(--slate); vertical-align: top; }
+.log tbody tr:last-child td { border-bottom: 0; }
+.log tbody tr.now { background: color-mix(in srgb, var(--main) 6%, transparent); }
+.log__ver { width: 104px; white-space: nowrap; }
+.log__version { font-size: 14px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+.log tr.now .log__version { color: var(--main-deep); }
+.log__ver .badge { margin-left: 6px; padding: 1px 7px; font-size: 10.5px; }
+.log__date { width: 74px; color: var(--steel); font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.log__num { width: 92px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.log__num em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 700; color: var(--main-deep); }
+.log__open { width: 82px; text-align: right; white-space: nowrap; }
+.log__open a { color: var(--main-deep); font-weight: 600; font-size: 12px; text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--main) 35%, transparent); }
-.changelog__archive:hover, .credit a:hover { border-bottom-color: var(--main); }
-.changelog__changes { margin: 0; padding-left: 16px; color: var(--slate); }
-.changelog__changes li { font-size: 13px; line-height: 1.7; word-break: keep-all; }
-.changelog__changes li::marker { color: var(--stone); }
+.log__open a:hover { border-bottom-color: var(--main); }
+.log details summary { cursor: pointer; list-style: none; word-break: keep-all; }
+.log details summary::-webkit-details-marker { display: none; }
+.log details summary:hover { color: var(--main-deep); }
+.log details[open] summary { font-weight: 700; color: var(--main-deep); }
+.log details ul { margin: 8px 0 2px; padding-left: 16px; }
+.log details li { font-size: 12.5px; line-height: 1.7; color: var(--steel); word-break: keep-all; }
+.log details li::marker { color: var(--stone); }
 
 /* ---- 코덱 등급표 ---- */
-.tiers { margin-top: 16px; padding: 14px 16px 12px; border-radius: var(--r-lg);
+.tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
 .tiers__label { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: var(--steel); }
 .tiers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
@@ -314,10 +325,9 @@ input { caret-color: var(--main); }
 .tiers li.on .tiers__value { color: var(--main-deep); }
 .tiers__here { grid-column: 2 / -1; font-size: 11px; font-weight: 700; color: var(--main-deep); }
 .tiers__need { grid-column: 2 / -1; font-size: 11px; color: var(--stone); }
-.tiers__foot { margin: 9px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--stone); word-break: keep-all; }
 
 /* ---- 코덱 비교 막대 ---- */
-.compare { margin-top: 20px; padding: 16px 18px 14px; border-radius: var(--r-lg);
+.compare { margin-top: 20px; padding: 16px 18px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
 .compare__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .compare__head h3 { margin: 0; font-size: 13.5px; font-weight: 700; }
@@ -342,7 +352,6 @@ input { caret-color: var(--main); }
   transition: width .35s cubic-bezier(.16, 1, .3, 1); }
 .compare__value { font-size: 12.5px; font-weight: 700; color: var(--slate); text-align: right; font-variant-numeric: tabular-nums; }
 .compare__value em { display: block; font-style: normal; font-size: 11.5px; font-weight: 500; color: var(--stone); }
-.compare__foot { margin: 10px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--stone); word-break: keep-all; }
 
 /* ---- 머리말 도구 전환기 ---- */
 .toolswitch { margin-left: auto; position: relative; flex: 0 0 auto; }
@@ -404,7 +413,15 @@ input { caret-color: var(--main); }
   .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
   .stage { order: 2; min-height: 0; padding: 28px 18px 24px; }
-  .changelog { margin: 12px; padding: 22px 18px 24px; }
+  .changelog { margin: 12px; padding: 22px 16px 24px; }
+  /* 좁은 화면에서는 기기 수를 감추고 버전 · 날짜 · 내역만 남깁니다 */
+  .log__num { display: none; }
+  .log__ver { width: 84px; }
+  .log__date { width: 58px; font-size: 12px; }
+  .log__open { width: 30px; }
+  .log__open a { font-size: 0; border: 0; }
+  .log__open a::after { content: "›"; font-size: 20px; line-height: 1; color: var(--main-deep); }
+  .log td, .log th { padding-right: 8px; }
   .field input, .field select { font-size: 16px; min-height: 44px; }   /* 16px 밑이면 아이폰이 입력할 때 화면을 확대한다 */
   .grp { padding: 18px 16px; }
   .pair__device .device-icon { width: 64px; height: 64px; padding: 10px; border-radius: 18px; }

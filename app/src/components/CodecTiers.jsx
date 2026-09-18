@@ -33,7 +33,6 @@ export default function CodecTiers({ codec, activeId, unlocked, platform }) {
           )
         })}
       </ul>
-      {table.foot && <p className="tiers__foot">{table.foot}</p>}
     </section>
   )
 }

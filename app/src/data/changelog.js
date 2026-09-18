@@ -7,21 +7,25 @@
 //      node scripts/archive-version.mjs v4 <직전 배포 커밋>
 //
 // archiveUrl 이 있으면 사이트에 "열어보기" 링크가 붙습니다. 최신 버전은 루트가 곧 그 버전이라 비워둡니다.
+// summary 는 표에 한 줄로 걸리는 요약입니다. 누르면 changes 가 펼쳐집니다.
 
 export const CHANGELOG = [
   {
     version: 'v12',
+    summary: '신호 점이 계속 오감 · AAC 등급표는 고른 폰의 OS 줄만',
     date: '2026-09-18',
     phones: 135,
     audio: 104,
     changes: [
       '두 기기 사이 신호 점이 계속 오갑니다 — 연결돼 있는 느낌',
       'AAC 등급표는 고른 폰의 OS 줄만 보여 줍니다 (아이폰인데 안드로이드 줄이 뜨던 것)',
-      '군더더기 설명 정리 — SBC 의 bitpool 표기, SSC 등급표 아래 중복 안내, 비교 막대 사용법',
+      '업데이트 기록을 표로 — 버전마다 한 줄, 누르면 그 버전 상세가 펼쳐집니다',
+      '표 아래 잔주석을 모두 뺐습니다 — 맨 아래 한 줄만 남깁니다',
     ],
   },
   {
     version: 'v11',
+    summary: '코덱 눌러 비교 · 등급표(SSC·LDAC·aptX) · iOS 27 유리',
     date: '2026-09-18',
     phones: 135,
     audio: 104,
@@ -39,6 +43,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v10',
+    summary: '폴더블 3사와 L2HC · 아이폰 듀오 · 에어팟 맥스 2',
     date: '2026-09-18',
     phones: 135,
     audio: 104,
@@ -53,6 +58,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v9',
+    summary: '형태(폼팩터) 고르기 · 아이폰 18 프로 · 폴드8 울트라 · 에어팟 5',
     date: '2026-09-18',
     phones: 129,
     audio: 101,
@@ -66,6 +72,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v8',
+    summary: 'music ITs 공통 화면 · 제조사별 주색 · 다크 모드',
     date: '2026-09-17',
     phones: 126,
     audio: 100,
@@ -79,6 +86,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v7',
+    summary: '만든이 링크 · 구조화 데이터 · robots·sitemap',
     date: '2026-08-19',
     phones: 126,
     audio: 100,
@@ -92,6 +100,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v6',
+    summary: '바워스앤윌킨스 9종 추가',
     date: '2026-08-12',
     phones: 126,
     audio: 100,
@@ -103,6 +112,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v5',
+    summary: 'aptX Lossless 안내 표시',
     date: '2026-08-12',
     phones: 126,
     audio: 91,
@@ -114,6 +124,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v4',
+    summary: '앤커·젠하이저 추가 · 이전 버전 보관 시작',
     date: '2026-08-12',
     phones: 126,
     audio: 91,
@@ -126,6 +137,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v3',
+    summary: '낫싱 7종 · LG·자브라·마샬·AKG 등 추가',
     date: '2026-08-12',
     phones: 126,
     audio: 84,
@@ -139,6 +151,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v2',
+    summary: '픽셀·샤오미·엑스페리아·LG 추가',
     date: '2026-08-12',
     phones: 119,
     audio: 55,
@@ -152,6 +165,7 @@ export const CHANGELOG = [
   },
   {
     version: 'v1',
+    summary: '첫 공개 — 갤럭시·아이폰 + 버즈·에어팟·소니',
     date: '2026-08-11',
     phones: 82,
     audio: 29,

@@ -170,7 +170,6 @@ export const CODEC_TIERS = {
       { id: 'sbc-high', name: '고품질', quality: '16bit 48kHz', value: '최대 345 kbps' },
       { id: 'sbc-base', name: '기본', quality: '16bit 44.1kHz', value: '약 229 kbps' },
     ],
-    foot: '전파가 좋으면 고품질, 끊길 것 같으면 기본으로 알아서 내려갑니다',
   },
   AAC: {
     label: '실제 전송률',
@@ -188,7 +187,6 @@ export const CODEC_TIERS = {
       { id: 'ldac-660', name: '660 kbps · 표준', quality: '24bit 96kHz', value: '660 kbps' },
       { id: 'ldac-330', name: '330 kbps · 연결 우선', quality: '24bit 96kHz', value: '330 kbps' },
     ],
-    foot: '기본값은 자동(적응형)이고 개발자 옵션·소니 헤드폰 앱에서 고정할 수 있습니다 · 44.1·88.2kHz 음원에서는 909/606/303 kbps 로 잡힙니다',
   },
   LHDC: {
     label: '버전별 상한',
@@ -196,7 +194,6 @@ export const CODEC_TIERS = {
       { id: 'lhdc-5', name: 'LHDC 5.0', quality: '24bit 192kHz', value: '최대 1,000 kbps' },
       { id: 'lhdc-4', name: 'LHDC 4.0', quality: '24bit 96kHz', value: '최대 900 kbps' },
     ],
-    foot: '양쪽이 지원하는 가장 높은 버전으로 협상됩니다',
   },
   L2HC: {
     label: '버전별 상한',
@@ -204,7 +201,6 @@ export const CODEC_TIERS = {
       { id: 'l2hc-4', name: 'L2HC 4.0 · 무손실', quality: '24bit 192kHz', value: '최대 2.3 Mbps' },
       { id: 'l2hc-3', name: 'L2HC 3.0 · 가변', quality: '24bit 96kHz', value: '320–960 kbps' },
     ],
-    foot: '무손실 모드는 EMUI 15·하모니OS 와 대응 화웨이 이어폰 조합에서만 열립니다',
   },
   SSC: {
     label: '삼성 심리스 코덱 등급',
@@ -223,7 +219,6 @@ export const CODEC_TIERS = {
       { id: 'aptX HD', name: 'aptX HD', quality: '24bit 48kHz', value: '576 kbps' },
       { id: 'aptX', name: 'aptX', quality: '16bit 44.1kHz', value: '352 kbps' },
     ],
-    foot: '무손실은 독립 코덱이 아니라 Adaptive 의 모드라 협상되는 이름은 그대로 aptX Adaptive 입니다',
   },
 }
 
