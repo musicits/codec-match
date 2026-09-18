@@ -253,7 +253,7 @@ input { caret-color: var(--main); }
 /* 아이콘과 기기명을 제 칸 한가운데로 — 이름 길이가 달라도 축이 흔들리지 않습니다 */
 .pair__device { margin: 0; display: grid; justify-items: center; gap: 10px; text-align: center; }
 .pair__device .device-icon {
-  width: 76px; height: 76px; padding: 12px; border-radius: 22px; color: var(--main-deep);
+  width: 76px; height: 76px; padding: calc(12px / var(--icon-scale, 1)); border-radius: 22px; color: var(--main-deep);
   background: linear-gradient(180deg, color-mix(in srgb, var(--canvas) 92%, transparent), color-mix(in srgb, var(--canvas) 60%, transparent));
   border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim), 0 10px 24px -16px rgba(20, 35, 60, .45);
 }

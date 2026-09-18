@@ -76,7 +76,7 @@ export default function ResultCard({
   const preview = shown !== codec
   const qualityOf = (item) => (item === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[item]?.quality)
   const kbpsOf = (item) => (item === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[item]?.kbps)
-  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
+  const heights = strengthsOf(common, codec)
 
   return (
     <div className="result" aria-live="polite">

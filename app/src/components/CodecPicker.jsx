@@ -2,7 +2,7 @@
 //
 // 칩 하나에 글자만 있던 것을 카드로 바꿨습니다. 카드마다 그 코덱의 파형을 작게
 // 그려 두어, 누르기 전에도 어느 쪽이 큰 소리를 담는지 눈에 보입니다.
-import { CODEC_INFO } from '../data/codecs.js'
+import { CODEC_INFO, CODEC_PRIORITY } from '../data/codecs.js'
 
 // 파형 모양은 두 벌입니다. 최적 코덱은 굴곡이 크고, 나머지는 잔잔합니다.
 // 모양은 자기 안에서만 눌러 두고, 실제 높이는 오로지 등급(strength)이 정합니다.
@@ -20,38 +20,26 @@ const MINI = {
 }
 
 /**
- * 코덱 등급을 0.26~1 사이 높이로 옮깁니다.
- *
- * 비트레이트 하나만 보면 16bit 44.1kHz(AAC)와 16bit 48kHz(SBC)가 거의 붙어 버려
- * 눈으로는 구분이 안 됩니다. 그래서 비트심도·샘플레이트·비트레이트에 각각 점수를
- * 매겨 0~6 계단으로 끊고, 계단 하나를 12% 씩 벌려 놨습니다.
- */
-export const waveStrength = (kbps = 300, quality) => {
-  const rate = Number(quality?.match(/([\d.]+)\s*kHz/i)?.[1] ?? 44.1)
-  const depth = Number(quality?.match(/(\d+)\s*bit/i)?.[1] ?? 16)
-  const byDepth = depth >= 24 ? 2 : 0
-  const byRate = rate >= 96 ? 2 : rate >= 48 ? 1 : 0
-  const byKbps = kbps >= 900 ? 2 : kbps >= 500 ? 1 : 0
-  return 0.26 + (0.74 * (byDepth + byRate + byKbps)) / 6
-}
-
-/**
  * 카드에 그릴 높이를 한 번에 정합니다.
  *
- * 사양 숫자만 따르면 이 조합에서 실제로 쓰이는 코덱이 아래로 깔리는 일이 생깁니다
- * — 아이폰은 AAC 로 붙는데 SBC 가 16bit 48kHz 라 더 높게 그려지는 식입니다.
- * 그래서 최적 코덱은 나머지보다 항상 한 뼘 위, 그리고 최소 0.7 은 되게 올립니다.
+ * 사양 숫자(비트레이트·샘플레이트)를 그대로 쓰면 이 조합에서 실제로 붙는 코덱이
+ * 아래로 깔립니다 — 아이폰은 AAC 로 협상되는데 SBC 가 16bit 48kHz 라 더 높게
+ * 그려지는 식입니다. 그래서 협상 순서(CODEC_PRIORITY)를 그대로 높이로 옮깁니다.
+ * 최적 코덱이 맨 위 100%, 아래로 한 계단씩 내려와 맨 끝이 30% 입니다.
  */
-export const strengthsOf = (common = [], best, kbpsOf, qualityOf) => {
+export const strengthsOf = (common = [], best) => {
+  const order = [...common].sort(
+    (a, b) => CODEC_PRIORITY.indexOf(a) - CODEC_PRIORITY.indexOf(b),
+  )
+  if (best && order.includes(best)) {
+    order.splice(order.indexOf(best), 1)
+    order.unshift(best)
+  }
+  const top = 1
+  const bottom = 0.3
+  const step = order.length > 1 ? (top - bottom) / (order.length - 1) : 0
   const heights = {}
-  common.forEach((item) => {
-    const info = CODEC_INFO[item]
-    heights[item] = waveStrength(kbpsOf?.(item) ?? info?.kbps, qualityOf?.(item) ?? info?.quality)
-  })
-  if (!best || heights[best] === undefined) return heights
-  const others = common.filter((item) => item !== best).map((item) => heights[item])
-  const top = others.length ? Math.max(...others) : 0
-  heights[best] = Math.min(1, Math.max(heights[best], top + 0.3, 0.7))
+  order.forEach((item, index) => { heights[item] = top - step * index })
   return heights
 }
 
@@ -67,7 +55,7 @@ function MiniWave({ strength, rich }) {
 
 export default function CodecPicker({ common, codec, picked, onPick, qualityOf, kbpsOf }) {
   if (!common?.length) return null
-  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
+  const heights = strengthsOf(common, codec)
 
   // 카드는 화면 아래쪽에 있습니다. 눌러 놓고 위를 못 보면 무엇이 바뀌었는지 알 수 없어
   // 결과 판 머리로 부드럽게 올려 줍니다.

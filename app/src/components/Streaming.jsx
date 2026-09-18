@@ -23,7 +23,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
   useEffect(() => { setPicked(codec) }, [codec, phone.id, audio.id])
 
   const shown = common.includes(picked) ? picked : codec
-  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
+  const heights = strengthsOf(common, codec)
   const quality = qualityOf?.(shown)
   const ceiling = parseCeiling(quality)
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(

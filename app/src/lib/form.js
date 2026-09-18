@@ -20,6 +20,21 @@ export const phoneForm = (device) => {
   return 'bar'
 }
 
+// 같은 시리즈라도 체급이 다르면 아이콘도 그만큼 다르게 그립니다.
+// 울트라·프로 맥스는 한 치 크게, 미니·SE 는 한 치 작게 — 테두리 상자는 그대로 두고
+// 안쪽 여백만 줄이고 늘려서, 기기 두 칸의 줄은 어긋나지 않습니다.
+const BIG = /울트라|맥스|Ultra|Max/i
+const PLUS = /플러스|Plus|\+/i
+const SMALL = /미니|mini|\bSE\b/i
+
+export const phoneScale = (device) => {
+  const name = model(device)
+  if (SMALL.test(name)) return 0.9
+  if (BIG.test(name)) return 1.1
+  if (PLUS.test(name)) return 1.05
+  return 1
+}
+
 export const audioForm = (device) => (HEADPHONE.test(model(device)) ? 'headphones' : 'earbuds')
 
 // 형태 고르기 드롭다운에 쓰는 목록. 순서가 곧 화면 순서입니다.
