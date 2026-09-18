@@ -45,4 +45,7 @@ export const BLOG = {
   url: 'https://blog.naver.com/musicits',
 }
 
+/** 이 도구 자신. 머리말 이름을 누르면 여기로 — 어디까지 들어와 있든 첫 화면으로 돌아옵니다. */
+export const ME = TOOLS.find((tool) => tool.id === SELF)
+
 export const OTHERS = TOOLS.filter((tool) => tool.id !== SELF)

@@ -11,7 +11,7 @@ import { brandsOf } from './data/devices.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch, sscTier } from './lib/match.js'
 import { CODEC_INFO } from './data/codecs.js'
-import { BLOG, HUB, OTHERS } from './data/tools.js'
+import { BLOG, HUB, ME, OTHERS } from './data/tools.js'
 
 // 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
 // 아이콘은 블로그 분석실 메뉴와 같은 자리·같은 크기로 답니다.
@@ -133,7 +133,8 @@ export default function App() {
         <a className="logo-link" href={HUB} aria-label="music ITs 도구 모음">
           <img className="logo" src="./logo.png" width="1471" height="353" alt="music ITs" />
         </a>
-        <h1>코덱 매치</h1>
+        {/* 도구 이름을 누르면 이 도구의 첫 화면으로 돌아옵니다 */}
+        <h1><a href={ME.url}>코덱 매치</a></h1>
         <p>내 기기 조합에서 들리는 최적의 블루투스 코덱</p>
         <div className="topbar__right">
           {/* 도구 모음 첫 화면과 같은 자리·같은 모양 */}
