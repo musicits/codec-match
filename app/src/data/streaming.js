@@ -10,12 +10,12 @@ export const STREAMING = [
   {
     region: 'kr', name: '멜론', en: 'Melon', won: 8690,
     depth: 16, rate: 44.1, format: 'FLAC', price: '스트리밍클럽 월 8,690원',
-    maxNote: 'FLAC 은 Hi-Fi 13,200원 · 24bit 는 다운로드',
+    maxNote: 'FLAC 은 Hi-Fi 13,200원 · 앱 표기는 16bit',
   },
   {
     region: 'kr', name: '벅스', en: 'Bugs', won: 8690,
-    depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 듣기 월 8,690원',
-    maxNote: 'Premium 17,600원 · 24bit 는 다운로드',
+    depth: 24, rate: 96, format: 'FLAC', price: '무제한 듣기 월 8,690원',
+    maxNote: '24bit 96kHz 는 FLAC Premium 13,200원',
   },
   {
     region: 'kr', name: '지니뮤직', en: 'Genie', won: 15400,
