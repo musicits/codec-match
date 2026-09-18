@@ -116,7 +116,7 @@ export default function DevicePicker({ title, formLabel = '형태', formOf, form
         </select>
       </label>
 
-      {!visible.length && <p className="filter-empty">일치하는 기기가 없어요.</p>}
+      {!visible.length && <p className="filter-empty">찾는 기기가 없습니다</p>}
 
       {current && (() => {
         // 첫 줄은 넘기지 않습니다 — 넉 대까지만 걸고 나머지는 '+N' 으로 접습니다.

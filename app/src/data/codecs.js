@@ -37,7 +37,7 @@ export const CODEC_INFO = {
     ms: 180,
     bitrate: '최대 약 250 kbps',
     latency: '약 140–220 ms',
-    fallback: '상위 공통 코덱을 사용할 수 없을 때 SBC로 전환될 수 있어요',
+    fallback: '더 나은 공통 코덱이 없을 때',
   },
   aptX: {
     name: 'aptX',
@@ -46,7 +46,7 @@ export const CODEC_INFO = {
     ms: 100,
     bitrate: '최대 352 kbps',
     latency: '약 80–120 ms',
-    fallback: '전파 간섭이 심하거나 aptX 협상에 실패하면 SBC로 전환될 때',
+    fallback: '전파 간섭이 심하거나 aptX 로 못 붙어 SBC 로 내려갈 때',
   },
   'aptX HD': {
     name: 'aptX HD (24bit 48kHz)',
@@ -55,7 +55,7 @@ export const CODEC_INFO = {
     ms: 125,
     bitrate: '최대 576 kbps',
     latency: '약 100–150 ms',
-    fallback: '대역폭이 부족하면 aptX 또는 SBC로 낮아질 때',
+    fallback: '보낼 길이 좁아 aptX 나 SBC 로 내려갈 때',
   },
   'aptX Adaptive': {
     name: 'aptX Adaptive',
@@ -64,7 +64,7 @@ export const CODEC_INFO = {
     ms: 65,
     bitrate: '279–420 kbps 가변',
     latency: '약 50–80 ms',
-    fallback: '전파 환경에 따라 비트레이트가 실시간으로 조정되며, 조건이 무너지면 AAC·SBC로 전환될 때',
+    fallback: '전파 상태에 따라 전송률이 오르내리고, 그마저 안 되면 AAC·SBC 로 내려갈 때',
   },
   L2HC: {
     name: 'L2HC (화웨이 코덱)',
@@ -74,7 +74,7 @@ export const CODEC_INFO = {
     bitrate: '320–960 kbps 가변',
     bitrateNote: 'L2HC 4.0 무손실은 최대 2.3 Mbps',
     latency: '약 90–150 ms',
-    fallback: '화웨이 폰·태블릿(EMUI 15·하모니OS) 조합에서만 협상되며, 조건이 안 맞으면 LDAC·AAC 로 내려갈 때',
+    fallback: '화웨이 폰·태블릿(EMUI 15·하모니OS) 조합이 아니거나, 조건이 안 맞아 LDAC·AAC 로 내려갈 때',
   },
   LDAC: {
     name: 'LDAC',
@@ -84,7 +84,7 @@ export const CODEC_INFO = {
     bitrate: '최대 990 kbps',
     bitrateNote: '‘음질 우선’ 설정 기준 · 기본 적응형은 660/330 kbps',
     latency: '약 180–250 ms',
-    fallback: '연결 품질이 낮아지면 660/330 kbps로 낮아지거나 SBC로 전환될 때',
+    fallback: '연결이 나빠져 660/330 kbps 로 내려가거나 SBC 로 바뀔 때',
   },
   LHDC: {
     name: 'LHDC',
@@ -93,7 +93,7 @@ export const CODEC_INFO = {
     ms: 130,
     bitrate: '최대 900 kbps',
     latency: '약 100–160 ms',
-    fallback: '지원 조합이 아니거나 연결이 불안정하면 AAC·SBC로 전환될 때',
+    fallback: '지원 조합이 아니거나 연결이 불안정해 AAC·SBC 로 내려갈 때',
   },
   SSC: {
     name: 'SSC (삼성 코덱)',
@@ -102,7 +102,7 @@ export const CODEC_INFO = {
     ms: 125,
     bitrate: '기기 등급에 따라 다름',
     latency: '약 100–150 ms',
-    fallback: '삼성 기기 간 전용 조건이 충족되지 않거나 연결 상태가 불안정할 때 SBC로 전환될 수 있어요',
+    fallback: '삼성 기기끼리가 아니거나 연결이 불안정해 SBC 로 내려갈 때',
   },
   LC3: {
     name: 'LC3 (LE Audio)',
@@ -111,7 +111,7 @@ export const CODEC_INFO = {
     ms: 30,
     bitrate: '최대 약 345 kbps',
     latency: '약 20–40 ms',
-    fallback: 'LE Audio 모드가 꺼져 있거나 한쪽이 지원하지 않으면 기존 코덱으로 돌아갈 때',
+    fallback: 'LE Audio 가 꺼져 있거나 한쪽이 지원하지 않아 예전 코덱으로 돌아갈 때',
   },
 }
 

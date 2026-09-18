@@ -58,8 +58,8 @@ export default function ResultCard({
     return (
       <div className="result result--empty">
         <DevicePair phone={phone} audio={audio} linked={false} strength={0.35} />
-        <h2 className="result__codec">공통 지원 코덱이 없어요</h2>
-        <p className="result__sub">다른 기기 조합을 선택해 다시 확인해 주세요.</p>
+        <h2 className="result__codec">함께 쓸 코덱이 없습니다</h2>
+        <p className="result__sub">두 기기가 같이 쓰는 코덱이 하나도 없습니다. 다른 조합으로 골라 보세요</p>
       </div>
     )
   }

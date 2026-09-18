@@ -34,17 +34,17 @@ export const MAKERS = [
   {
     group: 'base', codec: 'SBC', by: '블루투스 SIG', year: '2003',
     spec: '16bit 48kHz · 최대 345 kbps',
-    body: '블루투스 음악 규격(A2DP)에 함께 들어간 기본 코덱. 규격상 모든 기기가 반드시 지원해야 해서, 다른 코덱이 하나도 안 맞을 때 여기로 떨어집니다.',
+    body: '블루투스 음악 규격(A2DP)에 함께 들어간 기본 코덱. 모든 기기가 반드시 넣게 돼 있어서, 맞는 코덱이 하나도 없으면 여기로 떨어집니다.',
   },
   {
     group: 'base', codec: 'LC3', by: '블루투스 SIG', year: '2019',
     spec: '16–24bit 48kHz · 최대 345 kbps',
-    body: '블루투스 새 규격(LE Audio)의 기본 코덱. SBC 를 대신하려고 만든 것이라 같은 전송률에서 더 잘 들리고 지연이 짧습니다. 오라캐스트 같은 새 기능도 여기 얹혀 있습니다.',
+    body: '블루투스 새 규격(LE Audio)의 기본 코덱. SBC 를 대신하려고 만든 것이라 같은 전송률에서 더 잘 들리고 지연이 짧습니다. 오라캐스트도 이 위에서 돌아갑니다.',
   },
   {
     group: 'lossy', codec: 'AAC', by: 'MPEG · 애플이 채택', year: '1997',
     spec: '16bit 44.1kHz · 약 250 kbps',
-    body: '블루투스용으로 만든 게 아니라 원래 음악 파일 규격(ISO/IEC 표준)입니다. 애플이 아이튠즈와 아이폰에 쓰면서 자리를 잡았고, 지금도 아이폰이 이어폰과 붙을 때 쓰는 코덱입니다.',
+    body: '블루투스용으로 만든 게 아니라 원래 음악 파일 규격(ISO/IEC 표준)입니다. 애플이 아이튠즈와 아이폰에 쓰면서 퍼졌고, 지금도 아이폰은 이어폰에 이 코덱으로 붙습니다.',
   },
   {
     group: 'lossy', codec: 'aptX', by: '퀄컴 (전 CSR · APT)', year: '1988',
@@ -54,27 +54,27 @@ export const MAKERS = [
   {
     group: 'hi', codec: 'aptX HD · Adaptive · Lossless', by: '퀄컴', year: '2016 ~',
     spec: 'HD 24bit 48kHz · Adaptive 24bit 96kHz',
-    body: 'HD 는 24bit 로 올렸고, Adaptive 는 전파 상태에 따라 전송률을 바꿉니다. Lossless 는 CD 음질을 깎지 않고 보냅니다. HD 는 오픈소스로 풀렸지만 Adaptive 와 Lossless 는 스냅드래곤 사운드 인증이 양쪽에 다 있어야 열립니다.',
+    body: 'HD 는 24bit 로 올렸고, Adaptive 는 전파 상태에 따라 전송률을 바꿉니다. Lossless 는 CD 음질을 깎지 않고 보냅니다. HD 는 오픈소스로 풀렸고, Adaptive 와 Lossless 는 폰과 이어폰 둘 다 스냅드래곤 사운드 인증이어야 씁니다.',
   },
   {
     group: 'hi', codec: 'LDAC', by: '소니', year: '2015',
     spec: '24bit 96kHz · 330 / 660 / 990 kbps',
-    body: '하이 레졸루션이라는 말을 만든 소니가 내놓은 코덱. 구글과 손잡아 안드로이드 8.0 부터 운영체제에 들어갔고, 그래서 소니 기기가 아니어도 씁니다. 세 단계 중 990kbps 는 ‘음질 우선’ 을 켜야 나옵니다.',
+    body: '하이 레졸루션이라는 말을 만든 소니가 내놓은 코덱. 구글과 함께 안드로이드 8.0 에 넣어서, 소니 기기가 아니어도 씁니다. 세 단계 중 990kbps 는 ‘음질 우선’ 을 켜야 나옵니다.',
   },
   {
     group: 'hi', codec: 'SSC', by: '삼성', year: '2018',
     spec: 'Scalable 16bit 44.1kHz · Seamless 24bit 48kHz · UHQ 24bit 96kHz',
-    body: '갤럭시 폰과 갤럭시 버즈 사이에만 쓰는 코덱(Samsung Seamless Codec). 남의 기기와는 협상되지 않아 다른 폰에 버즈를 붙이면 AAC 나 SBC 로 떨어집니다. 삼성은 2016년 하만을 인수해 AKG·JBL 기술을 갤럭시에 얹고 있습니다.',
+    body: '갤럭시 폰과 갤럭시 버즈 사이에만 쓰는 코덱(Samsung Seamless Codec). 갤럭시가 아닌 폰에 버즈를 붙이면 AAC 나 SBC 로 떨어집니다. 삼성은 2016년 하만을 인수해 AKG·JBL 기술을 갤럭시에 얹고 있습니다.',
   },
   {
     group: 'hi', codec: 'LHDC', by: '사비텍 (대만)', year: '2019',
     spec: '24bit 96–192kHz · 최대 1,000 kbps',
-    body: 'LDAC 과 겨루는 자리에 있는 코덱. HWA 얼라이언스가 밀고 있고, 낫싱·오포 같은 곳의 이어폰에서 만납니다.',
+    body: 'LDAC 과 같은 자리를 노리는 코덱. 낫싱·오포 이어폰에서 만납니다.',
   },
   {
     group: 'hi', codec: 'L2HC', by: '화웨이', year: '2021',
     spec: '24bit 192kHz · 최대 2.3 Mbps (4.0 무손실)',
-    body: '화웨이가 자사 폰·태블릿과 프리버즈 사이에 쓰는 코덱. 4.0 은 무손실까지 갑니다. 역시 화웨이 기기끼리만 열립니다.',
+    body: '화웨이가 자사 폰·태블릿과 프리버즈 사이에 쓰는 코덱. 4.0 은 무손실까지 갑니다. 화웨이 기기끼리만 됩니다.',
   },
 ]
 
