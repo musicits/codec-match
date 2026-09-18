@@ -155,7 +155,7 @@ input { caret-color: var(--main); }
   max-height: calc(100dvh - var(--hh, 60px) - 36px); overflow-y: auto;
 }
 /* 아래 줄: 업데이트 기록 옆에 용어 설명을 세웁니다 */
-.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; margin: 16px 20px 20px; align-items: stretch; }
+.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; margin: 16px 20px 20px; align-items: start; }
 .changelog { padding: 28px 32px 30px; }
 .glossary { padding: 26px 28px 28px; }
 
@@ -318,9 +318,15 @@ input { caret-color: var(--main); }
 .log details li::marker { color: var(--stone); }
 
 /* 용어 설명 */
-.glossary h2 { margin: 0 0 14px; font-size: 16px; font-weight: 700; }
-.glossary dl { margin: 0; display: grid; gap: 12px; }
+.glossary { display: flex; flex-direction: column; }
+.glossary h2 { margin: 0 0 12px; font-size: 16px; font-weight: 700; flex: 0 0 auto; }
+/* 옆 기록 표(열 줄)와 키를 맞춰 두고, 넘치는 용어는 안쪽에서 구릅니다 */
+.glossary dl { margin: 0; display: grid; gap: 13px; align-content: start;
+  max-height: 543px; overflow-y: auto; padding-right: 8px; }
+.glossary dl::-webkit-scrollbar { width: 6px; }
+.glossary dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
 .glossary dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
+.glossary dt em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--stone); }
 .glossary dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--steel); word-break: keep-all; }
 
 /* 기록 쪽 넘기기 — 블로그 분석실 순위표와 같은 모양 */
@@ -447,6 +453,7 @@ input { caret-color: var(--main); }
   .bottom { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 12px; }
   .changelog { padding: 22px 16px 24px; }
   .glossary { padding: 20px 16px 22px; }
+  .glossary dl { overflow: visible; padding-right: 0; }
   /* 좁은 화면에서는 기기 수를 감추고 버전 · 날짜 · 내역만 남깁니다 */
   .log__num { display: none; }
   .log__ver { width: 84px; }

@@ -6,7 +6,7 @@
 import { useState } from 'react'
 import { CHANGELOG } from '../data/changelog.js'
 
-const PER_PAGE = 5
+const PER_PAGE = 10
 
 /** 바로 아래(이전) 버전과 견준 증가분. 늘지 않았으면 표시하지 않습니다. */
 const gain = (current, previous) => {
