@@ -97,6 +97,16 @@ export default function App() {
     document.documentElement.dataset.accent = accent
   }, [phone.brand])
 
+  // 코덱을 누르면 화면이 아래로 내려갑니다. 다시 올라오려고 스크롤을 감는 대신
+  // 누를 자리를 하나 띄웁니다 — 한 화면 넘게 내려갔을 때만 나옵니다.
+  const [showTop, setShowTop] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 420)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   // 머리말과 카테고리 줄의 실제 높이를 재서 --hh · --nh 로 씁니다.
   // 둘 다 붙박이라, 그 아래 붙는 설정 칸과 결과 판이 이 값을 기준으로 자리를 잡습니다.
   useEffect(() => {
@@ -203,6 +213,20 @@ export default function App() {
           <Glossary />
         </div>
       </main>
+
+      <button
+        type="button"
+        className={`totop${showTop ? ' on' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="맨 위로"
+        tabIndex={showTop ? 0 : -1}
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+          fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 19V6" />
+          <path d="m5.5 12.5 6.5-6.5 6.5 6.5" />
+        </svg>
+      </button>
 
       <footer className="credit">
         <p>코덱 매치 · 제조사 공개 사양 기준</p>

@@ -521,6 +521,22 @@ input { caret-color: var(--main); }
 }
 @media (prefers-reduced-motion: reduce) { .stream__table tr.flash td { animation: none; background: var(--tint); } }
 
+/* 맨 위로 — 코덱을 눌러 아래로 내려갔을 때만 뜹니다 */
+.totop {
+  position: fixed; right: 24px; bottom: 24px; z-index: 40;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  border-radius: 50%; cursor: pointer; color: var(--main-deep);
+  background: var(--glass-face); backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim), 0 12px 28px -14px rgba(20, 35, 60, .55);
+  opacity: 0; transform: translateY(10px) scale(.92); pointer-events: none;
+  transition: opacity .22s ease, transform .22s cubic-bezier(.16, 1, .3, 1), background-color .18s ease;
+}
+.totop.on { opacity: 1; transform: none; pointer-events: auto; }
+.totop:hover { background: var(--canvas); }
+.totop:active { transform: scale(.94); }
+@supports (corner-shape: squircle) { .totop { corner-shape: squircle; } }
+
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
@@ -679,6 +695,7 @@ input { caret-color: var(--main); }
   .metrics > div + div { padding-left: 12px; }
   .metrics dd { font-size: 15px; }
   .credit { padding: 4px 14px 28px; }
+  .totop { right: 16px; bottom: 16px; width: 42px; height: 42px; }
   .cats { padding: 7px 10px; gap: 0; }
   .cats button { padding: 8px 12px; font-size: 12.5px; gap: 6px; }
   .stream__price, .stream__fmt { display: none; }
