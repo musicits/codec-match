@@ -6,23 +6,51 @@ import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
 import DeviceIcon from './DeviceIcon.jsx'
 
-function Pair({ phone, audio, linked }) {
+// 두 기기를 잇는 파형. 막대가 순서대로 커졌다 작아져 왼쪽에서 오른쪽으로
+// 신호가 건너가는 모양이 됩니다. strength 는 코덱 등급으로, 좋은 코덱일수록
+// 파형이 크게 출렁입니다.
+const BAR_COUNT = 40
+const BARS = Array.from({ length: BAR_COUNT }, (unused, index) => ({
+  base: 30 + Math.sin(index * 0.55) * 26 + (index % 3) * 6,
+  delay: -1.9 + index * 0.035,
+}))
+
+function Wave({ strength = 1, linked }) {
+  return (
+    <div className="pair__link" aria-hidden="true">
+      {BARS.map((bar, index) => (
+        <i
+          key={index}
+          style={{
+            height: `${Math.max(12, bar.base * strength)}%`,
+            animationDelay: `${bar.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function Pair({ phone, audio, linked, strength }) {
   return (
     <div className={`pair${linked ? '' : ' pair--broken'}`}>
       <figure className="pair__device">
         <DeviceIcon form={phoneForm(phone)} />
         <figcaption>{phone.name}</figcaption>
       </figure>
-      {/* key 가 바뀌면 신호 점이 한 번 다시 흐릅니다 */}
-      <div className="pair__link" key={`${phone.id}-${audio.id}`} aria-hidden="true">
-        <i />
-      </div>
+      <Wave key={`${phone.id}-${audio.id}`} strength={strength} linked={linked} />
       <figure className="pair__device">
         <DeviceIcon form={audioForm(audio)} />
         <figcaption>{audio.name}</figcaption>
       </figure>
     </div>
   )
+}
+
+/** 좋은 코덱일수록 파형을 크게 그립니다. 990kbps(LDAC) 를 1로 봅니다. */
+const waveStrength = (info, tier) => {
+  const kbps = tier?.kbps ?? info?.kbps ?? 300
+  return Math.min(1, 0.55 + (kbps / 990) * 0.45)
 }
 
 export default function ResultCard({
@@ -43,7 +71,7 @@ export default function ResultCard({
   if (!codec) {
     return (
       <div className="result result--empty">
-        <Pair phone={phone} audio={audio} linked={false} />
+        <Pair phone={phone} audio={audio} linked={false} strength={0.35} />
         <h2 className="result__codec">공통 지원 코덱이 없어요</h2>
         <p className="result__sub">다른 기기 조합을 선택해 다시 확인해 주세요.</p>
       </div>
@@ -57,7 +85,7 @@ export default function ResultCard({
 
   return (
     <div className="result" aria-live="polite">
-      <Pair phone={phone} audio={audio} linked />
+      <Pair phone={phone} audio={audio} linked strength={waveStrength(info, tier)} />
 
       <div className="result__head">
         <p className="result__label">{preview ? '다른 코덱으로 보는 중' : '이 조합의 최적 코덱'}</p>
