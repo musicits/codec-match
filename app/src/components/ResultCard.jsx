@@ -86,7 +86,9 @@ export default function ResultCard({
           verified && <span className="badge">실측 확인</span>
         )}
       </div>
-      <h2 className="result__codec">{tier?.name ?? info.name}</h2>
+      {/* 'SSC-UHQ (24bit 96kHz)' 의 괄호는 바로 아래 '음질 상한' 칸과 같은 말입니다.
+          좁은 화면에서 세 줄까지 접혀서 뗍니다. */}
+      <h2 className="result__codec">{(tier?.name ?? info.name).replace(/\s*\(.*\)$/, '')}</h2>
 
       <dl className="metrics">
         <div>

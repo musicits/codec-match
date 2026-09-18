@@ -64,7 +64,7 @@ export default function App() {
     codec === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[codec]?.kbps
   // 스트리밍 화면도 같은 머리말·지표를 씁니다 — 화면을 바꿔도 판이 어긋나지 않게.
   const titleOf = (codec) =>
-    (codec === 'SSC' ? sscTier(phone, audio).name : CODEC_INFO[codec]?.name) ?? codec
+    shortName(codec === 'SSC' ? sscTier(phone, audio).name : CODEC_INFO[codec]?.name) ?? codec
   const bitrateOf = (codec) =>
     codec === 'SSC' ? sscTier(phone, audio).bitrate : CODEC_INFO[codec]?.bitrate
   const latencyOf = (codec) => CODEC_INFO[codec]?.latency
@@ -102,6 +102,17 @@ export default function App() {
   // 코덱을 누르면 화면이 아래로 내려갑니다. 다시 올라오려고 스크롤을 감는 대신
   // 누를 자리를 하나 띄웁니다 — 한 화면 넘게 내려갔을 때만 나옵니다.
   const [showTop, setShowTop] = useState(false)
+  // 좁은 화면은 한 화면에 다 담지 않습니다 — 기기를 고르는 화면과 결과 화면을
+  // 따로 두고 단추로 오갑니다. 넓은 화면은 지금처럼 둘을 나란히 둡니다.
+  const [narrow, setNarrow] = useState(false)
+  const [showResult, setShowResult] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)')
+    const sync = () => setNarrow(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 420)
     onScroll()
@@ -163,7 +174,17 @@ export default function App() {
 
       <main>
         <div className="work">
+          {(!narrow || showResult) && (
           <section className="stage" aria-label={view === 'codec' ? '호환 결과' : '스트리밍 음질'}>
+            {narrow && (
+              <button type="button" className="backpick" onClick={() => { setShowResult(false); window.scrollTo({ top: 0 }) }}>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+                  fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 5 8 12l7 7" />
+                </svg>
+                기기 다시 고르기
+              </button>
+            )}
             {view === 'codec' ? (
               <ResultCard
                 codec={match.codec}
@@ -190,7 +211,9 @@ export default function App() {
               />
             )}
           </section>
+          )}
 
+          {(!narrow || !showResult) && (
           <aside className="rail" aria-label="기기 선택">
             <DevicePicker
               title="스마트폰"
@@ -212,7 +235,17 @@ export default function App() {
               onChange={setAudioId}
               brands={AUDIO_BRANDS}
             />
+            {narrow && (
+              <button type="button" className="golook" onClick={() => { setShowResult(true); window.scrollTo({ top: 0 }) }}>
+                {nameOf(match.codec) ? `${nameOf(match.codec)} 로 연결됩니다 — 자세히 보기` : '결과 보기'}
+                <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"
+                  fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m9 5 7 7-7 7" />
+                </svg>
+              </button>
+            )}
           </aside>
+          )}
         </div>
 
         {/* 업데이트 기록은 붙박이 설정 칸과 같은 격자에 두지 않습니다.

@@ -549,6 +549,33 @@ input { caret-color: var(--main); }
 .totop:active { transform: scale(.94); }
 @supports (corner-shape: squircle) { .totop { corner-shape: squircle; } }
 
+/* ---- 좁은 화면 전용 단추 — 기기 고르기 ↔ 결과 ---- */
+.golook {
+  margin-top: 4px; width: 100%; min-height: 52px; display: flex; align-items: center;
+  justify-content: center; gap: 6px; cursor: pointer; border: 0; border-radius: var(--r-lg);
+  font-size: 15px; font-weight: 800; color: #fff; word-break: keep-all; line-height: 1.35;
+  padding: 12px 16px;
+  background: linear-gradient(160deg, var(--main), var(--main-deep));
+  box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--main) 75%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, .35);
+  transition: transform .18s cubic-bezier(.16, 1, .3, 1);
+}
+.golook svg { flex: 0 0 auto; }
+.golook:active { transform: scale(.98); }
+@supports (corner-shape: squircle) { .golook { corner-shape: squircle; border-radius: 20px; } }
+
+.backpick {
+  display: inline-flex; align-items: center; gap: 5px; margin: 0 0 16px;
+  align-self: flex-start; white-space: nowrap; height: 34px;
+  padding: 7px 13px 7px 10px; border-radius: 999px; cursor: pointer;
+  font-size: 12.5px; font-weight: 700; color: var(--steel);
+  background: color-mix(in srgb, var(--canvas) 62%, transparent);
+  border: 1px solid var(--glass-hairline);
+  transition: color .18s ease, transform .18s cubic-bezier(.16, 1, .3, 1);
+}
+.backpick:hover { color: var(--main-deep); }
+.backpick:active { transform: scale(.96); }
+
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
@@ -680,9 +707,15 @@ input { caret-color: var(--main); }
   .topbar p { font-size: 11.5px; flex: 1 0 100%; }
   .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
-  .stage { order: 2; min-height: 0; padding: 28px 18px 24px; }
+  /* .stage 는 가운데 정렬 flex 라, 되돌아가기 단추를 넣으면 결과 판 옆에 섭니다.
+     좁은 화면에서는 세로로 세워 단추가 제 줄을 쓰게 합니다. */
+  .stage { order: 2; min-height: 0; padding: 22px 16px 24px;
+    flex-direction: column; align-items: stretch; justify-content: flex-start; }
   .bottom { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 12px; }
-  .glossary dl { flex: 0 1 auto; max-height: 420px; }
+  /* 기록은 좁은 화면에서 감춥니다 — 표가 길어 스크롤만 늘어납니다 */
+  .changelog { display: none; }
+  /* 키를 묶어 두면 목록이 판 밖으로 흘러 아래 서명과 겹칩니다. 제 길이대로 둡니다 */
+  .glossary dl { flex: 0 1 auto; max-height: none; }
   .changelog { padding: 22px 16px 24px; }
   .glossary { padding: 20px 16px 22px; }
   .glossary dl { overflow: visible; padding-right: 0; }
@@ -729,7 +762,8 @@ input { caret-color: var(--main); }
   .compare__value { grid-column: 1 / -1; text-align: left; }
   .compare__value em { display: inline; margin-left: 6px; }
   .metrics > div + div { padding-left: 12px; }
-  .metrics dd { font-size: 15px; }
+  .metrics dd { font-size: 15px; word-break: keep-all; }
+  .metrics dt { word-break: keep-all; }
   .credit { padding: 4px 14px 28px; }
   .totop { right: 16px; bottom: 16px; width: 42px; height: 42px; }
   .cats { padding: 7px 10px; gap: 0; }
