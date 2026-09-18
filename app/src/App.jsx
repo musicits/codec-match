@@ -68,6 +68,9 @@ export default function App() {
     setView(next)
     const hash = VIEWS.find((item) => item.id === next)?.hash ?? ''
     window.history.replaceState(null, '', hash || window.location.pathname)
+    // 화면을 바꾸면 맨 위부터 보여 줍니다. 스크롤을 그대로 두면 넘어가자마자
+    // 표 한가운데가 나와서 어디로 왔는지 알 수 없습니다.
+    window.scrollTo({ top: 0 })
   }
 
   // 뒤로 가기로 화면이 바뀌어도 따라갑니다.
