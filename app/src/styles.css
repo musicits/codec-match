@@ -705,7 +705,7 @@ input { caret-color: var(--main); }
   .topbar .logo { height: 19px; }
   .topbar h1 { font-size: 14.5px; padding-left: 10px; }
   .topbar p { font-size: 11.5px; flex: 1 0 100%; }
-  .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px 12px 0; }
+  .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 8px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
   /* .stage 는 가운데 정렬 flex 라, 되돌아가기 단추를 넣으면 결과 판 옆에 섭니다.
      좁은 화면에서는 세로로 세워 단추가 제 줄을 쓰게 합니다. */
@@ -728,7 +728,10 @@ input { caret-color: var(--main); }
   .log__open a::after { content: "›"; font-size: 20px; line-height: 1; color: var(--main-deep); }
   .log td, .log th { padding-right: 8px; }
   .field input, .field select { font-size: 16px; min-height: 44px; }   /* 16px 밑이면 아이폰이 입력할 때 화면을 확대한다 */
-  .grp { padding: 18px 16px; }
+  .grp { padding: 15px 16px; }
+  /* 지원 코덱·기능 칩은 감춥니다 — 고르는 칸 둘과 단추가 한 화면에 들어와야
+     합니다. 어떤 코덱으로 붙는지는 단추와 결과 화면이 말해 줍니다. */
+  .codec-list, .device-note { display: none; }
   .pair__device .device-icon { width: 64px; height: 64px; padding: 10px; border-radius: 18px; }
   .pair__link { margin-top: 8px; height: 38px; }
   /* 좁은 화면에서는 가운데 칸이 파형 폭밖에 안 돼 칩이 세로로 쌓입니다.
