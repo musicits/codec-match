@@ -733,12 +733,15 @@ input { caret-color: var(--main); }
   .pair__link { margin-top: 8px; height: 38px; }
   /* 좁은 화면에서는 가운데 칸이 파형 폭밖에 안 돼 칩이 세로로 쌓입니다.
      가운데 묶음을 풀어 칩만 아랫줄 전체를 쓰게 합니다. */
-  /* 묶음을 풀면 .pair__link 의 overflow 때문에 가운데 칸이 0 까지 줄어듭니다.
-     막대 56개 × 3px = 168px 를 최소 폭으로 줘서 파형 폭을 그대로 지킵니다. */
+  /* 양옆 칸을 아이콘 폭으로 묶고 가운데는 남는 만큼. 그러지 않으면 기기 칸이
+     200px 까지 벌어지려 해서 파형이 오른쪽 아이콘 위로 넘어갑니다. */
+  .pair { grid-template-columns: 76px minmax(0, 1fr) 76px; gap: 12px; }
   .pair__mid { display: contents; }
   .pair > .pair__device:nth-of-type(1) { grid-area: 1 / 1; }
   .pair > .pair__device:nth-of-type(2) { grid-area: 1 / 3; }
-  .pair__mid .pair__link { grid-area: 1 / 2; min-width: 168px; }
+  .pair__mid .pair__link { grid-area: 1 / 2; min-width: 0; }
+  /* 막대를 2px 로 좁혀 56개가 가운데 칸 안에 들어옵니다 */
+  .pair__link i { flex: 0 0 2px; }
   .pair__mid .picks { grid-area: 2 / 1 / 3 / -1; margin-top: 2px; }
   .pair__device figcaption { font-size: 12px; }
   .result__head { margin-top: 28px; }
