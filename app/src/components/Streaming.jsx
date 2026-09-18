@@ -4,7 +4,9 @@
 // 실제로 귀에 닿는 음질을 적습니다. 국내·해외를 갈라서 보여 주고, 표는 머리를
 // 눌러 정렬할 수 있습니다.
 import { useEffect, useState } from 'react'
-import { REGIONS, STREAMING, gradeOf, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
+import {
+  REGIONS, STREAMING, bestServices, gradeOf, heardQuality, maxQuality, parseCeiling, serviceId,
+} from '../data/streaming.js'
 import CodecPicker, { strengthsOf } from './CodecPicker.jsx'
 import DevicePair from './DevicePair.jsx'
 
@@ -20,6 +22,8 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
   const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
   const [picked, setPicked] = useState(codec)
+  // 위에서 서비스 이름을 누르면 아래 표의 그 줄로 내려가 잠깐 불이 들어옵니다.
+  const [target, setTarget] = useState(null)
   useEffect(() => { setPicked(codec) }, [codec, phone.id, audio.id])
 
   const shown = common.includes(picked) ? picked : codec
@@ -35,6 +39,30 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
   const sorted = sort ? [...rows].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : rows
   const grouped = !sort && filter === 'all'
 
+  const picks = bestServices(ceiling)
+  // CD 급에서 멈추는 코덱이면 어떤 요금제를 켜도 거기까지라, 고를 것이 없습니다.
+  const capped = ceiling && ceiling.depth <= 16 && ceiling.rate <= 48
+
+  // 해외 서비스를 눌렀는데 국내만 보고 있으면 먼저 그쪽으로 걸러 줍니다.
+  const jump = (service) => {
+    if (filter !== 'all' && filter !== service.region) setFilter(service.region)
+    setTarget(service)
+  }
+
+  useEffect(() => {
+    if (!target) return undefined
+    const row = document.getElementById(serviceId(target))
+    if (row) {
+      const style = getComputedStyle(document.documentElement)
+      const head = parseInt(style.getPropertyValue('--hh'), 10) || 60
+      const nav = parseInt(style.getPropertyValue('--nh'), 10) || 52
+      const top = row.getBoundingClientRect().top + window.scrollY - head - nav - 16
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+    const timer = setTimeout(() => setTarget(null), 1800)
+    return () => clearTimeout(timer)
+  }, [target, filter])
+
   const toggle = (key) =>
     setSort((current) =>
       current?.key === key ? (current.dir === 1 ? { key, dir: -1 } : null) : { key, dir: 1 },
@@ -42,7 +70,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
   const arrow = (key) => (sort?.key === key ? (sort.dir === 1 ? '▲' : '▼') : '⇅')
 
   const Row = ({ row }) => (
-    <tr>
+    <tr id={serviceId(row)} className={target?.name === row.name ? 'flash' : undefined}>
       <td className="stream__name">
         <b>{row.name}</b>
         <em>{row.en}</em>
@@ -63,7 +91,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
     <div className="stream">
       <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={heights[shown] ?? 0.35} best={shown === codec} />
 
-      <dl className="metrics metrics--two">
+      <dl className="metrics">
         <div>
           <dt>{shown === codec ? '연결 코덱' : '바꿔 본 코덱'}</dt>
           <dd>{shown ? nameOf?.(shown) ?? shown : '연결 불가'}</dd>
@@ -71,6 +99,22 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
         <div>
           <dt>음질 상한</dt>
           <dd>{quality ?? '—'}</dd>
+        </div>
+        <div>
+          <dt>{capped ? '서비스별 차이' : '이 상한을 채우는 서비스'}</dt>
+          <dd className="picks">
+            {capped ? (
+              <em>어느 서비스든 {quality}</em>
+            ) : picks.length === 0 ? (
+              <em>없음</em>
+            ) : (
+              picks.map((service) => (
+                <button type="button" key={service.name} onClick={() => jump(service)}>
+                  {service.name}
+                </button>
+              ))
+            )}
+          </dd>
         </div>
       </dl>
 

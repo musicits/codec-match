@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { sscTier } from '../lib/match.js'
-import { STREAMING, parseCeiling } from '../data/streaming.js'
+import { bestServices, parseCeiling } from '../data/streaming.js'
 import CodecPicker, { strengthsOf } from './CodecPicker.jsx'
 import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
@@ -16,13 +16,7 @@ import DevicePair from './DevicePair.jsx'
  */
 function Recommend({ quality, onOpen }) {
   const ceiling = parseCeiling(quality)
-  const full = ceiling
-    ? STREAMING.filter(
-        (service) => !service.lossy && service.depth >= ceiling.depth && service.rate >= ceiling.rate,
-      )
-    : []
-  const domestic = full.filter((service) => service.region === 'kr')
-  const picks = (domestic.length ? domestic : full).slice(0, 3)
+  const picks = bestServices(ceiling)
   // CD 급에서 멈추는 코덱이면 어떤 요금제를 켜도 거기까지입니다.
   const capped = ceiling && ceiling.depth <= 16 && ceiling.rate <= 48
 

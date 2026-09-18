@@ -56,6 +56,25 @@ export const STREAMING = [
   },
 ]
 
+/**
+ * 이 코덱 상한에 어울리는 서비스.
+ *
+ * '상한 아래라 그대로 들어오는 것' 이 아니라 '상한을 꽉 채우는 것' 을 고릅니다.
+ * 스포티파이(24bit 44.1kHz)가 SSC-UHQ(24bit 96kHz) 아래에 있다고 어울리는 건
+ * 아니니까요 — 그릇이 남습니다. 국내에서 결제되는 곳을 먼저 보여 줍니다.
+ */
+export const bestServices = (ceiling, limit = 3) => {
+  if (!ceiling) return []
+  const full = STREAMING.filter(
+    (service) => !service.lossy && service.depth >= ceiling.depth && service.rate >= ceiling.rate,
+  )
+  const domestic = full.filter((service) => service.region === 'kr')
+  return (domestic.length ? domestic : full).slice(0, limit)
+}
+
+/** 표의 줄과 이어 주는 고유 id. */
+export const serviceId = (service) => `svc-${service.en.toLowerCase().replace(/\s+/g, '-')}`
+
 export const REGIONS = [
   { id: 'kr', label: '국내' },
   { id: 'global', label: '해외' },
