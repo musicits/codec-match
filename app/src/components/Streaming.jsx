@@ -5,6 +5,7 @@
 // 눌러 정렬할 수 있습니다.
 import { useEffect, useState } from 'react'
 import { REGIONS, STREAMING, fits, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
+import CodecPicker from './CodecPicker.jsx'
 import DevicePair from './DevicePair.jsx'
 
 const FILTERS = [{ id: 'all', label: '전체' }, ...REGIONS]
@@ -15,7 +16,7 @@ const SORTS = {
   price: (a, b) => (a.won ?? Infinity) - (b.won ?? Infinity),
 }
 
-export default function Streaming({ codec, common = [], nameOf, qualityOf, phone, audio, strength = 1 }) {
+export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsOf, phone, audio, strength = 1 }) {
   const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
   const [picked, setPicked] = useState(codec)
@@ -60,7 +61,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, phone
 
   return (
     <div className="stream">
-      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={strength} />
+      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={strength} best={shown === codec} />
 
       <dl className="metrics metrics--two">
         <div>
@@ -73,23 +74,14 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, phone
         </div>
       </dl>
 
-      {common.length > 1 && (
-        <div className="common">
-          <span className="common__label">코덱 바꿔 보기</span>
-          {common.map((item) => (
-            <button
-              type="button"
-              key={item}
-              className={`chip chip--btn${item === shown ? ' chip--on' : ''}`}
-              aria-pressed={item === shown}
-              onClick={() => setPicked(item)}
-            >
-              {item}
-              {item === codec && <i aria-hidden="true" />}
-            </button>
-          ))}
-        </div>
-      )}
+      <CodecPicker
+        common={common}
+        codec={codec}
+        picked={shown}
+        onPick={setPicked}
+        qualityOf={qualityOf}
+        kbpsOf={kbpsOf}
+      />
 
       <div className="stream__head">
         <div>

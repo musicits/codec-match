@@ -10,6 +10,7 @@ import { brandsOf } from './data/devices.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch, sscTier } from './lib/match.js'
 import { CODEC_INFO } from './data/codecs.js'
+import { waveStrength } from './components/CodecPicker.jsx'
 
 // 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
 // 아이콘은 블로그 분석실 메뉴와 같은 자리·같은 크기로 답니다.
@@ -58,6 +59,8 @@ export default function App() {
     shortName(codec === 'SSC' ? sscTier(phone, audio).name : CODEC_INFO[codec]?.name) ?? codec
   const qualityOf = (codec) =>
     codec === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[codec]?.quality
+  const kbpsOf = (codec) =>
+    codec === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[codec]?.kbps
   // 코덱 화면 제목이 'SSC-UHQ (24bit 96kHz)' 면 스트리밍 화면도 같은 이름을 씁니다.
   // 뒤 괄호는 음질 상한 칸과 같은 말이라 떼고 씁니다.
 
@@ -146,9 +149,10 @@ export default function App() {
                 common={match.common}
                 nameOf={nameOf}
                 qualityOf={qualityOf}
+                kbpsOf={kbpsOf}
                 phone={phone}
                 audio={audio}
-                strength={Math.min(1, 0.55 + ((CODEC_INFO[match.codec]?.kbps ?? 300) / 990) * 0.45)}
+                strength={waveStrength(kbpsOf(match.codec))}
               />
             )}
           </section>

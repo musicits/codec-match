@@ -12,14 +12,14 @@ const BARS = Array.from({ length: BAR_COUNT }, (unused, index) => ({
   delay: -1.9 + index * 0.035,
 }))
 
-function Wave({ strength = 1, linked }) {
+function Wave({ strength = 1, best = true }) {
   return (
-    <div className="pair__link" aria-hidden="true">
+    <div className={`pair__link${best ? '' : ' pair__link--other'}`} aria-hidden="true">
       {BARS.map((bar, index) => (
         <i
           key={index}
           style={{
-            height: `${Math.max(12, bar.base * strength)}%`,
+            height: `${8 + bar.base * strength * 1.3}%`,
             animationDelay: `${bar.delay}s`,
           }}
         />
@@ -28,14 +28,14 @@ function Wave({ strength = 1, linked }) {
   )
 }
 
-export default function DevicePair({ phone, audio, linked, strength }) {
+export default function DevicePair({ phone, audio, linked, strength, best = true }) {
   return (
     <div className={`pair${linked ? '' : ' pair--broken'}`}>
       <figure className="pair__device">
         <DeviceIcon form={phoneForm(phone)} />
         <figcaption>{phone.name}</figcaption>
       </figure>
-      <Wave key={`${phone.id}-${audio.id}`} strength={strength} linked={linked} />
+      <Wave key={`${phone.id}-${audio.id}`} strength={strength} best={best} />
       <figure className="pair__device">
         <DeviceIcon form={audioForm(audio)} />
         <figcaption>{audio.name}</figcaption>

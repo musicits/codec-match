@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { sscTier } from '../lib/match.js'
 import { STREAMING, parseCeiling } from '../data/streaming.js'
+import CodecPicker, { waveStrength } from './CodecPicker.jsx'
 import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
 import DevicePair from './DevicePair.jsx'
@@ -42,11 +43,8 @@ function Recommend({ quality, onOpen }) {
   )
 }
 
-/** 좋은 코덱일수록 파형을 크게 그립니다. 990kbps(LDAC) 를 1로 봅니다. */
-const waveStrength = (info, tier) => {
-  const kbps = tier?.kbps ?? info?.kbps ?? 300
-  return Math.min(1, 0.55 + (kbps / 990) * 0.45)
-}
+/** 좋은 코덱일수록 파형이 크게 출렁입니다. 등급 차이가 눈에 띄도록 폭을 넓게 잡습니다. */
+const strengthOf = (info, tier) => waveStrength(tier?.kbps ?? info?.kbps)
 
 export default function ResultCard({
   codec,
@@ -81,7 +79,7 @@ export default function ResultCard({
 
   return (
     <div className="result" aria-live="polite">
-      <DevicePair phone={phone} audio={audio} linked strength={waveStrength(info, tier)} />
+      <DevicePair phone={phone} audio={audio} linked strength={strengthOf(info, tier)} best={!preview} />
 
       <div className="result__head">
         <p className="result__label">{preview ? '다른 코덱으로 보는 중' : '이 조합의 최적 코덱'}</p>
@@ -153,21 +151,14 @@ export default function ResultCard({
         </p>
       )}
 
-      <div className="common">
-        <span className="common__label">공통 지원</span>
-        {common.map((item) => (
-          <button
-            type="button"
-            key={item}
-            className={`chip chip--btn${item === shown ? ' chip--on' : ''}`}
-            aria-pressed={item === shown}
-            onClick={() => setPicked(item)}
-          >
-            {item}
-            {item === codec && <i aria-hidden="true" />}
-          </button>
-        ))}
-      </div>
+      <CodecPicker
+        common={common}
+        codec={codec}
+        picked={shown}
+        onPick={setPicked}
+        qualityOf={(item) => (item === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[item]?.quality)}
+        kbpsOf={(item) => (item === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[item]?.kbps)}
+      />
 
       <CodecCompare
         common={common}
