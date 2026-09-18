@@ -23,12 +23,12 @@ function Recommend({ quality, onOpen }) {
   return (
     <section className="recommend">
       <div>
-        <p className="recommend__label">{capped ? '이 조합의 스트리밍 음질' : `${quality} 지원 서비스`}</p>
+        <p className="recommend__label">{capped ? '이 조합의 스트리밍 음질' : `${quality} 서비스`}</p>
         <p className="recommend__body">
           {picks.length === 0
             ? '공통 코덱 없음'
             : capped
-              ? `어느 서비스든 ${quality}`
+              ? `${quality} · 전 서비스 동일`
               : picks.map((service) => service.name).join(' · ')}
         </p>
       </div>
