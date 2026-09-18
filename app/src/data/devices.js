@@ -13,7 +13,7 @@ export const slugify = (value) =>
 
 /**
  * 스마트폰 한 대.
- * seamless: 삼성 심리스 코덱(Scalable 상위 등급) 협상이 가능한 기기인지. 삼성 기기에만 의미가 있습니다.
+ * seamless: 삼성 Seamless 코덱(Scalable 상위 등급) 협상이 가능한 기기인지. 삼성 기기에만 의미가 있습니다.
  * note: 기기 선택란에 함께 보여줄 한 줄 주석. (출시 예정·내수 전용처럼 코덱 표기 밖의 사정)
  */
 export const phone = (

@@ -37,7 +37,7 @@ export function resolveMatch(phone, audioDevice) {
   return { codec: common[0] ?? null, common, lc3Available, losslessAvailable }
 }
 
-/** SSC 는 폰의 심리스 지원 여부와 이어폰 등급에 따라 표시가 달라집니다. */
+/** SSC 는 폰의 Seamless 지원 여부와 이어폰 등급에 따라 표시가 달라집니다. */
 export function sscTier(phone, audioDevice) {
   if (!phone.seamless) {
     return { id: 'scalable', name: 'SSC (16bit 44.1kHz)', quality: '16bit 44.1kHz', kbps: 512, bitrate: '최대 512 kbps', note: '' }

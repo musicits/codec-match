@@ -205,10 +205,10 @@ export const CODEC_TIERS = {
     ],
   },
   SSC: {
-    label: '삼성 심리스 코덱 등급',
+    label: '삼성 SSC 코덱 등급',
     rows: [
       { id: 'uhq', name: 'SSC-UHQ', quality: '24bit 96kHz', value: '고음질 설정 필요' },
-      { id: 'hifi', name: 'SSC Hi-Fi (심리스)', quality: '24bit 48kHz', value: '최대 2,304 kbps' },
+      { id: 'hifi', name: 'SSC Hi-Fi', quality: '24bit 48kHz', value: '최대 2,304 kbps' },
       { id: 'scalable', name: 'SSC Scalable', quality: '16bit 44.1kHz', value: '88–512 kbps 가변' },
     ],
   },

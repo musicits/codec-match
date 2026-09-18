@@ -63,8 +63,9 @@ export default function CodecPicker({ common, codec, picked, onPick, qualityOf, 
   if (!common?.length) return null
   const heights = strengthsOf(common, codec)
 
-  // 카드는 화면 아래쪽에 있습니다. 눌러 놓고 위를 못 보면 무엇이 바뀌었는지 알 수 없어
-  // 결과 판 머리로 부드럽게 올려 줍니다.
+  // 카드는 화면 아래쪽에 있습니다. 표까지 내려간 채로 누르면 무엇이 바뀌었는지
+  // 알 수 없어 결과 판 머리로 올려 줍니다. 올리기만 하고 내리지는 않습니다 —
+  // 이미 위에 있는데 내려가면 화면이 까닭 없이 흔들립니다.
   const pick = (item) => {
     onPick(item)
     const stage = document.querySelector('.stage')
@@ -73,7 +74,7 @@ export default function CodecPicker({ common, codec, picked, onPick, qualityOf, 
     const head = parseInt(style.getPropertyValue('--hh'), 10) || 60
     const nav = parseInt(style.getPropertyValue('--nh'), 10) || 52
     const top = stage.getBoundingClientRect().top + window.scrollY - head - nav - 12
-    window.scrollTo({ top, behavior: 'smooth' })
+    if (window.scrollY > top + 2) window.scrollTo({ top, behavior: 'smooth' })
   }
 
   return (
