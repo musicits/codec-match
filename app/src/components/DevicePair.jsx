@@ -6,20 +6,27 @@ import { audioForm, phoneForm } from '../lib/form.js'
 // 두 기기를 잇는 파형. 막대가 순서대로 커졌다 작아져 왼쪽에서 오른쪽으로
 // 신호가 건너가는 모양이 됩니다. strength 는 코덱 등급으로, 좋은 코덱일수록
 // 파형이 크게 출렁입니다.
-const BAR_COUNT = 40
+const BAR_COUNT = 56
+// 사인파 둘을 겹쳐 굴곡을 크게 만듭니다. 한 줄짜리 사인파는 너무 얌전합니다.
 const BARS = Array.from({ length: BAR_COUNT }, (unused, index) => ({
-  base: 30 + Math.sin(index * 0.55) * 26 + (index % 3) * 6,
-  delay: -1.9 + index * 0.035,
+  base: 24 + Math.sin(index * 0.42) * 30 + Math.sin(index * 1.31) * 14 + (index % 4) * 7,
+  delay: -1.9 + index * 0.026,
 }))
 
 function Wave({ strength = 1, best = true }) {
+  // 등급 차이를 제곱으로 벌립니다 — AAC 와 SSC-UHQ 가 확연히 달라 보이게.
+  const scale = Math.pow(strength, 1.4)
   return (
-    <div className={`pair__link${best ? '' : ' pair__link--other'}`} aria-hidden="true">
+    <div
+      className={`pair__link${best ? '' : ' pair__link--other'}`}
+      style={{ '--wave-speed': `${2.9 - strength * 1.1}s` }}
+      aria-hidden="true"
+    >
       {BARS.map((bar, index) => (
         <i
           key={index}
           style={{
-            height: `${8 + bar.base * strength * 1.3}%`,
+            height: `${Math.min(100, 5 + bar.base * scale * 1.6)}%`,
             animationDelay: `${bar.delay}s`,
           }}
         />

@@ -472,7 +472,7 @@ input { caret-color: var(--main); }
 .codecard.best.on { outline: 2px solid color-mix(in srgb, var(--main) 45%, transparent); outline-offset: 2px; }
 
 /* 카드 안 작은 파형 — 코덱 등급이 높을수록 크게 그려집니다 */
-.mini { display: flex; align-items: center; justify-content: space-between; gap: 0; height: 26px; }
+.mini { display: flex; align-items: center; justify-content: space-between; gap: 0; height: 30px; }
 .mini i { flex: 0 0 2px; border-radius: 999px; background: color-mix(in srgb, var(--stone) 55%, transparent); }
 .codecard.on:not(.best) .mini i { background: var(--main); }
 .codecard.best .mini i { animation: minipulse 1.8s ease-in-out infinite; transform-origin: 50% 50%; }
@@ -601,7 +601,7 @@ input { caret-color: var(--main); }
   .field input, .field select { font-size: 16px; min-height: 44px; }   /* 16px 밑이면 아이폰이 입력할 때 화면을 확대한다 */
   .grp { padding: 18px 16px; }
   .pair__device .device-icon { width: 64px; height: 64px; padding: 10px; border-radius: 18px; }
-  .pair__link { margin-top: 19px; height: 22px; }
+  .pair__link { margin-top: 12px; height: 34px; }
   .pair__device figcaption { font-size: 12px; }
   .result__head { margin-top: 28px; }
   .metrics { grid-template-columns: 1fr 1fr; }

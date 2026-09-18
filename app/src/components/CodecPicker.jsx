@@ -4,7 +4,8 @@
 // 그려 두어, 누르기 전에도 어느 쪽이 큰 소리를 담는지 눈에 보입니다.
 import { CODEC_INFO } from '../data/codecs.js'
 
-const MINI = Array.from({ length: 22 }, (unused, index) => 40 + Math.sin(index * 0.7) * 34 + (index % 3) * 10)
+const MINI = Array.from({ length: 26 }, (unused, index) =>
+  30 + Math.sin(index * 0.62) * 34 + Math.sin(index * 1.7) * 14 + (index % 4) * 8)
 
 /** 코덱 등급을 0.22~1 사이로 옮깁니다. 로그를 쓰는 건 SBC 와 LDAC 이 붙어 보이지 않게 하려고요. */
 export const waveStrength = (kbps = 300) => {
@@ -13,10 +14,11 @@ export const waveStrength = (kbps = 300) => {
 }
 
 function MiniWave({ strength }) {
+  const scale = Math.pow(strength, 1.4)
   return (
     <span className="mini" aria-hidden="true">
       {MINI.map((height, index) => (
-        <i key={index} style={{ height: `${12 + height * strength}%` }} />
+        <i key={index} style={{ height: `${Math.min(100, 8 + height * scale * 1.5)}%` }} />
       ))}
     </span>
   )
