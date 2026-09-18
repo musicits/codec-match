@@ -288,7 +288,9 @@ input { caret-color: var(--main); }
 .changelog h2 { margin: 0 0 18px; font-size: 18px; font-weight: 700; }
 
 /* 업데이트 기록 표 — 버전마다 한 줄, 누르면 펼쳐집니다 */
-.log { width: 100%; border-collapse: collapse; }
+/* 판이 넓어 표가 다 늘어나면 내역과 '열어보기' 가 멀찍이 떨어집니다.
+   폭을 묶고 가운데로 모아 눈이 따라가기 쉽게 둡니다. */
+.log { width: 100%; max-width: 940px; margin: 0 auto; border-collapse: collapse; }
 .log th { text-align: left; padding: 0 12px 8px 0; border-bottom: 1px solid var(--line);
   font-size: 11.5px; font-weight: 600; color: var(--stone); white-space: nowrap; }
 .log td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line);
@@ -302,7 +304,7 @@ input { caret-color: var(--main); }
 .log__date { width: 74px; color: var(--steel); font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .log__num { width: 92px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .log__num em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 700; color: var(--main-deep); }
-.log__open { width: 82px; text-align: right; white-space: nowrap; }
+.log__open { width: 88px; text-align: right; white-space: nowrap; }
 .log__open a { color: var(--main-deep); font-weight: 600; font-size: 12px; text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--main) 35%, transparent); }
 .log__open a:hover { border-bottom-color: var(--main); }
@@ -313,6 +315,21 @@ input { caret-color: var(--main); }
 .log details ul { margin: 8px 0 2px; padding-left: 16px; }
 .log details li { font-size: 12.5px; line-height: 1.7; color: var(--steel); word-break: keep-all; }
 .log details li::marker { color: var(--stone); }
+
+/* 기록 쪽 넘기기 — 블로그 분석실 순위표와 같은 모양 */
+.log-page { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; }
+.log-page__btns { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.log-page button {
+  min-width: 30px; height: 30px; padding: 0 9px; border-radius: var(--r-md); cursor: pointer;
+  font-size: 12.5px; font-weight: 600; color: var(--steel); font-variant-numeric: tabular-nums;
+  background: color-mix(in srgb, var(--canvas) 62%, transparent); border: 1px solid var(--glass-hairline);
+  transition: transform .16s cubic-bezier(.16, 1, .3, 1), background-color .16s ease, border-color .16s ease;
+}
+.log-page button:hover:not(:disabled) { color: var(--main-deep); border-color: color-mix(in srgb, var(--main) 40%, transparent); }
+.log-page button:active:not(:disabled) { transform: scale(.96); }
+.log-page button.on { color: var(--main-deep); background: var(--tint); border-color: color-mix(in srgb, var(--main) 40%, transparent); }
+.log-page button:disabled { opacity: .38; cursor: not-allowed; }
+.log-page__count { margin: 0; font-size: 12px; color: var(--stone); font-variant-numeric: tabular-nums; }
 
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
