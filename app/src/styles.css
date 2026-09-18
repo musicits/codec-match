@@ -655,10 +655,6 @@ input { caret-color: var(--main); }
 .story .disclaimer { margin-top: 18px; }
 .story section .result__head { margin-top: 32px; }
 .story__note { margin: 6px 0 0; font-size: 12.5px; color: var(--stone); word-break: keep-all; }
-.story__marks { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 5px; }
-.story__marks span { padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
-  color: var(--slate); background: color-mix(in srgb, var(--canvas) 78%, transparent);
-  border: 1px solid var(--glass-hairline); }
 .story__aside { margin: 8px 0 0; padding-left: 10px; font-size: 12.5px; line-height: 1.7;
   color: var(--stone); word-break: keep-all;
   border-left: 2px solid color-mix(in srgb, var(--main) 30%, transparent); }
@@ -822,3 +818,31 @@ input { caret-color: var(--main); }
   .stage::before, .rail::before, .changelog::before, .topbar::after { display: none; }
   body { background: var(--surface-soft); }
 }
+
+/* 용어 설명은 코덱 이야기 안으로 들어왔습니다 (머리말 물음표는 없앴습니다) */
+.story__terms { margin: 14px 0 0; display: grid; gap: 12px; padding: 16px 18px;
+  border-radius: var(--r-lg); background: color-mix(in srgb, var(--canvas) 55%, transparent);
+  border: 1px solid var(--glass-hairline); }
+.story__terms dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
+.story__terms dt em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--stone); }
+.story__terms dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--steel); word-break: keep-all; }
+
+/* 코덱 이야기 안의 보기용 파형 — 기기 사이 파형과 같은 막대를 씁니다 */
+.story__demo { margin: 12px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.story__demo > div { padding: 12px 14px 10px; border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--canvas) 70%, transparent);
+  border: 1px solid var(--glass-hairline); }
+.story__demo span { display: block; margin-top: 8px; text-align: center;
+  font-size: 11.5px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; }
+.storywave { height: 52px; margin: 0; }
+
+/* 코덱 이야기 안의 보기용 파형 — 기기 사이 파형과 같은 막대를 씁니다 */
+.story__demo { margin: 10px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.story__demo > div { padding: 10px 12px 8px; border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--canvas) 72%, transparent);
+  border: 1px solid var(--glass-hairline); }
+.story__demo span { display: block; margin-top: 6px; text-align: center;
+  font-size: 11.5px; font-weight: 700; color: var(--steel); font-variant-numeric: tabular-nums; }
+.storywave { height: 46px; margin: 0; }
+/* 보기용 파형은 움직이지 않습니다 — 막대 높이가 곧 설명이라 흔들리면 안 됩니다 */
+.storywave i { animation: none; opacity: 1; }

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Changelog from './components/Changelog.jsx'
-import Glossary from './components/Glossary.jsx'
 import ToolSwitch from './components/ToolSwitch.jsx'
 import Streaming from './components/Streaming.jsx'
+import Story from './components/Story.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { PHONES } from './data/phones.js'
@@ -33,6 +33,12 @@ const VIEWS = [
         <circle cx="16.5" cy="16" r="2.5" />
       </>
     ),
+  },
+  {
+    id: 'story',
+    name: '코덱 이야기',
+    hash: '#story',
+    icon: <><circle cx="12" cy="12" r="9" /><path d="M12 16v-4.5" /><path d="M12 8h.01" /></>,
   },
 ]
 
@@ -152,8 +158,6 @@ export default function App() {
           {/* 도구 모음 첫 화면과 같은 자리·같은 모양 */}
           <a className="topbar__blog" href={BLOG.url} target="_blank" rel="author noopener">블로그</a>
           <ToolSwitch />
-          {/* 용어 설명 — 폰 목업·매거진 커버의 도움말 단추와 같은 자리입니다 */}
-          <Glossary />
         </div>
       </header>
 
@@ -188,7 +192,9 @@ export default function App() {
                 기기 다시 고르기
               </button>
             )}
-            {view === 'codec' ? (
+            {view === 'story' ? (
+              <Story />
+            ) : view === 'codec' ? (
               <ResultCard
                 codec={match.codec}
                 common={match.common}
