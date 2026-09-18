@@ -1,14 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Changelog from './components/Changelog.jsx'
 import Glossary from './components/Glossary.jsx'
+import Streaming from './components/Streaming.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
-import { CURRENT_VERSION } from './data/changelog.js'
 import { PHONES } from './data/phones.js'
 import { AUDIO_DEVICES } from './data/audio.js'
 import { brandsOf } from './data/devices.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
-import { isVerified, resolveMatch } from './lib/match.js'
+import { isVerified, resolveMatch, sscTier } from './lib/match.js'
+import { CODEC_INFO } from './data/codecs.js'
+
+// 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
+const VIEWS = [
+  { id: 'codec', name: '코덱 매치', hash: '' },
+  { id: 'stream', name: '스트리밍 음질', hash: '#streaming' },
+]
 
 const PHONE_BRANDS = brandsOf(PHONES)
 const AUDIO_BRANDS = brandsOf(AUDIO_DEVICES)
@@ -18,9 +25,30 @@ export default function App() {
   const [audioId, setAudioId] = useState(AUDIO_DEVICES[0].id)
   const headRef = useRef(null)
 
+  const [view, setView] = useState(() =>
+    typeof window !== 'undefined' && window.location.hash === '#streaming' ? 'stream' : 'codec',
+  )
   const phone = PHONES.find((device) => device.id === phoneId) ?? PHONES[0]
   const audio = AUDIO_DEVICES.find((device) => device.id === audioId) ?? AUDIO_DEVICES[0]
   const match = useMemo(() => resolveMatch(phone, audio), [phone, audio])
+
+  // 스트리밍 화면이 견줄 상한. SSC 는 등급에 따라 달라집니다.
+  const quality = match.codec === 'SSC'
+    ? sscTier(phone, audio).quality
+    : CODEC_INFO[match.codec]?.quality
+
+  const openView = (next) => {
+    setView(next)
+    const hash = VIEWS.find((item) => item.id === next)?.hash ?? ''
+    window.history.replaceState(null, '', hash || window.location.pathname)
+  }
+
+  // 뒤로 가기로 화면이 바뀌어도 따라갑니다.
+  useEffect(() => {
+    const sync = () => setView(window.location.hash === '#streaming' ? 'stream' : 'codec')
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [])
 
   // 고른 스마트폰 제조사에 따라 주색을 바꿉니다: 애플 에메랄드 · 삼성 블루 · 그 밖 앰버
   useEffect(() => {
@@ -49,18 +77,37 @@ export default function App() {
             폰 목업·매거진 커버·루트 랜딩까지 같은 목록을 붙인 다음 셋을 한꺼번에 켭니다. */}
       </header>
 
+      <nav className="cats" aria-label="화면 고르기">
+        {VIEWS.map((item) => (
+          <button
+            type="button"
+            key={item.id}
+            className={item.id === view ? 'on' : undefined}
+            aria-current={item.id === view ? 'page' : undefined}
+            onClick={() => openView(item.id)}
+          >
+            {item.name}
+          </button>
+        ))}
+      </nav>
+
       <main>
         <div className="work">
-          <section className="stage" aria-label="호환 결과">
-            <ResultCard
-              codec={match.codec}
-              common={match.common}
-              lc3Available={match.lc3Available}
-              losslessAvailable={match.losslessAvailable}
-              verified={isVerified(phoneId, audioId)}
-              phone={phone}
-              audio={audio}
-            />
+          <section className="stage" aria-label={view === 'codec' ? '호환 결과' : '스트리밍 음질'}>
+            {view === 'codec' ? (
+              <ResultCard
+                codec={match.codec}
+                common={match.common}
+                lc3Available={match.lc3Available}
+                losslessAvailable={match.losslessAvailable}
+                verified={isVerified(phoneId, audioId)}
+                phone={phone}
+                audio={audio}
+                onOpenStreaming={() => openView('stream')}
+              />
+            ) : (
+              <Streaming codec={match.codec} quality={quality} phone={phone} audio={audio} />
+            )}
           </section>
 
           <aside className="rail" aria-label="기기 선택">
@@ -68,6 +115,7 @@ export default function App() {
               title="스마트폰"
               formOf={phoneForm}
               forms={PHONE_FORMS}
+              formLabel="모양"
               devices={PHONES}
               selectedId={phoneId}
               onChange={setPhoneId}
@@ -77,6 +125,7 @@ export default function App() {
               title="이어폰 · 헤드폰"
               formOf={audioForm}
               forms={AUDIO_FORMS}
+              formLabel="종류"
               devices={AUDIO_DEVICES}
               selectedId={audioId}
               onChange={setAudioId}
@@ -94,7 +143,7 @@ export default function App() {
       </main>
 
       <footer className="credit">
-        <p>코덱 매치 {CURRENT_VERSION} · 제조사 공개 사양 기준</p>
+        <p>코덱 매치 · 제조사 공개 사양 기준</p>
         <p>
           Crafted by{' '}
           {/* rel 에 noreferrer 를 넣지 않습니다. 넣으면 블로그 유입 통계에 출처가 안 잡힙니다. */}

@@ -3,7 +3,7 @@ import { codecsOf } from '../data/codecs.js'
 import { filterDevices } from '../lib/match.js'
 import DeviceIcon from './DeviceIcon.jsx'
 
-export default function DevicePicker({ title, formOf, forms = [], devices, selectedId, onChange, brands }) {
+export default function DevicePicker({ title, formLabel = '형태', formOf, forms = [], devices, selectedId, onChange, brands }) {
   const [query, setQuery] = useState('')
   const [brand, setBrand] = useState('')
   const [form, setForm] = useState('')
@@ -92,9 +92,9 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
 
         {options.length > 1 && (
           <label className="field">
-            <span className="sr-only">{title} 형태 선택</span>
+            <span className="sr-only">{title} {formLabel} 선택</span>
             <select value={form} onChange={(event) => handleForm(event.target.value)}>
-              <option value="">형태 전체</option>
+              <option value="">{formLabel} 전체</option>
               {options.map((item) => (
                 <option key={item.id} value={item.id}>{item.label}</option>
               ))}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { audioForm, phoneForm } from '../lib/form.js'
 import { sscTier } from '../lib/match.js'
+import { STREAMING, fits, parseCeiling } from '../data/streaming.js'
 import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
 import DeviceIcon from './DeviceIcon.jsx'
@@ -28,6 +29,27 @@ function Wave({ strength = 1, linked }) {
         />
       ))}
     </div>
+  )
+}
+
+/** 지금 코덱이 그대로 담아내는 스트리밍 서비스를 몇 곳만 걸어 둡니다. */
+function Recommend({ quality, onOpen }) {
+  const ceiling = parseCeiling(quality)
+  const kept = STREAMING.filter((service) => fits(service, ceiling))
+  const best = kept.filter((service) => !service.lossy)
+
+  return (
+    <section className="recommend">
+      <div>
+        <p className="recommend__label">이 조합에 어울리는 스트리밍</p>
+        <p className="recommend__body">
+          {best.length > 0
+            ? `${best.slice(0, 3).map((service) => service.name).join(' · ')} 는 원본이 그대로 건너갑니다`
+            : '무손실 서비스는 모두 깎여서 들어옵니다 · 손실 압축 서비스로도 차이가 크지 않습니다'}
+        </p>
+      </div>
+      <button type="button" onClick={onOpen}>스트리밍 음질 보기 →</button>
+    </section>
   )
 }
 
@@ -61,6 +83,7 @@ export default function ResultCard({
   audio,
   lc3Available,
   losslessAvailable,
+  onOpenStreaming,
 }) {
   // 공통 코덱 칩을 누르면 그 코덱 기준으로 카드를 다시 그립니다.
   // 기기를 바꾸면 실제 협상될 코덱으로 되돌립니다.
@@ -181,6 +204,10 @@ export default function ResultCard({
         onMetric={setMetric}
         tierOf={() => sscTier(phone, audio)}
       />
+
+      {/* 코덱만 좋아도 소용없고 앱이 보내는 원본도 그만큼 돼야 합니다. 여기서는
+          한 줄만 걸고 자세한 것은 스트리밍 음질 화면으로 넘깁니다. */}
+      <Recommend quality={tier?.quality ?? info.quality} onOpen={onOpenStreaming} />
 
       <p className="disclaimer">제조사 공식 스펙 기준 예상값이며 OS 버전·설정에 따라 달라질 수 있습니다</p>
     </div>
