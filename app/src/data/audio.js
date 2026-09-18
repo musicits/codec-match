@@ -6,6 +6,14 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2026, '삼성', 'ssc_le', ['갤럭시 버즈4', '갤럭시 버즈4 프로'], { sscMax: 'uhq' }),
   // 5세대부터 일반·무선충전 모델 모두 ANC 기본 탑재. 코덱은 여전히 SBC/AAC 입니다.
   audio(2026, '애플', 'aac', '에어팟 5'),
+  audio(2026, '애플', 'aac', '에어팟 맥스 2', {
+    note: '무손실 24bit 48kHz 는 USB-C 유선에서만 · 블루투스는 AAC',
+  }),
+  // XM4 를 블루투스 6.0 으로 되살린 모델. LE Audio·LC3 는 출시 시점에 빠졌습니다.
+  audio(2026, '소니', 'ldac', 'WH-1000XM4C', { note: '블루투스 6.0 · LE Audio(LC3) 는 미지원' }),
+  audio(2026, '화웨이', 'ldac_l2hc', '프리버즈 프로 5', {
+    note: 'L2HC 4.0 은 화웨이 폰·태블릿 조합에서만',
+  }),
   audio(2026, '소니', 'ldac_le', 'WF-1000XM6'),
   audio(2026, '낫싱', 'ldac', 'Ear (3a)'),
   ...audioGroup(2026, '앤커', 'ldac', ['사운드코어 리버티 5 프로 맥스', '사운드코어 리버티 5 프로']),

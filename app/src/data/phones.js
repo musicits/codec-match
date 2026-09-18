@@ -8,6 +8,9 @@ export const PHONES = [
     '갤럭시 Z 폴드8', '갤럭시 Z 폴드8 울트라', '갤럭시 Z 플립8',
   ], { seamless: true }),
   ...phoneGroup(2026, '애플', 'iphone', ['아이폰 18 프로', '아이폰 18 프로 맥스']),
+  phone(2026, '애플', 'iphone', '아이폰 듀오', { note: '10월 16일 예약 · 10월 23일 국내 출시' }),
+  // 파인드 N6 는 전작과 달리 aptX Adaptive 까지 지원합니다.
+  phone(2026, '오포', 'snapdragon_flagship', '파인드 N6'),
 
   // 2025
   ...phoneGroup(2025, '애플', 'iphone', [
@@ -16,6 +19,9 @@ export const PHONES = [
   ...phoneGroup(2025, '삼성', 'galaxy_le', [
     '갤럭시 S25', '갤럭시 S25+', '갤럭시 S25 울트라', '갤럭시 S25 엣지', '갤럭시 Z 폴드7', '갤럭시 Z 플립7',
   ], { seamless: true }),
+  // 메이트 X7 은 2025년 12월 중국 출시입니다. 기린 칩이라 aptX 계열이 없고 LDAC·L2HC 위주입니다.
+  phone(2025, '화웨이', 'kirin_l2hc', '메이트 X7', { note: 'L2HC 는 화웨이 이어폰 조합에서만 협상됩니다' }),
+  phone(2025, '오포', 'snapdragon_lhdc', '파인드 N5'),
   ...phoneGroup(2025, '구글', 'pixel_le', [
     '픽셀 10', '픽셀 10 프로', '픽셀 10 프로 XL', '픽셀 10 프로 폴드', '픽셀 9a',
   ]),
@@ -41,6 +47,8 @@ export const PHONES = [
   // 14 프로는 aptX Adaptive 까지만 잡히는 사례가 보고돼 플래그를 달지 않았습니다.
   ...phoneGroup(2024, '샤오미', 'snapdragon_flagship', ['샤오미 14', '샤오미 14 프로']),
   phone(2024, '샤오미', 'snapdragon_flagship', '샤오미 14 울트라', { aptxLossless: true }),
+  phone(2024, '샤오미', 'snapdragon_flagship', 'MIX 폴드4', { note: '중국 내수 전용 모델' }),
+  phone(2024, '샤오미', 'snapdragon_flagship', 'MIX 플립'),
   ...phoneGroup(2024, '소니', 'xperia_le', ['엑스페리아 1 VI', '엑스페리아 10 VI']),
   // 디멘시티 7200 Pro 탑재라 aptX 계열이 빠지고 LDAC·LHDC 위주입니다.
   ...phoneGroup(2024, '낫싱', 'mediatek_hires', ['낫싱 폰 (2a)', '낫싱 폰 (2a) 플러스']),

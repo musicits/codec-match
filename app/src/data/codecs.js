@@ -6,6 +6,7 @@
 // 협상 우선순위. 양쪽이 공통으로 지원하는 코덱 중 이 순서에서 가장 앞선 것이 선택됩니다.
 export const CODEC_PRIORITY = [
   'SSC',
+  'L2HC',
   'LDAC',
   'LHDC',
   'aptX Adaptive',
@@ -48,6 +49,12 @@ export const CODEC_INFO = {
     latency: '약 50–80 ms',
     fallback: '전파 환경에 따라 비트레이트가 실시간으로 조정되며, 조건이 무너지면 AAC·SBC로 전환될 때',
   },
+  L2HC: {
+    name: 'L2HC (화웨이 코덱)',
+    bitrate: '320–960 kbps 가변 · L2HC 4.0 무손실은 최대 2.3 Mbps',
+    latency: '약 90–150 ms',
+    fallback: '화웨이 폰·태블릿(EMUI 15·하모니OS) 조합에서만 협상되며, 조건이 안 맞으면 LDAC·AAC 로 내려갈 때',
+  },
   LDAC: {
     name: 'LDAC',
     bitrate: '최대 990 kbps',
@@ -87,6 +94,10 @@ export const PHONE_CODEC_SETS = {
   mediatek_hires: ['SBC', 'AAC', 'LDAC', 'LHDC', 'LC3'],
   xperia_le: ['SBC', 'AAC', 'aptX', 'aptX HD', 'aptX Adaptive', 'LDAC', 'LC3'],
   lg_legacy: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC'],
+  // 기린 칩은 퀄컴 aptX 라이선스가 없어 LDAC 과 자체 코덱 L2HC 위주입니다 (화웨이 메이트 X7 등)
+  kirin_l2hc: ['SBC', 'AAC', 'LDAC', 'L2HC'],
+  // aptX Adaptive 없이 aptX HD 까지만 되는 LHDC 조합 (오포 파인드 N5)
+  snapdragon_lhdc: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC', 'LHDC'],
 }
 
 // aptX Lossless 는 aptX Adaptive 의 상위 모드라 별도 코덱으로 나누지 않고
@@ -101,6 +112,7 @@ export const AUDIO_CODEC_SETS = {
   ldac_le: ['SBC', 'AAC', 'LDAC', 'LC3'],
   lhdc: ['SBC', 'AAC', 'LHDC'],
   ldac_lhdc: ['SBC', 'AAC', 'LDAC', 'LHDC'],
+  ldac_l2hc: ['SBC', 'AAC', 'LDAC', 'L2HC'],
   aptx_classic: ['SBC', 'AAC', 'aptX'],
   aptx_adaptive: ['SBC', 'AAC', 'aptX', 'aptX Adaptive'],
   aptx_adaptive_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LC3'],
