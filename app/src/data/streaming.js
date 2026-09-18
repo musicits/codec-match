@@ -30,7 +30,7 @@ export const STREAMING = [
   {
     region: 'kr', name: '애플 뮤직', en: 'Apple Music', won: 8900,
     depth: 24, rate: 192, format: 'ALAC', price: '월 8,900원',
-    maxNote: '무손실 24bit 48kHz · 하이레조 24bit 192kHz',
+    maxNote: '무손실 24bit 48kHz · Hi-Res 24bit 192kHz',
   },
   {
     region: 'kr', name: '스포티파이', en: 'Spotify', won: 11990,

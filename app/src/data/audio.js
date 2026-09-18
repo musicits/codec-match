@@ -7,12 +7,12 @@ export const AUDIO_DEVICES = [
   // 5세대부터 일반·무선충전 모델 모두 ANC 기본 탑재. 코덱은 여전히 SBC/AAC 입니다.
   audio(2026, '애플', 'aac', '에어팟 5'),
   audio(2026, '애플', 'aac', '에어팟 맥스 2', {
-    note: '무손실 24bit 48kHz 는 USB-C 유선에서만 · 블루투스는 AAC',
+    note: '무손실은 USB-C 유선에서만',
   }),
   // XM4 를 블루투스 6.0 으로 되살린 모델. LE Audio·LC3 는 출시 시점에 빠졌습니다.
-  audio(2026, '소니', 'ldac', 'WH-1000XM4C', { multipoint: true, note: '블루투스 6.0 · LE Audio(LC3) 는 미지원' }),
+  audio(2026, '소니', 'ldac', 'WH-1000XM4C', { multipoint: true, note: '블루투스 6.0' }),
   audio(2026, '화웨이', 'ldac_l2hc', '프리버즈 프로 5', { multipoint: true,
-    note: 'L2HC 4.0 은 화웨이 폰·태블릿 조합에서만',
+    note: 'L2HC 는 화웨이 기기끼리만',
   }),
   audio(2026, '소니', 'ldac_le', 'WF-1000XM6', { multipoint: true }),
   audio(2026, '낫싱', 'ldac', 'Ear (3a)', { multipoint: true }),
@@ -21,7 +21,7 @@ export const AUDIO_DEVICES = [
   }),
   // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
   audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', { multipoint: true,
-    note: 'LE Audio·LC3 는 펌웨어 업데이트 예정 (현재 미적용)',
+    note: 'LE Audio 는 업데이트 예정',
     aptxLossless: true,
   }),
 
@@ -60,7 +60,7 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2024, '앤커', 'aac', ['사운드코어 P40i', '사운드코어 P30i']),
   audio(2024, 'LG', 'aptx_adaptive', '톤프리 T80S', { multipoint: true }),
   ...audioGroup(2024, '자브라', 'aac', ['엘리트 10 Gen 2', '엘리트 8 액티브 Gen 2'], {
-    note: 'LC3 는 케이스→이어버드 구간 전용 · 폰 연결은 SBC/AAC',
+    note: '폰 연결은 SBC/AAC',
     multipoint: true,
   }),
   audio(2024, '마샬', 'aac_le', '메이저 V', { multipoint: true }),
@@ -123,7 +123,7 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2020, '삼성', 'ssc', ['갤럭시 버즈+', '갤럭시 버즈 라이브'], { sscMax: 'scalable', multipoint: 'auto' }),
   audio(2020, '소니', 'ldac', 'WH-1000XM4', { multipoint: true }),
   audio(2020, '자브라', 'aac', '엘리트 85t', { multipoint: true }),
-  audio(2020, '마샬', 'sbc_only', '모니터 II A.N.C.', { note: '고음질 코덱 미지원 · SBC 전용' }),
+  audio(2020, '마샬', 'sbc_only', '모니터 II A.N.C.', { note: 'SBC 전용' }),
   audio(2020, '슈어', 'aptx_full', 'AONIC 50', { multipoint: true }),
   ...audioGroup(2019, '애플', 'aac', ['에어팟 2세대', '에어팟 프로']),
   audio(2019, '삼성', 'ssc', '갤럭시 버즈', { sscMax: 'scalable', multipoint: 'auto' }),

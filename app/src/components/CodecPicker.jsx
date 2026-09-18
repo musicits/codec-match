@@ -4,35 +4,42 @@
 // 그려 두어, 누르기 전에도 어느 쪽이 큰 소리를 담는지 눈에 보입니다.
 import { CODEC_INFO } from '../data/codecs.js'
 
-// 최적 코덱 카드는 굴곡이 큰 파형, 나머지는 잔잔한 파형을 씁니다.
+// 파형 모양은 두 벌입니다. 최적 코덱은 굴곡이 크고, 나머지는 잔잔합니다.
+// 모양은 자기 안에서만 눌러 두고, 실제 높이는 오로지 등급(strength)이 정합니다.
+const norm = (values, floor) => {
+  const low = Math.min(...values)
+  const high = Math.max(...values)
+  return values.map((value) => floor + (1 - floor) * ((value - low) / (high - low)))
+}
+
 const MINI = {
-  rich: Array.from({ length: 26 }, (unused, index) =>
-    30 + Math.sin(index * 0.62) * 34 + Math.sin(index * 1.7) * 14 + (index % 4) * 8),
-  calm: Array.from({ length: 26 }, (unused, index) =>
-    30 + Math.sin(index * 0.34) * 16 + (index % 3) * 6),
+  rich: norm(Array.from({ length: 26 }, (unused, index) =>
+    Math.sin(index * 0.62) * 34 + Math.sin(index * 1.7) * 14 + (index % 4) * 8), 0.3),
+  calm: norm(Array.from({ length: 26 }, (unused, index) =>
+    Math.sin(index * 0.34) * 16 + (index % 3) * 6), 0.45),
 }
 
 /**
- * 코덱 등급을 0.15~1 사이로 옮깁니다.
+ * 코덱 등급을 0.26~1 사이 높이로 옮깁니다.
  *
- * 비트레이트만 보면 16bit 44.1kHz(AAC)와 16bit 48kHz(SBC)가 거의 같아 보입니다.
- * 그래서 비트심도와 샘플레이트도 함께 셉니다 — 셋을 6:2:2 로 섞습니다.
+ * 비트레이트 하나만 보면 16bit 44.1kHz(AAC)와 16bit 48kHz(SBC)가 거의 붙어 버려
+ * 눈으로는 구분이 안 됩니다. 그래서 비트심도·샘플레이트·비트레이트에 각각 점수를
+ * 매겨 0~6 계단으로 끊고, 계단 하나를 12% 씩 벌려 놨습니다.
  */
 export const waveStrength = (kbps = 300, quality) => {
   const rate = Number(quality?.match(/([\d.]+)\s*kHz/i)?.[1] ?? 44.1)
   const depth = Number(quality?.match(/(\d+)\s*bit/i)?.[1] ?? 16)
-  const byRate = Math.min(1, Math.max(0, Math.log(rate / 44.1) / Math.log(96 / 44.1)))
-  const byKbps = Math.min(1, Math.max(0, Math.log(Math.max(kbps, 200) / 200) / Math.log(2304 / 200)))
-  const byDepth = depth >= 24 ? 1 : 0
-  return 0.15 + 0.85 * (byKbps * 0.6 + byDepth * 0.2 + byRate * 0.2)
+  const byDepth = depth >= 24 ? 2 : 0
+  const byRate = rate >= 96 ? 2 : rate >= 48 ? 1 : 0
+  const byKbps = kbps >= 900 ? 2 : kbps >= 500 ? 1 : 0
+  return 0.26 + (0.74 * (byDepth + byRate + byKbps)) / 6
 }
 
 function MiniWave({ strength, rich }) {
-  const scale = Math.pow(strength, 1.6)
   return (
     <span className="mini" aria-hidden="true">
       {(rich ? MINI.rich : MINI.calm).map((height, index) => (
-        <i key={index} style={{ height: `${Math.min(100, 8 + height * scale * 1.5)}%` }} />
+        <i key={index} style={{ height: `${(height * strength * 100).toFixed(1)}%` }} />
       ))}
     </span>
   )
@@ -40,6 +47,19 @@ function MiniWave({ strength, rich }) {
 
 export default function CodecPicker({ common, codec, picked, onPick, qualityOf, kbpsOf }) {
   if (!common?.length) return null
+
+  // 카드는 화면 아래쪽에 있습니다. 눌러 놓고 위를 못 보면 무엇이 바뀌었는지 알 수 없어
+  // 결과 판 머리로 부드럽게 올려 줍니다.
+  const pick = (item) => {
+    onPick(item)
+    const stage = document.querySelector('.stage')
+    if (!stage) return
+    const style = getComputedStyle(document.documentElement)
+    const head = parseInt(style.getPropertyValue('--hh'), 10) || 60
+    const nav = parseInt(style.getPropertyValue('--nh'), 10) || 52
+    const top = stage.getBoundingClientRect().top + window.scrollY - head - nav - 12
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 
   return (
     <section className="picker" aria-label="공통 지원 코덱">
@@ -56,7 +76,7 @@ export default function CodecPicker({ common, codec, picked, onPick, qualityOf, 
               key={item}
               className={`codecard${item === picked ? ' on' : ''}${item === codec ? ' best' : ''}`}
               aria-pressed={item === picked}
-              onClick={() => onPick(item)}
+              onClick={() => pick(item)}
             >
               <MiniWave
                 strength={waveStrength(kbpsOf?.(item) ?? info?.kbps, qualityOf?.(item) ?? info?.quality)}

@@ -20,7 +20,7 @@ export const PHONES = [
     '갤럭시 S25', '갤럭시 S25+', '갤럭시 S25 울트라', '갤럭시 S25 엣지', '갤럭시 Z 폴드7', '갤럭시 Z 플립7',
   ], { seamless: true }),
   // 메이트 X7 은 2025년 12월 중국 출시입니다. 기린 칩이라 aptX 계열이 없고 LDAC·L2HC 위주입니다.
-  phone(2025, '화웨이', 'kirin_l2hc', '메이트 X7', { note: 'L2HC 는 화웨이 이어폰 조합에서만 협상됩니다' }),
+  phone(2025, '화웨이', 'kirin_l2hc', '메이트 X7', { note: 'L2HC 는 화웨이 이어폰끼리만' }),
   phone(2025, '오포', 'snapdragon_lhdc', '파인드 N5'),
   ...phoneGroup(2025, '구글', 'pixel_le', [
     '픽셀 10', '픽셀 10 프로', '픽셀 10 프로 XL', '픽셀 10 프로 폴드', '픽셀 9a',

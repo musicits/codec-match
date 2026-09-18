@@ -13,7 +13,7 @@ const TERMS = [
   { word: '샘플레이트', en: 'Sample Rate', body: '1초를 몇 번 잘라 담는지. 44.1kHz·96kHz 로 적습니다.' },
   { word: '손실 압축', en: 'Lossy', body: '안 들릴 만한 소리를 덜어내 용량을 줄이는 방식. 블루투스 코덱 대부분이 여기 속합니다.' },
   { word: '무손실', en: 'Lossless', body: '원본을 깎지 않고 그대로 보내는 것. aptX Lossless 는 CD 음질까지입니다.' },
-  { word: '하이레조', en: 'Hi-Res Audio', body: 'CD(16bit 44.1kHz)를 넘는 음원. 24bit 96kHz 가 흔합니다.' },
+  { word: '하이 레졸루션', en: 'Hi-Res', body: 'CD(16bit 44.1kHz)를 넘는 음원. 24bit 96kHz 가 흔합니다.' },
   { word: '지연시간', en: 'Latency', body: '소리가 귀에 닿기까지 걸리는 시간. 영상·게임에서 체감됩니다.' },
   { word: 'A2DP', en: 'Audio Distribution Profile', body: '블루투스로 음악을 보내는 규격. 코덱은 이 위에서 정해집니다.' },
   { word: 'LE Audio · LC3', en: 'Low Complexity Communication Codec', body: '블루투스 새 규격과 그 기본 코덱. 지연이 짧고 소리가 낫습니다.' },
