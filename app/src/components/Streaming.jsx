@@ -5,7 +5,7 @@
 // 눌러 정렬할 수 있습니다.
 import { useEffect, useState } from 'react'
 import {
-  REGIONS, STREAMING, bestServices, gradeOf, heardQuality, maxQuality, parseCeiling, serviceId,
+  REGIONS, STREAMING, bestServices, fits, gradeOf, heardQuality, maxQuality, parseCeiling, serviceId,
 } from '../data/streaming.js'
 import CodecPicker, { strengthsOf } from './CodecPicker.jsx'
 import DevicePair from './DevicePair.jsx'
@@ -35,7 +35,9 @@ export default function Streaming({
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(
     (service) => {
       const heard = heardQuality(service, ceiling)
-      return { ...service, heard, grade: gradeOf(heard) }
+      // 서비스 상한이 코덱에 막혀 깎이는지. 깎이는 줄은 흐리게 칠합니다 —
+      // 같은 16bit 44.1kHz 라도 멜론은 제값이고 지니뮤직은 한참 깎인 것입니다.
+      return { ...service, heard, grade: gradeOf(heard), cut: fits(service, ceiling) === false }
     },
   )
   const sorted = sort ? [...rows].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : rows
@@ -72,7 +74,10 @@ export default function Streaming({
   const arrow = (key) => (sort?.key === key ? (sort.dir === 1 ? '▲' : '▼') : '⇅')
 
   const Row = ({ row }) => (
-    <tr id={serviceId(row)} className={target?.name === row.name ? 'flash' : undefined}>
+    <tr
+      id={serviceId(row)}
+      className={`${row.cut ? 'cut' : ''}${target?.name === row.name ? ' flash' : ''}`.trim() || undefined}
+    >
       <td className="stream__name">
         <b>{row.name}</b>
         <em>{row.en}</em>

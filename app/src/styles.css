@@ -623,6 +623,12 @@ input { caret-color: var(--main); }
 .help__panel dl::-webkit-scrollbar { width: 6px; }
 .help__panel dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
 
+/* 코덱에 막혀 깎여 들어오는 줄은 흐리게 — 같은 값이 찍혀 있어도
+   제값 나오는 서비스와 구분됩니다 */
+.stream__table tr.cut td { opacity: .5; }
+.stream__table tr.cut .stream__verdict { opacity: 1; }
+.stream__table tr.cut .pill { opacity: .55; }
+
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
