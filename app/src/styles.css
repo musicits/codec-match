@@ -274,7 +274,9 @@ input { caret-color: var(--main); }
 .pair__link--other i { background: var(--stone); opacity: .8; }
 .pair--broken .pair__link i { animation: none; background: var(--line-strong); transform: scaleY(.3); opacity: .6; }
 
-.result__head { display: flex; align-items: center; gap: 10px; margin-top: 40px; }
+/* '다시 보기' 단추(24px)가 있고 없고에 따라 줄 높이가 3px 달라져 아래가 통째로
+   밀렸습니다. 단추 높이를 바닥으로 깔아 늘 같은 높이를 씁니다. */
+.result__head { display: flex; align-items: center; gap: 10px; margin-top: 40px; min-height: 24px; }
 .result__label { margin: 0; font-size: 13px; font-weight: 600; color: var(--steel); }
 .badge { padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; color: var(--main-deep);
   background: var(--tint); border: 1px solid color-mix(in srgb, var(--main) 35%, transparent); }
