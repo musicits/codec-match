@@ -8,19 +8,19 @@
 // 단계를 임의로 만들어 넣지 않습니다 — 상한 하나와 코덱 상한을 견주기만 합니다.
 export const STREAMING = [
   {
-    region: 'kr', name: '멜론', en: 'Melon', won: 12000,
-    depth: 16, rate: 44.1, format: 'FLAC', price: '하이파이 월 12,000원',
-    maxNote: '24bit 는 다운로드 전용',
+    region: 'kr', name: '멜론', en: 'Melon', won: 8690,
+    depth: 16, rate: 44.1, format: 'FLAC', price: '스트리밍클럽 월 8,690원',
+    maxNote: 'FLAC 은 Hi-Fi 13,200원 · 24bit 는 다운로드',
   },
   {
-    region: 'kr', name: '벅스', en: 'Bugs', won: 12000,
-    depth: 16, rate: 44.1, format: 'FLAC', price: '프리미엄 월 12,000원',
-    maxNote: '24bit 는 다운로드 전용',
+    region: 'kr', name: '벅스', en: 'Bugs', won: 8690,
+    depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 듣기 월 8,690원',
+    maxNote: 'Premium 17,600원 · 24bit 는 다운로드',
   },
   {
     region: 'kr', name: '지니뮤직', en: 'Genie', won: 15400,
     depth: 24, rate: 192, format: 'FLAC', price: '초고음질 월 15,400원',
-    maxNote: '앱에서 FLAC 24bit 선택 · kHz 표기는 없음',
+    maxNote: '앱에서 FLAC 24bit 선택 · 192kHz 음원',
   },
   {
     region: 'kr', name: '플로', en: 'FLO', won: 7900,
