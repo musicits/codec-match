@@ -212,7 +212,6 @@ export const CODEC_TIERS = {
       { id: 'hifi', name: 'SSC Hi-Fi (심리스)', quality: '24bit 48kHz', value: '최대 2,304 kbps' },
       { id: 'scalable', name: 'SSC Scalable', quality: '16bit 44.1kHz', value: '88–512 kbps 가변' },
     ],
-    foot: 'UHQ 는 2024 언팩에서 공개됐고 갤럭시 웨어러블 > 고급 음질을 켜야 적용됩니다 · 삼성이 UHQ 전송률을 공개한 적은 없습니다',
   },
   // aptX 3형제는 사다리를 함께 씁니다. 무손실은 별도 코덱이 아니라 Adaptive 의 모드입니다.
   aptX: {
