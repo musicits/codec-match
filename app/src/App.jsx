@@ -53,9 +53,14 @@ export default function App() {
   // 스트리밍 화면이 견줄 상한. SSC 는 등급에 따라 달라집니다.
   const tier = match.codec === 'SSC' ? sscTier(phone, audio) : null
   const quality = tier?.quality ?? CODEC_INFO[match.codec]?.quality
+  const shortName = (name) => name?.replace(/\s*\(.*\)$/, '')
+  const nameOf = (codec) =>
+    shortName(codec === 'SSC' ? sscTier(phone, audio).name : CODEC_INFO[codec]?.name) ?? codec
+  const qualityOf = (codec) =>
+    codec === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[codec]?.quality
   // 코덱 화면 제목이 'SSC-UHQ (24bit 96kHz)' 면 스트리밍 화면도 같은 이름을 씁니다.
   // 뒤 괄호는 음질 상한 칸과 같은 말이라 떼고 씁니다.
-  const codecName = (tier?.name ?? CODEC_INFO[match.codec]?.name ?? match.codec)?.replace(/\s*\(.*\)$/, '')
+
 
   const openView = (next) => {
     setView(next)
@@ -137,8 +142,10 @@ export default function App() {
               />
             ) : (
               <Streaming
-                codec={codecName}
-                quality={quality}
+                codec={match.codec}
+                common={match.common}
+                nameOf={nameOf}
+                qualityOf={qualityOf}
                 phone={phone}
                 audio={audio}
                 strength={Math.min(1, 0.55 + ((CODEC_INFO[match.codec]?.kbps ?? 300) / 990) * 0.45)}

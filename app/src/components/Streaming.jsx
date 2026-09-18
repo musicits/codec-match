@@ -3,7 +3,7 @@
 // 코덱 화면에서 고른 조합이 그대로 넘어옵니다. 서비스 상한과 코덱 상한을 견줘
 // 실제로 귀에 닿는 음질을 적습니다. 국내·해외를 갈라서 보여 주고, 표는 머리를
 // 눌러 정렬할 수 있습니다.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { REGIONS, STREAMING, fits, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
 import DevicePair from './DevicePair.jsx'
 
@@ -15,10 +15,14 @@ const SORTS = {
   price: (a, b) => (a.won ?? Infinity) - (b.won ?? Infinity),
 }
 
-export default function Streaming({ codec, quality, phone, audio, strength = 1 }) {
+export default function Streaming({ codec, common = [], nameOf, qualityOf, phone, audio, strength = 1 }) {
   const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
+  const [picked, setPicked] = useState(codec)
+  useEffect(() => { setPicked(codec) }, [codec, phone.id, audio.id])
 
+  const shown = common.includes(picked) ? picked : codec
+  const quality = qualityOf?.(shown)
   const ceiling = parseCeiling(quality)
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(
     (service) => ({
@@ -60,14 +64,32 @@ export default function Streaming({ codec, quality, phone, audio, strength = 1 }
 
       <dl className="metrics metrics--two">
         <div>
-          <dt>연결 코덱</dt>
-          <dd>{codec ?? '연결 불가'}</dd>
+          <dt>{shown === codec ? '연결 코덱' : '바꿔 본 코덱'}</dt>
+          <dd>{shown ? nameOf?.(shown) ?? shown : '연결 불가'}</dd>
         </div>
         <div>
           <dt>음질 상한</dt>
           <dd>{quality ?? '—'}</dd>
         </div>
       </dl>
+
+      {common.length > 1 && (
+        <div className="common">
+          <span className="common__label">코덱 바꿔 보기</span>
+          {common.map((item) => (
+            <button
+              type="button"
+              key={item}
+              className={`chip chip--btn${item === shown ? ' chip--on' : ''}`}
+              aria-pressed={item === shown}
+              onClick={() => setPicked(item)}
+            >
+              {item}
+              {item === codec && <i aria-hidden="true" />}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="stream__head">
         <div>
