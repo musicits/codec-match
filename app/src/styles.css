@@ -422,10 +422,16 @@ input { caret-color: var(--main); }
 .stream__verdict { text-align: right; white-space: nowrap; padding-right: 16px !important; }
 .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
   font-variant-numeric: tabular-nums; }
-.pill--ok { color: var(--main-deep); background: var(--tint); border: 1px solid color-mix(in srgb, var(--main) 35%, transparent); }
-.pill--cut { color: #A5530B; background: rgba(217, 115, 26, .14); border: 1px solid rgba(217, 115, 26, .38); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pill--cut { color: #FFD3A1; } }
-:root[data-theme="dark"] .pill--cut { color: #FFD3A1; }
+/* 실제로 들리는 등급으로 칠합니다 — 24bit 는 주색, CD 급은 중립, 손실 압축은 앰버 */
+.pill--hi { color: #fff; background: linear-gradient(160deg, var(--main), var(--main-deep)); border: 1px solid transparent; }
+.pill--cd { color: var(--slate); background: color-mix(in srgb, var(--canvas) 72%, transparent); border: 1px solid var(--line-strong); }
+.pill--lossy { color: #A5530B; background: rgba(217, 115, 26, .14); border: 1px solid rgba(217, 115, 26, .38); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pill--hi { color: #0B0D11; }
+  :root:not([data-theme="light"]) .pill--lossy { color: #FFD3A1; }
+}
+:root[data-theme="dark"] .pill--hi { color: #0B0D11; }
+:root[data-theme="dark"] .pill--lossy { color: #FFD3A1; }
 
 /* ---- 공통 지원 코덱 고르기 ----
    최적 코덱은 주색으로 꽉 채워 한눈에 튀게 하고, 나머지는 물러나 있게 둡니다. */

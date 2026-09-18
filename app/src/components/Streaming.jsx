@@ -4,7 +4,7 @@
 // 실제로 귀에 닿는 음질을 적습니다. 국내·해외를 갈라서 보여 주고, 표는 머리를
 // 눌러 정렬할 수 있습니다.
 import { useEffect, useState } from 'react'
-import { REGIONS, STREAMING, fits, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
+import { REGIONS, STREAMING, gradeOf, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
 import CodecPicker from './CodecPicker.jsx'
 import DevicePair from './DevicePair.jsx'
 
@@ -26,11 +26,10 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
   const quality = qualityOf?.(shown)
   const ceiling = parseCeiling(quality)
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(
-    (service) => ({
-      ...service,
-      ok: fits(service, ceiling),
-      heard: heardQuality(service, ceiling),
-    }),
+    (service) => {
+      const heard = heardQuality(service, ceiling)
+      return { ...service, heard, grade: gradeOf(heard) }
+    },
   )
   const sorted = sort ? [...rows].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : rows
   const grouped = !sort && filter === 'all'
@@ -54,7 +53,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
       <td className="stream__fmt">{row.format}</td>
       <td className="stream__price">{row.price}</td>
       <td className="stream__verdict">
-        <span className={`pill${row.ok ? ' pill--ok' : ' pill--cut'}`}>{row.heard}</span>
+        <span className={`pill pill--${row.grade}`}>{row.heard}</span>
       </td>
     </tr>
   )

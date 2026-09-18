@@ -86,3 +86,14 @@ export const fits = (service, ceiling) => {
   if (service.lossy) return true
   return service.depth <= ceiling.depth && service.rate <= ceiling.rate
 }
+
+/**
+ * 실제로 들리는 음질의 등급.
+ * 서비스 상한이 얼마든 블루투스로 건너오는 값이 기준입니다 — 192kHz 를 가진 서비스라도
+ * 현재 코덱으로는 96kHz 까지라, 들리는 소리는 24bit 96kHz 서비스와 같습니다.
+ */
+export const gradeOf = (heard) => {
+  if (!heard) return 'cd'
+  if (!/bit/.test(heard)) return 'lossy'
+  return heard.startsWith('24bit') ? 'hi' : 'cd'
+}
