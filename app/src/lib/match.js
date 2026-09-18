@@ -40,11 +40,13 @@ export function resolveMatch(phone, audioDevice) {
 /** SSC 는 폰의 심리스 지원 여부와 이어폰 등급에 따라 표시가 달라집니다. */
 export function sscTier(phone, audioDevice) {
   if (!phone.seamless) {
-    return { name: 'SSC (16bit 44.1kHz)', bitrate: '최대 512 kbps', note: '' }
+    return { name: 'SSC (16bit 44.1kHz)', quality: '16bit 44.1kHz', kbps: 512, bitrate: '최대 512 kbps', note: '' }
   }
   if (audioDevice.sscMax === 'uhq') {
     return {
       name: 'SSC-UHQ (24bit 96kHz)',
+      quality: '24bit 96kHz',
+      kbps: 2304,
       bitrate: '고음질 설정 필요',
       note: 'One UI 6.1.1 이상, 갤럭시 웨어러블 > 고급 음질에서 켜야 적용',
     }
@@ -52,11 +54,13 @@ export function sscTier(phone, audioDevice) {
   if (audioDevice.sscMax === 'hifi') {
     return {
       name: 'SSC Hi-Fi (24bit 48kHz, 최대 2,304kbps)',
+      quality: '24bit 48kHz',
+      kbps: 2304,
       bitrate: '최대 2,304 kbps',
       note: 'One UI 4.0 이상',
     }
   }
-  return { name: 'SSC (Scalable)', bitrate: '최대 512 kbps', note: '' }
+  return { name: 'SSC (Scalable)', quality: '16bit 44.1kHz', kbps: 512, bitrate: '최대 512 kbps', note: '' }
 }
 
 // 브랜드명이 모델명에 안 들어가는 기기가 많아서(예: 보스 "QC 울트라 이어버드")

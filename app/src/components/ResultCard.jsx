@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { audioForm, phoneForm } from '../lib/form.js'
 import { sscTier } from '../lib/match.js'
+import CodecCompare from './CodecCompare.jsx'
 import DeviceIcon from './DeviceIcon.jsx'
 
 function Pair({ phone, audio, linked }) {
@@ -31,6 +33,12 @@ export default function ResultCard({
   lc3Available,
   losslessAvailable,
 }) {
+  // 공통 코덱 칩을 누르면 그 코덱 기준으로 카드를 다시 그립니다.
+  // 기기를 바꾸면 실제 협상될 코덱으로 되돌립니다.
+  const [picked, setPicked] = useState(codec)
+  const [metric, setMetric] = useState('kbps')
+  useEffect(() => { setPicked(codec) }, [codec, phone.id, audio.id])
+
   if (!codec) {
     return (
       <div className="result result--empty">
@@ -41,16 +49,24 @@ export default function ResultCard({
     )
   }
 
-  const info = CODEC_INFO[codec]
-  const tier = codec === 'SSC' ? sscTier(phone, audio) : null
+  const shown = common.includes(picked) ? picked : codec
+  const info = CODEC_INFO[shown]
+  const tier = shown === 'SSC' ? sscTier(phone, audio) : null
+  const preview = shown !== codec
 
   return (
     <div className="result" aria-live="polite">
       <Pair phone={phone} audio={audio} linked />
 
       <div className="result__head">
-        <p className="result__label">예상 적용 코덱</p>
-        {verified && <span className="badge">실측 확인</span>}
+        <p className="result__label">{preview ? '골라 본 코덱' : '예상 적용 코덱'}</p>
+        {preview ? (
+          <button type="button" className="badge badge--btn" onClick={() => setPicked(codec)}>
+            실제 협상은 {codec} — 되돌리기
+          </button>
+        ) : (
+          verified && <span className="badge">실측 확인</span>
+        )}
       </div>
       <h2 className="result__codec">{tier?.name ?? info.name}</h2>
 
@@ -58,7 +74,7 @@ export default function ResultCard({
         <div>
           <dt>최대 비트레이트</dt>
           <dd>{tier?.bitrate ?? info.bitrate}</dd>
-          {codec === 'LDAC' && (
+          {shown === 'LDAC' && (
             <p className="metrics__note">
               990kbps는 ‘음질 우선’ 설정 기준이며, 기본 적응형에서는 660/330kbps로 조정됩니다
             </p>
@@ -67,6 +83,10 @@ export default function ResultCard({
         <div>
           <dt>대략적 지연시간</dt>
           <dd>{info.latency}</dd>
+        </div>
+        <div>
+          <dt>음질 상한</dt>
+          <dd>{tier?.quality ?? info.quality}</dd>
         </div>
       </dl>
 
@@ -102,9 +122,27 @@ export default function ResultCard({
       <div className="common">
         <span className="common__label">공통 지원</span>
         {common.map((item) => (
-          <span key={item} className={`chip${item === codec ? ' chip--on' : ''}`}>{item}</span>
+          <button
+            type="button"
+            key={item}
+            className={`chip chip--btn${item === shown ? ' chip--on' : ''}`}
+            aria-pressed={item === shown}
+            onClick={() => setPicked(item)}
+          >
+            {item}
+            {item === codec && <i aria-hidden="true" />}
+          </button>
         ))}
       </div>
+
+      <CodecCompare
+        common={common}
+        picked={shown}
+        onPick={setPicked}
+        metric={metric}
+        onMetric={setMetric}
+        tierOf={() => sscTier(phone, audio)}
+      />
 
       <p className="disclaimer">제조사 공식 스펙 기준 예상값이며 OS 버전·설정에 따라 달라질 수 있습니다</p>
     </div>
