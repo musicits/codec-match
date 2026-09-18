@@ -170,7 +170,7 @@ export const CODEC_TIERS = {
       { id: 'sbc-high', name: '고품질', quality: '16bit 48kHz', value: '최대 345 kbps' },
       { id: 'sbc-base', name: '기본', quality: '16bit 44.1kHz', value: '약 229 kbps' },
     ],
-    foot: '전파가 잘 통하면 알아서 고품질로 올라가고, 끊길 것 같으면 기본으로 내려갑니다 · 사용자가 직접 고르는 설정은 없습니다',
+    foot: '전파가 좋으면 고품질, 끊길 것 같으면 기본으로 알아서 내려갑니다',
   },
   AAC: {
     label: 'OS 별 실제 전송률',
