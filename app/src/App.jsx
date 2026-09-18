@@ -152,7 +152,7 @@ export default function App() {
                 kbpsOf={kbpsOf}
                 phone={phone}
                 audio={audio}
-                strength={waveStrength(kbpsOf(match.codec))}
+                strength={waveStrength(kbpsOf(match.codec), quality)}
               />
             )}
           </section>

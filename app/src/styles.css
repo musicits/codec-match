@@ -436,10 +436,13 @@ input { caret-color: var(--main); }
 /* ---- 공통 지원 코덱 고르기 ----
    최적 코덱은 주색으로 꽉 채워 한눈에 튀게 하고, 나머지는 물러나 있게 둡니다. */
 .picker { margin-top: 20px; }
-.picker__label { margin: 0 0 8px; font-size: 12px; color: var(--steel); }
-.picker__row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+.picker__label { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px;
+  font-size: 14px; font-weight: 700; color: var(--ink); }
+.picker__label span { font-size: 12px; font-weight: 500; color: var(--steel); }
+/* 칸을 격자로 나눠 카드 폭과 높이를 똑같이 맞춥니다 */
+.picker__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 10px; }
 .codecard {
-  flex: 1 1 128px; max-width: 210px; display: grid; gap: 8px; padding: 12px 14px 13px;
+  width: 100%; display: grid; align-content: start; gap: 8px; padding: 12px 14px 13px;
   border-radius: var(--r-lg); cursor: pointer; text-align: left;
   background: color-mix(in srgb, var(--canvas) 52%, transparent);
   border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim);
@@ -455,8 +458,8 @@ input { caret-color: var(--main); }
 /* 최적 코덱 — 주색으로 채우고 한 치 키웁니다 */
 .codecard.best {
   background: linear-gradient(160deg, var(--main), var(--main-deep));
-  border-color: transparent; transform: scale(1.04);
-  box-shadow: 0 14px 28px -16px color-mix(in srgb, var(--main) 70%, transparent),
+  border-color: transparent;
+  box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--main) 75%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, .35);
 }
 .codecard.best:hover { background: linear-gradient(160deg, var(--main), var(--main-deep)); }

@@ -44,7 +44,8 @@ function Recommend({ quality, onOpen }) {
 }
 
 /** 좋은 코덱일수록 파형이 크게 출렁입니다. 등급 차이가 눈에 띄도록 폭을 넓게 잡습니다. */
-const strengthOf = (info, tier) => waveStrength(tier?.kbps ?? info?.kbps)
+const strengthOf = (info, tier) =>
+  waveStrength(tier?.kbps ?? info?.kbps, tier?.quality ?? info?.quality)
 
 export default function ResultCard({
   codec,
