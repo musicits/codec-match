@@ -38,7 +38,17 @@ export default function Streaming({
       return { ...service, heard, grade: gradeOf(heard) }
     },
   )
-  const sorted = sort ? [...rows].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : rows
+  // 24bit 로 들어오는 줄만 또렷하게 둡니다. 사람들이 궁금해하는 선이 거기입니다.
+  //
+  // 두 가지는 흐리게 하지 않습니다.
+  //   · 유튜브 뮤직처럼 kbps 로만 오는 곳 — 견줄 값이 아니라 주황 알약으로만 둡니다
+  //   · 24bit 로 오는 줄이 하나도 없을 때 — 코덱이 낮아 다 같은 처지라 가릴 게 없습니다
+  const anyHi = rows.some((row) => !row.lossy && row.heard.startsWith('24bit'))
+  const marked = rows.map((row) => ({
+    ...row,
+    dim: anyHi && !row.lossy && !row.heard.startsWith('24bit'),
+  }))
+  const sorted = sort ? [...marked].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : marked
   const grouped = !sort && filter === 'all'
 
   const picks = bestServices(ceiling)
@@ -72,7 +82,10 @@ export default function Streaming({
   const arrow = (key) => (sort?.key === key ? (sort.dir === 1 ? '▲' : '▼') : '⇅')
 
   const Row = ({ row }) => (
-    <tr id={serviceId(row)} className={target?.name === row.name ? 'flash' : undefined}>
+    <tr
+      id={serviceId(row)}
+      className={`${row.dim ? 'dim' : ''}${target?.name === row.name ? ' flash' : ''}`.trim() || undefined}
+    >
       <td className="stream__name">
         <b>{row.name}</b>
         <em>{row.en}</em>

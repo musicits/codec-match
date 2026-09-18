@@ -623,6 +623,9 @@ input { caret-color: var(--main); }
 .help__panel dl::-webkit-scrollbar { width: 6px; }
 .help__panel dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
 
+/* 이 조합에서 가장 좋게 들리는 줄만 또렷하게. 다 같게 들리면 아무것도 흐리지 않습니다 */
+.stream__table tr.dim td { opacity: .48; }
+
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
