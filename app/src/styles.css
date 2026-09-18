@@ -189,7 +189,14 @@ input { caret-color: var(--main); }
 .filter-empty { margin: 10px 0 0; color: var(--steel); font-size: 13px; }
 
 .codec-list, .common { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; }
+/* 지원 코덱 첫 줄은 접히지 않게 — 넉 대 + '+N' 까지만 겁니다 */
+.codec-list { flex-wrap: nowrap; }
+.codec-list--more { flex-wrap: wrap; margin-top: 6px; padding-left: 54px; }
+.chip--more { flex: 0 0 auto; }
 .codec-list__label, .common__label { font-size: 12px; color: var(--steel); margin-right: 4px; }
+.codec-list__label { flex: 0 0 auto; white-space: nowrap; font-size: 11.5px; margin-right: 2px; }
+/* 설정 칸은 폭이 좁아 칩을 한 치수 작게 씁니다 */
+.codec-list .chip { padding: 3px 8px; font-size: 11.5px; }
 .chip {
   padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .01em;
   color: var(--slate); background: color-mix(in srgb, var(--canvas) 70%, transparent);

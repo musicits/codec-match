@@ -60,10 +60,10 @@ export default function ResultCard({
       <Pair phone={phone} audio={audio} linked />
 
       <div className="result__head">
-        <p className="result__label">{preview ? '골라 본 코덱' : '예상 적용 코덱'}</p>
+        <p className="result__label">{preview ? '다른 코덱으로 보는 중' : '이 조합의 최적 코덱'}</p>
         {preview ? (
           <button type="button" className="badge badge--btn" onClick={() => setPicked(codec)}>
-            실제 협상은 {codec} — 되돌리기
+            {codec} 다시 보기
           </button>
         ) : (
           verified && <span className="badge">실측 확인</span>

@@ -119,28 +119,37 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
       {!visible.length && <p className="filter-empty">일치하는 기기가 없어요.</p>}
 
       {current && (() => {
-        // 좁은 칸에 칩이 줄줄이 흐르면 마지막 줄에 하나만 남아 지저분합니다.
-        // 다섯 개까지만 보이고 나머지는 '+N' 으로 접어 둡니다.
+        // 첫 줄은 넘기지 않습니다 — 넉 대까지만 걸고 나머지는 '+N' 으로 접습니다.
+        // 펼치면 남은 칩이 그 줄 아래에 따로 깔립니다.
         const codecs = codecsOf(current)
-        const shown = allCodecs ? codecs : codecs.slice(0, 5)
-        const rest = codecs.length - shown.length
+        const head = codecs.slice(0, 4)
+        const rest = codecs.slice(4)
         return (
-          <div className="codec-list">
-            <span className="codec-list__label">지원 코덱</span>
-            {shown.map((codec) => (
-              <span key={codec} className="chip">{codec}</span>
-            ))}
-            {rest > 0 && (
-              <button type="button" className="chip chip--btn" onClick={() => setAllCodecs(true)}>
-                +{rest}
-              </button>
+          <>
+            <div className="codec-list">
+              <span className="codec-list__label">지원 코덱</span>
+              {head.map((codec) => (
+                <span key={codec} className="chip">{codec}</span>
+              ))}
+              {rest.length > 0 && (
+                <button
+                  type="button"
+                  className="chip chip--btn chip--more"
+                  aria-expanded={allCodecs}
+                  onClick={() => setAllCodecs((value) => !value)}
+                >
+                  {allCodecs ? '접기' : `+${rest.length}`}
+                </button>
+              )}
+            </div>
+            {allCodecs && rest.length > 0 && (
+              <div className="codec-list codec-list--more">
+                {rest.map((codec) => (
+                  <span key={codec} className="chip">{codec}</span>
+                ))}
+              </div>
             )}
-            {allCodecs && codecs.length > 5 && (
-              <button type="button" className="chip chip--btn" onClick={() => setAllCodecs(false)}>
-                접기
-              </button>
-            )}
-          </div>
+          </>
         )
       })()}
 
