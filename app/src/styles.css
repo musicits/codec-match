@@ -653,6 +653,18 @@ input { caret-color: var(--main); }
 .story__head span { margin-left: auto; font-size: 11.5px; color: var(--stone);
   font-variant-numeric: tabular-nums; }
 .story .disclaimer { margin-top: 18px; }
+.story section .result__head { margin-top: 32px; }
+.story__note { margin: 6px 0 0; font-size: 12.5px; color: var(--stone); word-break: keep-all; }
+.story__marks { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.story__marks span { padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+  color: var(--slate); background: color-mix(in srgb, var(--canvas) 78%, transparent);
+  border: 1px solid var(--glass-hairline); }
+.story__aside { margin: 8px 0 0; padding-left: 10px; font-size: 12.5px; line-height: 1.7;
+  color: var(--stone); word-break: keep-all;
+  border-left: 2px solid color-mix(in srgb, var(--main) 30%, transparent); }
+.story__spec { margin: 4px 0 0; font-size: 12px; font-weight: 700; color: var(--main-deep);
+  font-variant-numeric: tabular-nums; }
+.story__numbers > div + div { padding-top: 14px; border-top: 1px solid var(--line); }
 
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);

@@ -3,7 +3,6 @@ import Changelog from './components/Changelog.jsx'
 import Glossary from './components/Glossary.jsx'
 import ToolSwitch from './components/ToolSwitch.jsx'
 import Streaming from './components/Streaming.jsx'
-import Story from './components/Story.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { PHONES } from './data/phones.js'
@@ -34,12 +33,6 @@ const VIEWS = [
         <circle cx="16.5" cy="16" r="2.5" />
       </>
     ),
-  },
-  {
-    id: 'story',
-    name: '코덱 이야기',
-    hash: '#story',
-    icon: <><circle cx="12" cy="12" r="9" /><path d="M12 16v-4.5" /><path d="M12 8h.01" /></>,
   },
 ]
 
@@ -195,9 +188,7 @@ export default function App() {
                 기기 다시 고르기
               </button>
             )}
-            {view === 'story' ? (
-              <Story />
-            ) : view === 'codec' ? (
+            {view === 'codec' ? (
               <ResultCard
                 codec={match.codec}
                 common={match.common}
