@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { REGIONS, STREAMING, fits, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
 import DevicePair from './DevicePair.jsx'
 
-const FILTERS = [...REGIONS, { id: 'all', label: '전체' }]
+const FILTERS = [{ id: 'all', label: '전체' }, ...REGIONS]
 
 const SORTS = {
   name: (a, b) => a.name.localeCompare(b.name, 'ko'),
