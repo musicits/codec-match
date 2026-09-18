@@ -46,7 +46,7 @@ export default function Changelog() {
             return (
               <tr key={entry.version} className={index === 0 ? 'now' : undefined}>
                 <td className="log__ver">
-                  <span className="log__version">{entry.version}</span>
+                  <span className="log__version">Ver. {entry.version}</span>
                   {index === 0 && <span className="badge">현재</span>}
                 </td>
                 <td className="log__date">
@@ -73,7 +73,7 @@ export default function Changelog() {
                 <td className="log__open">
                   {entry.archiveUrl && (
                     <a href={entry.archiveUrl}>
-                      열어보기<span className="sr-only"> — {entry.version}</span>
+                      열어보기<span className="sr-only"> — Ver. {entry.version}</span>
                     </a>
                   )}
                 </td>

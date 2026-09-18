@@ -15,8 +15,8 @@ if (!version || !ref) {
   console.error('사용법: node scripts/archive-version.mjs <버전> <커밋>   예) v1 643a728')
   process.exit(1)
 }
-if (!/^v\d+$/.test(version)) {
-  console.error(`버전 이름은 v1, v2 형태여야 합니다: "${version}"`)
+if (!/^v\d+(-\d+)?$/.test(version)) {
+  console.error(`버전 이름은 v1 · v3-13 형태여야 합니다: "${version}"`)
   process.exit(1)
 }
 
