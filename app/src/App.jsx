@@ -151,6 +151,8 @@ export default function App() {
           {/* 도구 모음 첫 화면과 같은 자리·같은 모양 */}
           <a className="topbar__blog" href={BLOG.url} target="_blank" rel="author noopener">블로그</a>
           <ToolSwitch />
+          {/* 용어 설명 — 폰 목업·매거진 커버의 도움말 단추와 같은 자리입니다 */}
+          <Glossary />
         </div>
       </header>
 
@@ -252,7 +254,6 @@ export default function App() {
             같은 격자에 있으면 스크롤할 때 기록 판이 설정 칸 위로 올라타 이어폰 칸이 잘립니다. */}
         <div className="bottom">
           <Changelog />
-          <Glossary />
         </div>
       </main>
 

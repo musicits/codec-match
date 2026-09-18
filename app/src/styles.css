@@ -159,7 +159,7 @@ input { caret-color: var(--main); }
   display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px;
   padding: 16px 20px 0; align-items: start;
 }
-.stage, .rail, .changelog, .glossary {
+.stage, .rail, .changelog {
   position: relative; isolation: isolate; border-radius: var(--r-outer);
   /* 글자가 많이 얹히는 판이라 장식 유리(머리말·칩)보다 불투명하게 둡니다.
      iOS 27 이 손본 것도 '뒤 내용을 더 잘 흩뜨려 읽히게' 였습니다. */
@@ -169,7 +169,7 @@ input { caret-color: var(--main); }
   box-shadow: var(--glass-rim), var(--glass-drop);
 }
 /* 빛은 띠가 아니라 모서리에 뭉칩니다 — iOS 27 의 겹친 스페큘러 하이라이트 */
-.stage::before, .rail::before, .changelog::before, .glossary::before {
+.stage::before, .rail::before, .changelog::before {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 140px; border-radius: inherit;
   z-index: -1; pointer-events: none;
   background:
@@ -178,7 +178,7 @@ input { caret-color: var(--main); }
 }
 /* 크롬 139+ 에서만 모서리를 스퀘어클로. 없는 브라우저는 그냥 둥근 모서리로 보입니다. */
 @supports (corner-shape: squircle) {
-  .stage, .rail, .changelog, .glossary { corner-shape: squircle; border-radius: 28px; }
+  .stage, .rail, .changelog { corner-shape: squircle; border-radius: 28px; }
 }
 .stage {
   display: flex; justify-content: center; align-items: center; padding: 40px 32px;
@@ -189,12 +189,11 @@ input { caret-color: var(--main); }
   /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 설정 칸이 제 칸 밖으로 삐져나옵니다. */
   max-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 36px); overflow-y: auto;
 }
-/* 아래 줄: 업데이트 기록 옆에 용어 설명을 세웁니다 */
+/* 아래 줄: 업데이트 기록 (용어 설명은 머리말 물음표로 옮겼습니다) */
 /* 두 판을 같은 키로 세웁니다. 기록이 몇 줄이든(버전이 늘어도) 아래 선이 맞습니다 —
    남는 키는 용어 설명이 채우고, 넘치는 용어는 안쪽에서 구릅니다. */
-.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; margin: 16px 20px 20px; align-items: stretch; }
+.bottom { margin: 16px 20px 20px; }
 .changelog { padding: 28px 32px 30px; }
-.glossary { padding: 26px 28px 28px; }
 
 /* ---- 설정 칸 ---- */
 .grp { padding: 22px 24px 24px; border-bottom: 1px solid var(--glass-hairline); }
@@ -355,16 +354,9 @@ input { caret-color: var(--main); }
 .log details li::marker { color: var(--stone); }
 
 /* 용어 설명 */
-.glossary { display: flex; flex-direction: column; }
-.glossary h2 { margin: 0 0 12px; font-size: 16px; font-weight: 700; flex: 0 0 auto; }
-/* 옆 기록 판이 정한 키를 그대로 채웁니다 — 넘치는 용어는 안쪽에서 구릅니다 */
-.glossary dl { margin: 0; display: grid; gap: 13px; align-content: start;
-  flex: 1 1 0; min-height: 0; overflow-y: auto; padding-right: 8px; }
-.glossary dl::-webkit-scrollbar { width: 6px; }
-.glossary dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
-.glossary dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
-.glossary dt em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--stone); }
-.glossary dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--steel); word-break: keep-all; }
+.help__panel dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
+.help__panel dt em { margin-left: 5px; font-style: normal; font-size: 11.5px; font-weight: 600; color: var(--stone); }
+.help__panel dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--steel); word-break: keep-all; }
 
 /* 기록 쪽 넘기기 — 블로그 분석실 순위표와 같은 모양 */
 .log-page { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; }
@@ -576,6 +568,50 @@ input { caret-color: var(--main); }
 .backpick:hover { color: var(--main-deep); }
 .backpick:active { transform: scale(.96); }
 
+/* ---- 머리말 물음표 — 용어 설명 ---- */
+.help { position: relative; flex: 0 0 auto; }
+.help__btn {
+  width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer;
+  border-radius: 999px; font-size: 14px; font-weight: 800; color: var(--steel);
+  background: color-mix(in srgb, var(--canvas) 62%, transparent);
+  border: 1px solid var(--glass-hairline);
+  transition: color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.16, 1, .3, 1);
+}
+.help__btn:hover { color: var(--main-deep); border-color: color-mix(in srgb, var(--main) 40%, transparent); }
+.help__btn:active { transform: scale(.94); }
+
+/* 도구 목록과 같은 유리 */
+.help__panel {
+  position: absolute; right: 0; top: calc(100% + 10px); width: 330px; padding: 14px 16px 6px;
+  z-index: 40; isolation: isolate; border-radius: var(--r-outer);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--canvas) 96%, transparent), color-mix(in srgb, var(--canvas) 91%, transparent));
+  -webkit-backdrop-filter: saturate(200%) blur(40px); backdrop-filter: saturate(200%) blur(40px);
+  border: 1px solid var(--glass-hairline); border-top-color: var(--glass-sheen);
+  box-shadow: var(--glass-rim), var(--glass-drop);
+  animation: menupop .2s cubic-bezier(.16, 1, .3, 1); transform-origin: 100% 0;
+}
+.help__panel::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 110px; border-radius: inherit;
+  z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 12% 0%, var(--glass-sheen), transparent 62%),
+    linear-gradient(180deg, color-mix(in srgb, var(--glass-sheen) 62%, transparent), transparent 24%);
+}
+@supports (corner-shape: squircle) { .help__panel { corner-shape: squircle; border-radius: 26px; } }
+@media (prefers-reduced-motion: reduce) { .help__panel { animation: none; } }
+
+.help__label { margin: 0 0 10px; display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700; color: var(--steel); }
+.help__label span { padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 800;
+  color: var(--main-deep); background: var(--tint); }
+.help__label::after { content: ""; flex: 1 1 auto; height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent); }
+
+.help__panel dl { margin: 0; display: grid; gap: 13px; max-height: min(62vh, 460px);
+  overflow-y: auto; padding: 0 8px 12px 0; }
+.help__panel dl::-webkit-scrollbar { width: 6px; }
+.help__panel dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
+
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 55%, transparent); border: 1px solid var(--glass-hairline); }
@@ -703,7 +739,7 @@ input { caret-color: var(--main); }
 @media (max-width: 900px) {
   .topbar { padding: 10px 14px; }
   .topbar .logo { height: 19px; }
-  .topbar h1 { font-size: 14.5px; padding-left: 10px; }
+  .topbar h1 { font-size: 14.5px; padding-left: 8px; }
   .topbar p { font-size: 11.5px; flex: 1 0 100%; }
   .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 8px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
@@ -711,14 +747,15 @@ input { caret-color: var(--main); }
      좁은 화면에서는 세로로 세워 단추가 제 줄을 쓰게 합니다. */
   .stage { order: 2; min-height: 0; padding: 22px 16px 24px;
     flex-direction: column; align-items: stretch; justify-content: flex-start; }
-  .bottom { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 12px; }
+  .bottom { margin: 12px; }
+  /* 좁은 화면에서는 물음표 판을 화면 폭에 맞춰 띄웁니다 */
+  .help__btn { width: 30px; height: 30px; font-size: 13px; }
+  .help { position: static; }
+  .help__panel { position: fixed; left: 12px; right: 12px; width: auto;
+    top: calc(var(--hh, 60px) + 8px); transform-origin: 100% 0; }
   /* 기록은 좁은 화면에서 감춥니다 — 표가 길어 스크롤만 늘어납니다 */
   .changelog { display: none; }
-  /* 키를 묶어 두면 목록이 판 밖으로 흘러 아래 서명과 겹칩니다. 제 길이대로 둡니다 */
-  .glossary dl { flex: 0 1 auto; max-height: none; }
   .changelog { padding: 22px 16px 24px; }
-  .glossary { padding: 20px 16px 22px; }
-  .glossary dl { overflow: visible; padding-right: 0; }
   /* 좁은 화면에서는 기기 수를 감추고 버전 · 날짜 · 내역만 남깁니다 */
   .log__num { display: none; }
   .log__ver { width: 84px; }
@@ -789,10 +826,10 @@ input { caret-color: var(--main); }
 /* iOS 27 이 '투명도 슬라이더' 로 준 선택지의 웹 대응입니다.
    기기에서 '투명도 줄이기' 를 켠 분에게는 유리를 끄고 단색으로 보여 줍니다. */
 @media (prefers-reduced-transparency: reduce) {
-  .stage, .rail, .changelog, .glossary, .topbar, .toolswitch__menu, .siblings__card {
+  .stage, .rail, .changelog, .topbar, .toolswitch__menu, .help__panel {
     -webkit-backdrop-filter: none; backdrop-filter: none;
     background: var(--canvas); border-color: var(--line);
   }
-  .stage::before, .rail::before, .changelog::before, .glossary::before, .topbar::after { display: none; }
+  .stage::before, .rail::before, .changelog::before, .topbar::after { display: none; }
   body { background: var(--surface-soft); }
 }

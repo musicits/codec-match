@@ -1,4 +1,4 @@
-// 업데이트 기록 옆에 붙는 용어 설명.
+// 머리말 오른쪽 물음표에 들어 있는 용어 설명.
 //
 // 결과 카드에서 잔주석을 다 걷어냈으니 처음 보는 말은 여기서 한 번에 설명합니다.
 // 영어를 나란히 적는 이유는, 제품 상세 페이지나 해외 기사에서 만난 말이 바로
@@ -6,6 +6,8 @@
 //
 // 넣는 기준은 '사전에 실릴 만한 말' 입니다. 화면에 이미 문장으로 쓰여 있는 설명
 // (하위 코덱으로 떨어진다 같은)은 넣지 않습니다.
+import { useEffect, useRef, useState } from 'react'
+
 const TERMS = [
   { word: '코덱', en: 'Codec', body: '소리를 압축해 보내는 방식. 폰과 이어폰 둘 다 지원해야 쓰입니다.' },
   { word: '비트레이트', en: 'Bitrate', body: '1초에 보내는 데이터 양(kbps). 클수록 덜 깎아서 보냅니다.' },
@@ -25,20 +27,51 @@ const TERMS = [
 ]
 
 export default function Glossary() {
+  const [open, setOpen] = useState(false)
+  const boxRef = useRef(null)
+
+  // 바깥을 누르거나 Esc 를 누르면 닫습니다 — 도구 목록과 같은 규칙입니다.
+  useEffect(() => {
+    if (!open) return undefined
+    const onDown = (event) => { if (!boxRef.current?.contains(event.target)) setOpen(false) }
+    const onKey = (event) => { if (event.key === 'Escape') setOpen(false) }
+    document.addEventListener('pointerdown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('pointerdown', onDown)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
   return (
-    <aside className="glossary" aria-labelledby="glossary-title">
-      <h2 id="glossary-title">용어 설명</h2>
-      <dl>
-        {TERMS.map((term) => (
-          <div key={term.word}>
-            <dt>
-              {term.word}
-              <em>{term.en}</em>
-            </dt>
-            <dd>{term.body}</dd>
-          </div>
-        ))}
-      </dl>
-    </aside>
+    <div className="help" ref={boxRef}>
+      <button
+        type="button"
+        className="help__btn"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        aria-label="용어 설명"
+      >
+        ?
+      </button>
+
+      {open && (
+        <div className="help__panel" role="dialog" aria-label="용어 설명">
+          <p className="help__label">용어 설명<span>{TERMS.length}</span></p>
+          <dl>
+            {TERMS.map((term) => (
+              <div key={term.word}>
+                <dt>
+                  {term.word}
+                  <em>{term.en}</em>
+                </dt>
+                <dd>{term.body}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </div>
   )
 }

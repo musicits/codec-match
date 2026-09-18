@@ -71,9 +71,10 @@ export default function Changelog() {
                   </details>
                 </td>
                 <td className="log__open">
+                  {/* 보관본은 새 창으로 — 지금 보던 자리를 잃지 않게 */}
                   {entry.archiveUrl && (
-                    <a href={entry.archiveUrl}>
-                      열어보기<span className="sr-only"> — Ver. {entry.version}</span>
+                    <a href={entry.archiveUrl} target="_blank" rel="noopener">
+                      열어보기<span className="sr-only"> — Ver. {entry.version} (새 창)</span>
                     </a>
                   )}
                 </td>
