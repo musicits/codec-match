@@ -386,9 +386,7 @@ input { caret-color: var(--main); }
 /* ---- 스트리밍 음질 화면 ---- */
 /* 결과 판과 같은 폭. 서비스 표만 넓히면 코덱 카드·머리말과 왼쪽 선이 어긋납니다. */
 .stream { width: 100%; max-width: 680px; }
-.stream .pair { margin-bottom: 8px; }
-.stream .metrics { margin-top: 32px; }
-.stream .common { margin-top: 16px; }
+/* 결과 화면과 똑같은 리듬을 씁니다 — 여기에 덧댐을 두면 4px 씩 어긋납니다 */
 .stream__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
 .stream__title { margin: 0; font-size: clamp(22px, 2.4vw, 27px); line-height: 1.2; font-weight: 800;
   letter-spacing: -.02em; color: var(--ink); }
