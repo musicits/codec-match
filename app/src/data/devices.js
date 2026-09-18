@@ -1,7 +1,8 @@
 // 기기 목록의 공통 헬퍼.
 //
-// id 는 이름에서 자동으로 만들어지므로 직접 지정하지 않습니다.
-// 표시 이름은 "<출시연도> <모델명>" 형태입니다. (예: "2026 갤럭시 S26")
+// id 는 연도와 모델명으로 자동으로 만들어지므로 직접 지정하지 않습니다.
+// 화면에 보이는 이름은 모델명만 씁니다 — 연도를 앞에 붙이면 목록이 읽기 힘들어집니다.
+// 연도는 정렬과 id 에만 쓰고 year 로 남겨 둡니다.
 
 export const slugify = (value) =>
   value
@@ -23,7 +24,8 @@ export const phone = (
   { seamless = false, aptxLossless = false, note } = {},
 ) => ({
   id: slugify(`${year}-${model}`),
-  name: `${year} ${model}`,
+  name: model,
+  year,
   brand,
   codecSet,
   seamless: brand === '삼성' ? seamless : undefined,
@@ -46,7 +48,8 @@ export const audio = (
   { sscMax, leAudioNote = false, note, aptxLossless = false } = {},
 ) => ({
   id: slugify(`${year}-${model}`),
-  name: `${year} ${model}`,
+  name: model,
+  year,
   brand,
   codecSet,
   sscMax,

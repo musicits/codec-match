@@ -11,7 +11,7 @@ const FLIP = /플립/
 // '프로 맥스'(사운드코어 리버티 5 프로 맥스)는 이어폰이라 '에어팟 맥스'만 따로 잡습니다.
 const HEADPHONE = /^WH-|헤드폰|모멘텀 \d 와이어리스|Px\d|에어팟 맥스|QC45|스튜디오 프로|투어 원|스페이스 원|메이저|모니터 I|Beoplay H|AONIC/
 
-const model = (device) => device.name.replace(/^\d{4}\s+/, '')
+const model = (device) => device.name
 
 export const phoneForm = (device) => {
   const name = model(device)

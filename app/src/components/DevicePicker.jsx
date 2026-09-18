@@ -124,11 +124,13 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
         const codecs = codecsOf(current)
         const head = codecs.slice(0, 4)
         const rest = codecs.slice(4)
+        // 칩은 이름표 오른쪽 한 칸에 모아 둡니다. 그래야 줄이 넘어가도
+        // 둘째 줄 첫 칩이 첫째 줄 첫 칩 바로 아래에 떨어집니다.
         return (
-          <>
-            <div className="codec-list">
-              <span className="codec-list__label">지원 코덱</span>
-              {head.map((codec) => (
+          <div className="codec-list">
+            <span className="codec-list__label">지원 코덱</span>
+            <div className="codec-list__chips">
+              {(allCodecs ? codecs : head).map((codec) => (
                 <span key={codec} className="chip">{codec}</span>
               ))}
               {rest.length > 0 && (
@@ -142,14 +144,7 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
                 </button>
               )}
             </div>
-            {allCodecs && rest.length > 0 && (
-              <div className="codec-list codec-list--more">
-                {rest.map((codec) => (
-                  <span key={codec} className="chip">{codec}</span>
-                ))}
-              </div>
-            )}
-          </>
+          </div>
         )
       })()}
 
