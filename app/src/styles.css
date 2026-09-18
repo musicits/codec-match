@@ -124,7 +124,7 @@ input { caret-color: var(--main); }
   display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px;
   padding: 16px 20px 0; align-items: start;
 }
-.stage, .rail, .changelog {
+.stage, .rail, .changelog, .glossary {
   position: relative; isolation: isolate; border-radius: var(--r-outer);
   /* 글자가 많이 얹히는 판이라 장식 유리(머리말·칩)보다 불투명하게 둡니다.
      iOS 27 이 손본 것도 '뒤 내용을 더 잘 흩뜨려 읽히게' 였습니다. */
@@ -134,7 +134,7 @@ input { caret-color: var(--main); }
   box-shadow: var(--glass-rim), var(--glass-drop);
 }
 /* 빛은 띠가 아니라 모서리에 뭉칩니다 — iOS 27 의 겹친 스페큘러 하이라이트 */
-.stage::before, .rail::before, .changelog::before {
+.stage::before, .rail::before, .changelog::before, .glossary::before {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 140px; border-radius: inherit;
   z-index: -1; pointer-events: none;
   background:
@@ -143,7 +143,7 @@ input { caret-color: var(--main); }
 }
 /* 크롬 139+ 에서만 모서리를 스퀘어클로. 없는 브라우저는 그냥 둥근 모서리로 보입니다. */
 @supports (corner-shape: squircle) {
-  .stage, .rail, .changelog { corner-shape: squircle; border-radius: 28px; }
+  .stage, .rail, .changelog, .glossary { corner-shape: squircle; border-radius: 28px; }
 }
 .stage {
   display: flex; justify-content: center; align-items: center; padding: 40px 32px;
@@ -154,7 +154,10 @@ input { caret-color: var(--main); }
   /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 설정 칸이 제 칸 밖으로 삐져나옵니다. */
   max-height: calc(100dvh - var(--hh, 60px) - 36px); overflow-y: auto;
 }
-.changelog { margin: 16px 20px 20px; padding: 28px 32px 30px; }
+/* 아래 줄: 업데이트 기록 옆에 용어 설명을 세웁니다 */
+.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; margin: 16px 20px 20px; align-items: stretch; }
+.changelog { padding: 28px 32px 30px; }
+.glossary { padding: 26px 28px 28px; }
 
 /* ---- 설정 칸 ---- */
 .grp { padding: 22px 24px 24px; border-bottom: 1px solid var(--glass-hairline); }
@@ -288,9 +291,7 @@ input { caret-color: var(--main); }
 .changelog h2 { margin: 0 0 18px; font-size: 18px; font-weight: 700; }
 
 /* 업데이트 기록 표 — 버전마다 한 줄, 누르면 펼쳐집니다 */
-/* 판이 넓어 표가 다 늘어나면 내역과 '열어보기' 가 멀찍이 떨어집니다.
-   폭을 묶고 가운데로 모아 눈이 따라가기 쉽게 둡니다. */
-.log { width: 100%; max-width: 940px; margin: 0 auto; border-collapse: collapse; }
+.log { width: 100%; border-collapse: collapse; }
 .log th { text-align: left; padding: 0 12px 8px 0; border-bottom: 1px solid var(--line);
   font-size: 11.5px; font-weight: 600; color: var(--stone); white-space: nowrap; }
 .log td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line);
@@ -315,6 +316,12 @@ input { caret-color: var(--main); }
 .log details ul { margin: 8px 0 2px; padding-left: 16px; }
 .log details li { font-size: 12.5px; line-height: 1.7; color: var(--steel); word-break: keep-all; }
 .log details li::marker { color: var(--stone); }
+
+/* 용어 설명 */
+.glossary h2 { margin: 0 0 14px; font-size: 16px; font-weight: 700; }
+.glossary dl { margin: 0; display: grid; gap: 12px; }
+.glossary dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
+.glossary dd { margin: 3px 0 0; font-size: 12.5px; line-height: 1.65; color: var(--steel); word-break: keep-all; }
 
 /* 기록 쪽 넘기기 — 블로그 분석실 순위표와 같은 모양 */
 .log-page { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; }
@@ -437,7 +444,9 @@ input { caret-color: var(--main); }
   .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
   .stage { order: 2; min-height: 0; padding: 28px 18px 24px; }
-  .changelog { margin: 12px; padding: 22px 16px 24px; }
+  .bottom { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 12px; }
+  .changelog { padding: 22px 16px 24px; }
+  .glossary { padding: 20px 16px 22px; }
   /* 좁은 화면에서는 기기 수를 감추고 버전 · 날짜 · 내역만 남깁니다 */
   .log__num { display: none; }
   .log__ver { width: 84px; }
@@ -485,10 +494,10 @@ input { caret-color: var(--main); }
 /* iOS 27 이 '투명도 슬라이더' 로 준 선택지의 웹 대응입니다.
    기기에서 '투명도 줄이기' 를 켠 분에게는 유리를 끄고 단색으로 보여 줍니다. */
 @media (prefers-reduced-transparency: reduce) {
-  .stage, .rail, .changelog, .topbar, .toolswitch__menu, .siblings__card {
+  .stage, .rail, .changelog, .glossary, .topbar, .toolswitch__menu, .siblings__card {
     -webkit-backdrop-filter: none; backdrop-filter: none;
     background: var(--canvas); border-color: var(--line);
   }
-  .stage::before, .rail::before, .changelog::before, .topbar::after { display: none; }
+  .stage::before, .rail::before, .changelog::before, .glossary::before, .topbar::after { display: none; }
   body { background: var(--surface-soft); }
 }

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Changelog from './components/Changelog.jsx'
+import Glossary from './components/Glossary.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { CURRENT_VERSION } from './data/changelog.js'
@@ -86,7 +87,10 @@ export default function App() {
 
         {/* 업데이트 기록은 붙박이 설정 칸과 같은 격자에 두지 않습니다.
             같은 격자에 있으면 스크롤할 때 기록 판이 설정 칸 위로 올라타 이어폰 칸이 잘립니다. */}
-        <Changelog />
+        <div className="bottom">
+          <Changelog />
+          <Glossary />
+        </div>
       </main>
 
       <footer className="credit">
