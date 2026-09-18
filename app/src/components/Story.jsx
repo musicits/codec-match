@@ -48,9 +48,7 @@ const DEMOS = {
 export default function Story() {
   return (
     <div className="story">
-      <div className="result__head">
-        <p className="result__label">숫자 읽는 법</p>
-      </div>
+      <h2 className="story__group story__group--first">숫자 읽는 법</h2>
       <div className="story__numbers">
         {NUMBERS.map((item) => (
           <div key={item.word}>
@@ -75,17 +73,14 @@ export default function Story() {
 
       {GROUPS.map((group) => (
         <section key={group.id}>
-          <div className="result__head">
-            <p className="result__label">{group.name}</p>
-          </div>
+          <h2 className="story__group">{group.name}</h2>
           <p className="story__note">{group.note}</p>
           <ul className="story__list">
             {MAKERS.filter((item) => item.group === group.id).map((item) => (
               <li key={item.codec}>
                 <p className="story__head">
                   <b>{item.codec}</b>
-                  <em>{item.by}</em>
-                  <span>{item.year}</span>
+                  <em>{item.by} · {item.year}</em>
                 </p>
                 <p className="story__spec">{item.spec}</p>
                 <p className="story__body">{item.body}</p>
@@ -95,9 +90,8 @@ export default function Story() {
         </section>
       ))}
 
-      <div className="result__head">
-        <p className="result__label">용어 설명</p>
-      </div>
+      <h2 className="story__group">용어 설명</h2>
+      <p className="story__note">제품 상세 페이지나 해외 기사에서 만나는 말들</p>
       <dl className="story__terms">
         {TERMS.map((term) => (
           <div key={term.word}>

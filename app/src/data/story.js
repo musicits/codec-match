@@ -47,7 +47,7 @@ export const MAKERS = [
     body: '블루투스용으로 만든 게 아니라 원래 음악 파일 규격(ISO/IEC 표준)입니다. 애플이 아이튠즈와 아이폰에 쓰면서 자리를 잡았고, 지금도 아이폰이 이어폰과 붙을 때 쓰는 코덱입니다.',
   },
   {
-    group: 'lossy', codec: 'aptX', by: '퀄컴 (전 CSR · APT)', year: '1988 · 2015 퀄컴',
+    group: 'lossy', codec: 'aptX', by: '퀄컴 (전 CSR · APT)', year: '1988',
     spec: '16bit 48kHz · 최대 352 kbps',
     body: '영국 퀸즈대 벨파스트 연구에서 출발해 방송 장비에 쓰이던 기술입니다. APT 라이선싱이 2010년 CSR 에, 2015년 퀄컴이 CSR 을 인수하면서 퀄컴 것이 됐습니다. 스냅드래곤 폰에 많은 이유입니다.',
   },
