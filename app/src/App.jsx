@@ -73,9 +73,14 @@ export default function App() {
     window.scrollTo({ top: 0 })
   }
 
-  // 뒤로 가기로 화면이 바뀌어도 따라갑니다.
+  // 뒤로 가기로 화면이 바뀌어도 따라갑니다. 이때도 맨 위부터 보여 줍니다 —
+  // 브라우저가 옛 스크롤을 되살리지 못하게 scrollRestoration 을 꺼 둡니다.
   useEffect(() => {
-    const sync = () => setView(window.location.hash === '#streaming' ? 'stream' : 'codec')
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'
+    const sync = () => {
+      setView(window.location.hash === '#streaming' ? 'stream' : 'codec')
+      window.scrollTo({ top: 0 })
+    }
     window.addEventListener('hashchange', sync)
     return () => window.removeEventListener('hashchange', sync)
   }, [])
