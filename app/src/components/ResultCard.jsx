@@ -104,6 +104,15 @@ export default function ResultCard({
         </div>
       </dl>
 
+      <CodecPicker
+        common={common}
+        codec={codec}
+        picked={shown}
+        onPick={setPicked}
+        qualityOf={qualityOf}
+        kbpsOf={kbpsOf}
+      />
+
       {/* 고른 코덱 안의 등급. SSC 는 내 조합의 등급을, aptX 는 3형제 중 어디인지를 짚어 줍니다. */}
       <CodecTiers
         codec={shown}
@@ -114,14 +123,6 @@ export default function ResultCard({
 
       {tier?.note && <p className="note">{tier.note}</p>}
 
-      <CodecPicker
-        common={common}
-        codec={codec}
-        picked={shown}
-        onPick={setPicked}
-        qualityOf={qualityOf}
-        kbpsOf={kbpsOf}
-      />
 
       {/* 매번 볼 내용은 아니라 접어 둡니다. 카드가 길어져 모바일에서 스크롤이 늘어났습니다. */}
       <details className="fallback">
