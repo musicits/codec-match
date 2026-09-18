@@ -182,7 +182,9 @@ input { caret-color: var(--main); }
   max-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 36px); overflow-y: auto;
 }
 /* 아래 줄: 업데이트 기록 옆에 용어 설명을 세웁니다 */
-.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; margin: 16px 20px 20px; align-items: start; }
+/* 두 판을 같은 키로 세웁니다. 기록이 몇 줄이든(버전이 늘어도) 아래 선이 맞습니다 —
+   남는 키는 용어 설명이 채우고, 넘치는 용어는 안쪽에서 구릅니다. */
+.bottom { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; margin: 16px 20px 20px; align-items: stretch; }
 .changelog { padding: 28px 32px 30px; }
 .glossary { padding: 26px 28px 28px; }
 
@@ -347,9 +349,9 @@ input { caret-color: var(--main); }
 /* 용어 설명 */
 .glossary { display: flex; flex-direction: column; }
 .glossary h2 { margin: 0 0 12px; font-size: 16px; font-weight: 700; flex: 0 0 auto; }
-/* 옆 기록 표(열 줄)와 키를 맞춰 두고, 넘치는 용어는 안쪽에서 구릅니다 */
+/* 옆 기록 판이 정한 키를 그대로 채웁니다 — 넘치는 용어는 안쪽에서 구릅니다 */
 .glossary dl { margin: 0; display: grid; gap: 13px; align-content: start;
-  max-height: 543px; overflow-y: auto; padding-right: 8px; }
+  flex: 1 1 0; min-height: 0; overflow-y: auto; padding-right: 8px; }
 .glossary dl::-webkit-scrollbar { width: 6px; }
 .glossary dl::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--stone) 42%, transparent); }
 .glossary dt { font-size: 13px; font-weight: 700; color: var(--main-deep); }
@@ -649,6 +651,7 @@ input { caret-color: var(--main); }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
   .stage { order: 2; min-height: 0; padding: 28px 18px 24px; }
   .bottom { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 12px; }
+  .glossary dl { flex: 0 1 auto; max-height: 420px; }
   .changelog { padding: 22px 16px 24px; }
   .glossary { padding: 20px 16px 22px; }
   .glossary dl { overflow: visible; padding-right: 0; }
