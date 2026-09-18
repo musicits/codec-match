@@ -20,7 +20,7 @@ export const STREAMING = [
   {
     region: 'kr', name: '지니뮤직', en: 'Genie', won: 15400,
     depth: 24, rate: 192, format: 'FLAC', price: '초고음질 월 15,400원',
-    maxNote: '24bit 는 초고음질 전용관(모바일)',
+    maxNote: '앱에서 FLAC 24bit 선택 · kHz 표기는 없음',
   },
   {
     region: 'kr', name: '플로', en: 'FLO', won: 7900,
