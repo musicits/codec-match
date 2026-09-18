@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { sscTier } from '../lib/match.js'
 import { STREAMING, parseCeiling } from '../data/streaming.js'
-import CodecPicker, { waveStrength } from './CodecPicker.jsx'
+import CodecPicker, { strengthsOf } from './CodecPicker.jsx'
 import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
 import DevicePair from './DevicePair.jsx'
@@ -43,9 +43,6 @@ function Recommend({ quality, onOpen }) {
   )
 }
 
-/** 좋은 코덱일수록 파형이 크게 출렁입니다. 등급 차이가 눈에 띄도록 폭을 넓게 잡습니다. */
-const strengthOf = (info, tier) =>
-  waveStrength(tier?.kbps ?? info?.kbps, tier?.quality ?? info?.quality)
 
 export default function ResultCard({
   codec,
@@ -77,10 +74,13 @@ export default function ResultCard({
   const info = CODEC_INFO[shown]
   const tier = shown === 'SSC' ? sscTier(phone, audio) : null
   const preview = shown !== codec
+  const qualityOf = (item) => (item === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[item]?.quality)
+  const kbpsOf = (item) => (item === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[item]?.kbps)
+  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
 
   return (
     <div className="result" aria-live="polite">
-      <DevicePair phone={phone} audio={audio} linked strength={strengthOf(info, tier)} best={!preview} />
+      <DevicePair phone={phone} audio={audio} linked strength={heights[shown]} best={!preview} />
 
       <div className="result__head">
         <p className="result__label">{preview ? '다른 코덱으로 보는 중' : '이 조합의 최적 코덱'}</p>
@@ -157,8 +157,8 @@ export default function ResultCard({
         codec={codec}
         picked={shown}
         onPick={setPicked}
-        qualityOf={(item) => (item === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[item]?.quality)}
-        kbpsOf={(item) => (item === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[item]?.kbps)}
+        qualityOf={qualityOf}
+        kbpsOf={kbpsOf}
       />
 
       <CodecCompare

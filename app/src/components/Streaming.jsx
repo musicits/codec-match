@@ -5,7 +5,7 @@
 // 눌러 정렬할 수 있습니다.
 import { useEffect, useState } from 'react'
 import { REGIONS, STREAMING, gradeOf, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
-import CodecPicker from './CodecPicker.jsx'
+import CodecPicker, { strengthsOf } from './CodecPicker.jsx'
 import DevicePair from './DevicePair.jsx'
 
 const FILTERS = [{ id: 'all', label: '전체' }, ...REGIONS]
@@ -16,13 +16,14 @@ const SORTS = {
   price: (a, b) => (a.won ?? Infinity) - (b.won ?? Infinity),
 }
 
-export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsOf, phone, audio, strength = 1 }) {
+export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsOf, phone, audio }) {
   const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
   const [picked, setPicked] = useState(codec)
   useEffect(() => { setPicked(codec) }, [codec, phone.id, audio.id])
 
   const shown = common.includes(picked) ? picked : codec
+  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
   const quality = qualityOf?.(shown)
   const ceiling = parseCeiling(quality)
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(
@@ -60,7 +61,7 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
 
   return (
     <div className="stream">
-      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={strength} best={shown === codec} />
+      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={heights[shown] ?? 0.35} best={shown === codec} />
 
       <dl className="metrics metrics--two">
         <div>

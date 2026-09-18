@@ -10,7 +10,6 @@ import { brandsOf } from './data/devices.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch, sscTier } from './lib/match.js'
 import { CODEC_INFO } from './data/codecs.js'
-import { waveStrength } from './components/CodecPicker.jsx'
 
 // 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
 // 아이콘은 블로그 분석실 메뉴와 같은 자리·같은 크기로 답니다.
@@ -152,7 +151,6 @@ export default function App() {
                 kbpsOf={kbpsOf}
                 phone={phone}
                 audio={audio}
-                strength={waveStrength(kbpsOf(match.codec), quality)}
               />
             )}
           </section>

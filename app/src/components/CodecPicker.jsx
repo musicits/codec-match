@@ -35,6 +35,26 @@ export const waveStrength = (kbps = 300, quality) => {
   return 0.26 + (0.74 * (byDepth + byRate + byKbps)) / 6
 }
 
+/**
+ * 카드에 그릴 높이를 한 번에 정합니다.
+ *
+ * 사양 숫자만 따르면 이 조합에서 실제로 쓰이는 코덱이 아래로 깔리는 일이 생깁니다
+ * — 아이폰은 AAC 로 붙는데 SBC 가 16bit 48kHz 라 더 높게 그려지는 식입니다.
+ * 그래서 최적 코덱은 나머지보다 항상 한 뼘 위, 그리고 최소 0.7 은 되게 올립니다.
+ */
+export const strengthsOf = (common = [], best, kbpsOf, qualityOf) => {
+  const heights = {}
+  common.forEach((item) => {
+    const info = CODEC_INFO[item]
+    heights[item] = waveStrength(kbpsOf?.(item) ?? info?.kbps, qualityOf?.(item) ?? info?.quality)
+  })
+  if (!best || heights[best] === undefined) return heights
+  const others = common.filter((item) => item !== best).map((item) => heights[item])
+  const top = others.length ? Math.max(...others) : 0
+  heights[best] = Math.min(1, Math.max(heights[best], top + 0.3, 0.7))
+  return heights
+}
+
 function MiniWave({ strength, rich }) {
   return (
     <span className="mini" aria-hidden="true">
@@ -47,6 +67,7 @@ function MiniWave({ strength, rich }) {
 
 export default function CodecPicker({ common, codec, picked, onPick, qualityOf, kbpsOf }) {
   if (!common?.length) return null
+  const heights = strengthsOf(common, codec, kbpsOf, qualityOf)
 
   // 카드는 화면 아래쪽에 있습니다. 눌러 놓고 위를 못 보면 무엇이 바뀌었는지 알 수 없어
   // 결과 판 머리로 부드럽게 올려 줍니다.
@@ -79,7 +100,7 @@ export default function CodecPicker({ common, codec, picked, onPick, qualityOf, 
               onClick={() => pick(item)}
             >
               <MiniWave
-                strength={waveStrength(kbpsOf?.(item) ?? info?.kbps, qualityOf?.(item) ?? info?.quality)}
+                strength={heights[item]}
                 rich={item === codec}
               />
               <span className="codecard__name">
