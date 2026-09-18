@@ -167,10 +167,10 @@ export const CODEC_TIERS = {
   SBC: {
     label: '연결 품질에 따른 단계',
     rows: [
-      { id: 'sbc-high', name: '고품질 (bitpool 53)', quality: '16bit 48kHz', value: '최대 345 kbps' },
+      { id: 'sbc-high', name: '고품질', quality: '16bit 48kHz', value: '최대 345 kbps' },
       { id: 'sbc-base', name: '기본', quality: '16bit 44.1kHz', value: '약 229 kbps' },
     ],
-    foot: '기기와 전파 상태에 따라 bitpool 이 자동으로 오르내립니다',
+    foot: '전파가 잘 통하면 알아서 고품질로 올라가고, 끊길 것 같으면 기본으로 내려갑니다 · 사용자가 직접 고르는 설정은 없습니다',
   },
   AAC: {
     label: 'OS 별 실제 전송률',
