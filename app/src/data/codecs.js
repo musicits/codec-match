@@ -173,12 +173,13 @@ export const CODEC_TIERS = {
     foot: '전파가 좋으면 고품질, 끊길 것 같으면 기본으로 알아서 내려갑니다',
   },
   AAC: {
-    label: 'OS 별 실제 전송률',
+    label: '실제 전송률',
+    // os 가 붙은 줄은 고른 폰이 그 OS 일 때만 보여 줍니다 — 아이폰을 골랐는데
+    // 안드로이드 줄이 같이 뜨면 읽는 사람에게는 남의 이야기입니다.
     rows: [
-      { id: 'aac-ios', name: '아이폰 · 아이패드', quality: '16bit 44.1kHz', value: '256 kbps 고정' },
-      { id: 'aac-android', name: '안드로이드', quality: '16bit 44.1kHz', value: '128–320 kbps' },
+      { id: 'aac-ios', os: 'apple', name: '아이폰 · 아이패드', quality: '16bit 44.1kHz', value: '256 kbps 고정' },
+      { id: 'aac-android', os: 'android', name: '안드로이드', quality: '16bit 44.1kHz', value: '128–320 kbps · 제조사마다 다름' },
     ],
-    foot: '같은 AAC 라도 안드로이드는 제조사·OS 버전에 따라 전송률이 갈립니다',
   },
   LDAC: {
     label: '전송률 단계',

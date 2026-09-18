@@ -96,6 +96,7 @@ export default function ResultCard({
         codec={shown}
         activeId={shown === 'SSC' ? tier?.id : shown}
         unlocked={shown === 'aptX Adaptive' && losslessAvailable}
+        platform={phone.brand === '애플' ? 'apple' : 'android'}
       />
 
       {tier?.note && <p className="note">{tier.note}</p>}
