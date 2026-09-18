@@ -70,8 +70,7 @@ export default function CodecCompare({ common, picked, onPick, metric, onMetric,
         })}
       </ul>
       <p className="compare__foot">
-        막대는 제조사 사양의 최대치({isRate ? '비트레이트' : '지연시간 범위의 가운데값'}) 기준입니다 ·
-        코덱을 누르면 위 카드가 그 코덱 기준으로 바뀝니다
+        막대는 제조사 사양의 최대치({isRate ? '비트레이트' : '지연시간 범위의 가운데값'}) 기준입니다
       </p>
     </section>
   )
