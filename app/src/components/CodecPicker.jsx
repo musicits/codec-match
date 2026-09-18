@@ -44,8 +44,14 @@ export const strengthsOf = (common = [], best) => {
 }
 
 function MiniWave({ strength, rich }) {
+  // 높이만 다르고 다 같은 박자로 움직이면 줄 맞춘 것처럼 보입니다.
+  // 위에 선 코덱일수록 빠르고 크게, 아래로 갈수록 느리고 잔잔하게 숨 쉬게 합니다.
+  const style = {
+    '--pulse-time': `${(3.1 - strength * 1.5).toFixed(2)}s`,
+    '--pulse-low': (0.96 - strength * 0.14).toFixed(3),
+  }
   return (
-    <span className="mini" aria-hidden="true">
+    <span className="mini" style={style} aria-hidden="true">
       {(rich ? MINI.rich : MINI.calm).map((height, index) => (
         <i key={index} style={{ height: `${(height * strength * 100).toFixed(1)}%` }} />
       ))}

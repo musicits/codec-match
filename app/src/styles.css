@@ -484,10 +484,17 @@ input { caret-color: var(--main); }
 .mini { display: flex; align-items: flex-end; justify-content: space-between; gap: 0; height: 52px; }
 .mini i { flex: 0 0 3px; border-radius: 999px; background: color-mix(in srgb, var(--stone) 55%, transparent); }
 .codecard.on:not(.best) .mini i { background: var(--main); }
-.codecard.best .mini i { animation: minipulse 1.8s ease-in-out infinite; transform-origin: 50% 100%; }
+/* 카드마다 주기와 폭이 다릅니다 — 값은 CodecPicker 가 순위대로 내려 줍니다.
+   위에 선 코덱은 빠르고 크게, 아래로 갈수록 느리고 잔잔하게 숨 쉽니다. */
+.mini i { animation: minipulse var(--pulse-time, 2.4s) ease-in-out infinite;
+  transform-origin: 50% 100%; }
 .mini i:nth-child(3n) { animation-delay: -.6s; }
 .mini i:nth-child(3n + 1) { animation-delay: -1.2s; }
-@keyframes minipulse { 0%, 100% { transform: scaleY(.86); } 50% { transform: scaleY(1); } }
+@keyframes minipulse {
+  0%, 100% { transform: scaleY(var(--pulse-low, .92)); }
+  50% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) { .mini i { animation: none; } }
 
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
