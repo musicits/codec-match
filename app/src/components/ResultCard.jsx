@@ -28,7 +28,7 @@ function Recommend({ quality, onOpen }) {
           {picks.length === 0
             ? '공통 코덱 없음'
             : capped
-              ? `${quality} · 전 서비스 동일`
+              ? `${quality} · 모든 서비스 동일`
               : picks.map((service) => service.name).join(' · ')}
         </p>
       </div>
