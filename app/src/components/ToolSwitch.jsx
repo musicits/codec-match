@@ -16,6 +16,12 @@ const ICONS = {
       <path d="M8 8h8M8 12h5" />
     </>
   ),
+  exam: (
+    <>
+      <rect x="4" y="3.5" width="16" height="17" rx="2.5" />
+      <path d="m8.5 11.5 2.2 2.2 4.3-4.6" />
+    </>
+  ),
 }
 
 export default function ToolSwitch() {

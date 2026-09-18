@@ -15,16 +15,23 @@ export const TOOLS = [
   {
     id: 'phone-mockup-studio',
     name: '폰 목업 스튜디오',
-    tagline: '스크린샷을 기기 프레임에 맞춰 합성',
+    tagline: '스크린샷을 아이폰·갤럭시 목업에 넣어 PNG 로',
     url: 'https://tools.musicits.com/phone-mockup-studio/',
     icon: 'phone',
   },
   {
     id: 'magazine-cover-maker',
     name: '매거진 커버 메이커',
-    tagline: '사진을 넣으면 바로 매거진 표지로',
+    tagline: '사진을 끌어다 놓으면 바로 잡지 표지로',
     url: 'https://tools.musicits.com/magazine-cover-maker/',
     icon: 'cover',
+  },
+  {
+    id: 'photo-exam',
+    name: '사진기능사 필기 예상문제',
+    tagline: '예상문제 398문항 · 60분 모의고사',
+    url: 'https://tools.musicits.com/photo-exam/',
+    icon: 'exam',
   },
 ]
 

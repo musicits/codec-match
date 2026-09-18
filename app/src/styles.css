@@ -595,7 +595,18 @@ input { caret-color: var(--main); }
 .compare__value em { display: block; font-style: normal; font-size: 11.5px; font-weight: 500; color: var(--stone); }
 
 /* ---- 머리말 도구 전환기 ---- */
-.toolswitch { margin-left: auto; position: relative; flex: 0 0 auto; }
+/* 머리말 오른쪽 묶음 — 블로그 · 도구. 도구 모음 첫 화면과 같은 자리입니다. */
+.topbar__right { margin-left: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+.topbar__blog {
+  display: inline-flex; align-items: center; padding: 6px 13px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 700; color: var(--steel); text-decoration: none;
+  background: color-mix(in srgb, var(--canvas) 62%, transparent);
+  border: 1px solid var(--glass-hairline);
+  transition: color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.16, 1, .3, 1);
+}
+.topbar__blog:hover { color: var(--main-deep); border-color: color-mix(in srgb, var(--main) 40%, transparent); }
+.topbar__blog:active { transform: scale(.96); }
+.toolswitch { position: relative; flex: 0 0 auto; }
 .toolswitch__btn {
   display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 999px;
   font-size: 12.5px; font-weight: 600; color: var(--slate); cursor: pointer;
@@ -703,7 +714,7 @@ input { caret-color: var(--main); }
   .metrics > div:nth-child(3) { grid-column: 1 / -1; padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
   /* 도구 단추는 설명글보다 먼저 놓아 첫 줄 오른쪽에 붙입니다 */
   .topbar p { order: 3; }
-  .toolswitch { order: 2; }
+  .topbar__right { order: 2; }
   .compare__list button { grid-template-columns: 62px minmax(0, 1fr); row-gap: 4px; }
   .compare__value { grid-column: 1 / -1; text-align: left; }
   .compare__value em { display: inline; margin-left: 6px; }
