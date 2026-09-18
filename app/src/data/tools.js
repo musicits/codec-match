@@ -13,19 +13,29 @@ export const TOOLS = [
     icon: 'codec',
   },
   {
-    id: 'phone-mockup',
+    id: 'phone-mockup-studio',
     name: '폰 목업 스튜디오',
     tagline: '스크린샷을 기기 프레임에 맞춰 합성',
-    url: 'https://tools.musicits.com/phone-mockup/',
+    url: 'https://tools.musicits.com/phone-mockup-studio/',
     icon: 'phone',
   },
   {
-    id: 'magazine-cover',
+    id: 'magazine-cover-maker',
     name: '매거진 커버 메이커',
     tagline: '사진을 넣으면 바로 매거진 표지로',
-    url: 'https://tools.musicits.com/magazine-cover/',
+    url: 'https://tools.musicits.com/magazine-cover-maker/',
     icon: 'cover',
   },
 ]
+
+/** 도구 모음 첫 화면. 머리말 로고를 누르면 여기로 갑니다. */
+export const HUB = 'https://tools.musicits.com/'
+
+/** 만든이 블로그. 도구 목록 맨 아래와 푸터에서 가리킵니다. */
+export const BLOG = {
+  name: '쭈뉘의 뮤직잇츠 music ITs',
+  tagline: '테크 · 스마트폰 · 음향기기 리뷰',
+  url: 'https://blog.naver.com/musicits',
+}
 
 export const OTHERS = TOOLS.filter((tool) => tool.id !== SELF)

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Changelog from './components/Changelog.jsx'
 import Glossary from './components/Glossary.jsx'
+import ToolSwitch from './components/ToolSwitch.jsx'
 import Streaming from './components/Streaming.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
 import ResultCard from './components/ResultCard.jsx'
@@ -10,6 +11,7 @@ import { brandsOf } from './data/devices.js'
 import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch, sscTier } from './lib/match.js'
 import { CODEC_INFO } from './data/codecs.js'
+import { HUB, OTHERS } from './data/tools.js'
 
 // 화면(카테고리) 목록. 주소 뒤 #streaming 으로도 바로 열립니다.
 // 아이콘은 블로그 분석실 메뉴와 같은 자리·같은 크기로 답니다.
@@ -127,11 +129,13 @@ export default function App() {
   return (
     <>
       <header className="topbar" ref={headRef}>
-        <img className="logo" src="./logo.png" width="1471" height="353" alt="music ITs" />
+        {/* 로고를 누르면 도구 모음 첫 화면으로 돌아갑니다 */}
+        <a className="logo-link" href={HUB} aria-label="music ITs 도구 모음">
+          <img className="logo" src="./logo.png" width="1471" height="353" alt="music ITs" />
+        </a>
         <h1>코덱 매치</h1>
         <p>내 기기 조합에서 들리는 최적의 블루투스 코덱</p>
-        {/* 도구 전환기(components/ToolSwitch.jsx)와 아래 형제 도구 카드는 만들어 두고 껐습니다.
-            폰 목업·매거진 커버·루트 랜딩까지 같은 목록을 붙인 다음 셋을 한꺼번에 켭니다. */}
+        <ToolSwitch />
       </header>
 
       <nav className="cats" aria-label="화면 고르기" ref={navRef}>
@@ -213,6 +217,20 @@ export default function App() {
           <Glossary />
         </div>
       </main>
+
+      {/* 형제 도구 — 여기까지 읽었다면 저쪽도 쓸모가 있을 자리입니다 */}
+      <section className="siblings" aria-label="music ITs 다른 도구">
+        <p className="siblings__label">music ITs 의 다른 도구</p>
+        <div className="siblings__row">
+          {OTHERS.map((tool) => (
+            <a className="siblings__card" key={tool.id} href={tool.url}>
+              <b>{tool.name}</b>
+              <em>{tool.tagline}</em>
+              <span>열어보기 →</span>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <button
         type="button"

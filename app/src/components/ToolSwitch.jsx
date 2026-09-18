@@ -1,6 +1,6 @@
 // 머리말 오른쪽 도구 전환기. 폰 목업의 도움말 단추·매거진의 테마 단추와 같은 자리입니다.
 import { useEffect, useRef, useState } from 'react'
-import { SELF, TOOLS } from '../data/tools.js'
+import { BLOG, HUB, SELF, TOOLS } from '../data/tools.js'
 
 const ICONS = {
   codec: <path d="M4 12h3l2.5-6 3 12 2.5-6H20" />,
@@ -79,6 +79,15 @@ export default function ToolSwitch() {
               </a>
             )
           })}
+
+          <div className="toolswitch__foot">
+            <a href={HUB} className="toolswitch__link" role="menuitem">도구 모음 첫 화면</a>
+            {/* rel 에 noreferrer 를 넣지 않습니다 — 블로그 유입 통계에 출처가 안 잡힙니다 */}
+            <a href={BLOG.url} className="toolswitch__link" role="menuitem"
+              target="_blank" rel="author noopener">
+              {BLOG.name} ↗
+            </a>
+          </div>
         </div>
       )}
     </div>
