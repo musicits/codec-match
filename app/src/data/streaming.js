@@ -10,11 +10,12 @@ export const STREAMING = [
   {
     region: 'kr', name: '멜론', en: 'Melon', won: 12000,
     depth: 16, rate: 44.1, format: 'FLAC', price: '하이파이 월 12,000원',
+    maxNote: '24bit 는 다운로드 전용',
   },
   {
     region: 'kr', name: '벅스', en: 'Bugs', won: 12000,
-    depth: 24, rate: 192, format: 'FLAC', price: '프리미엄 월 12,000원',
-    maxNote: '24bit 는 일부 음원',
+    depth: 16, rate: 44.1, format: 'FLAC', price: '프리미엄 월 12,000원',
+    maxNote: '24bit 는 다운로드 전용',
   },
   {
     region: 'kr', name: '지니뮤직', en: 'Genie', won: 15400,
