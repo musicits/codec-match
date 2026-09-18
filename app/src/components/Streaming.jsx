@@ -18,7 +18,9 @@ const SORTS = {
   price: (a, b) => (a.won ?? Infinity) - (b.won ?? Infinity),
 }
 
-export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsOf, phone, audio }) {
+export default function Streaming({
+  codec, common = [], nameOf, qualityOf, kbpsOf, titleOf, bitrateOf, latencyOf, phone, audio,
+}) {
   const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
   const [picked, setPicked] = useState(codec)
@@ -104,10 +106,26 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
         )}
       </DevicePair>
 
-      <dl className="metrics metrics--two">
+      {/* 코덱 화면과 같은 머리말·지표를 씁니다. 화면을 바꿔도 코덱 카드가 같은
+          자리에 서고, 두 화면이 한 도구로 읽힙니다. */}
+      <div className="result__head">
+        <p className="result__label">{shown === codec ? '이 조합의 최적 코덱' : '다른 코덱으로 보는 중'}</p>
+        {shown !== codec && (
+          <button type="button" className="badge badge--btn" onClick={() => setPicked(codec)}>
+            {codec} 다시 보기
+          </button>
+        )}
+      </div>
+      <h2 className="result__codec">{shown ? titleOf?.(shown) ?? shown : '연결 불가'}</h2>
+
+      <dl className="metrics">
         <div>
-          <dt>{shown === codec ? '연결 코덱' : '바꿔 본 코덱'}</dt>
-          <dd>{shown ? nameOf?.(shown) ?? shown : '연결 불가'}</dd>
+          <dt>최대 비트레이트</dt>
+          <dd>{bitrateOf?.(shown) ?? '—'}</dd>
+        </div>
+        <div>
+          <dt>대략적 지연시간</dt>
+          <dd>{latencyOf?.(shown) ?? '—'}</dd>
         </div>
         <div>
           <dt>음질 상한</dt>

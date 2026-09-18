@@ -60,6 +60,12 @@ export default function App() {
     codec === 'SSC' ? sscTier(phone, audio).quality : CODEC_INFO[codec]?.quality
   const kbpsOf = (codec) =>
     codec === 'SSC' ? sscTier(phone, audio).kbps : CODEC_INFO[codec]?.kbps
+  // 스트리밍 화면도 같은 머리말·지표를 씁니다 — 화면을 바꿔도 판이 어긋나지 않게.
+  const titleOf = (codec) =>
+    (codec === 'SSC' ? sscTier(phone, audio).name : CODEC_INFO[codec]?.name) ?? codec
+  const bitrateOf = (codec) =>
+    codec === 'SSC' ? sscTier(phone, audio).bitrate : CODEC_INFO[codec]?.bitrate
+  const latencyOf = (codec) => CODEC_INFO[codec]?.latency
   // 코덱 화면 제목이 'SSC-UHQ (24bit 96kHz)' 면 스트리밍 화면도 같은 이름을 씁니다.
   // 뒤 괄호는 음질 상한 칸과 같은 말이라 떼고 씁니다.
 
@@ -157,6 +163,9 @@ export default function App() {
                 nameOf={nameOf}
                 qualityOf={qualityOf}
                 kbpsOf={kbpsOf}
+                titleOf={titleOf}
+                bitrateOf={bitrateOf}
+                latencyOf={latencyOf}
                 phone={phone}
                 audio={audio}
               />
