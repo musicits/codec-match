@@ -89,9 +89,22 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
 
   return (
     <div className="stream">
-      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={heights[shown] ?? 0.35} best={shown === codec} />
+      <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={heights[shown] ?? 0.35} best={shown === codec}>
+        {/* 지금 코덱으로 제값 하는 곳. 누르면 아래 표의 그 줄로 내려갑니다. */}
+        {capped ? (
+          <p className="picks picks--flat">어느 서비스든 {quality}</p>
+        ) : picks.length > 0 && (
+          <p className="picks">
+            {picks.map((service) => (
+              <button type="button" key={service.name} onClick={() => jump(service)}>
+                {service.name}
+              </button>
+            ))}
+          </p>
+        )}
+      </DevicePair>
 
-      <dl className="metrics">
+      <dl className="metrics metrics--two">
         <div>
           <dt>{shown === codec ? '연결 코덱' : '바꿔 본 코덱'}</dt>
           <dd>{shown ? nameOf?.(shown) ?? shown : '연결 불가'}</dd>
@@ -99,22 +112,6 @@ export default function Streaming({ codec, common = [], nameOf, qualityOf, kbpsO
         <div>
           <dt>음질 상한</dt>
           <dd>{quality ?? '—'}</dd>
-        </div>
-        <div>
-          <dt>{capped ? '서비스별 차이' : '이 상한을 채우는 서비스'}</dt>
-          <dd className="picks">
-            {capped ? (
-              <em>어느 서비스든 {quality}</em>
-            ) : picks.length === 0 ? (
-              <em>없음</em>
-            ) : (
-              picks.map((service) => (
-                <button type="button" key={service.name} onClick={() => jump(service)}>
-                  {service.name}
-                </button>
-              ))
-            )}
-          </dd>
         </div>
       </dl>
 

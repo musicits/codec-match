@@ -51,14 +51,17 @@ function Wave({ strength = 1, best = true }) {
   )
 }
 
-export default function DevicePair({ phone, audio, linked, strength, best = true }) {
+export default function DevicePair({ phone, audio, linked, strength, best = true, children }) {
   return (
     <div className={`pair${linked ? '' : ' pair--broken'}`}>
       <figure className="pair__device" style={{ '--icon-scale': phoneScale(phone) }}>
         <DeviceIcon form={phoneForm(phone)} />
         <figcaption>{phone.name}</figcaption>
       </figure>
-      <Wave key={`${phone.id}-${audio.id}`} strength={strength} best={best} />
+      <div className="pair__mid">
+        <Wave key={`${phone.id}-${audio.id}`} strength={strength} best={best} />
+        {children}
+      </div>
       <figure className="pair__device">
         <DeviceIcon form={audioForm(audio)} />
         <figcaption>{audio.name}</figcaption>
