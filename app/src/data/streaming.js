@@ -7,18 +7,74 @@
 // depth/rate 는 무손실 서비스의 상한, lossy 는 손실 압축만 되는 서비스입니다.
 // region: 'kr' 은 한국에서 정식으로 결제해 쓸 수 있는 서비스(해외 회사라도 포함),
 // 'global' 은 한국 정식 서비스가 없는 곳입니다.
+//
+// tiers 는 그 서비스가 내보내는 음질 단계입니다. 무손실 서비스라도 음원마다
+// 44.1 · 48 · 96 · 192kHz 가 섞여 있어서, 코덱 상한에 따라 실제로 닿는 단계가 달라집니다.
 export const STREAMING = [
-  { region: 'kr', name: '멜론', en: 'Melon', depth: 24, rate: 192, format: 'FLAC', price: '하이파이 월 12,000원' },
-  { region: 'kr', name: '벅스', en: 'Bugs', depth: 24, rate: 192, format: 'FLAC', price: '프리미엄 월 12,000원' },
-  { region: 'kr', name: '지니뮤직', en: 'Genie', depth: 24, rate: 192, format: 'FLAC', price: '무제한 월 12,000원' },
-  { region: 'kr', name: '애플 뮤직', en: 'Apple Music', depth: 24, rate: 192, format: 'ALAC', price: '월 8,900원' },
-  { region: 'kr', name: '스포티파이', en: 'Spotify', depth: 24, rate: 44.1, format: 'FLAC', price: '프리미엄 월 11,990원' },
-  { region: 'kr', name: '플로', en: 'FLO', depth: 16, rate: 44.1, format: 'FLAC', price: '무제한 월 11,000원' },
-  { region: 'kr', name: '유튜브 뮤직', en: 'YouTube Music', lossy: '256 kbps', format: 'AAC', price: '월 11,990원' },
-  { region: 'global', name: '타이달', en: 'TIDAL', depth: 24, rate: 192, format: 'FLAC', price: '월 19.99$ (Max)' },
-  { region: 'global', name: '코부즈', en: 'Qobuz', depth: 24, rate: 192, format: 'FLAC', price: '월 12.99$' },
-  { region: 'global', name: '아마존 뮤직', en: 'Amazon Music', depth: 24, rate: 192, format: 'FLAC', price: '월 9.99$ (Unlimited)' },
+  {
+    region: 'kr', name: '멜론', won: 12000, en: 'Melon', depth: 24, rate: 192, format: 'FLAC',
+    price: '하이파이 월 12,000원',
+    tiers: ['320 kbps', '16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'kr', name: '벅스', won: 12000, en: 'Bugs', depth: 24, rate: 192, format: 'FLAC',
+    price: '프리미엄 월 12,000원',
+    tiers: ['320 kbps', '16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'kr', name: '지니뮤직', won: 12000, en: 'Genie', depth: 24, rate: 192, format: 'FLAC',
+    price: '무제한 월 12,000원',
+    tiers: ['320 kbps', '16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'kr', name: '애플 뮤직', won: 8900, en: 'Apple Music', depth: 24, rate: 192, format: 'ALAC',
+    price: '월 8,900원',
+    tiers: ['16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'kr', name: '스포티파이', won: 11990, en: 'Spotify', depth: 24, rate: 44.1, format: 'FLAC',
+    price: '프리미엄 월 11,990원',
+    tiers: ['320 kbps', '24bit 44.1kHz'],
+  },
+  {
+    region: 'kr', name: '플로', won: 11000, en: 'FLO', depth: 16, rate: 44.1, format: 'FLAC',
+    price: '무제한 월 11,000원',
+    tiers: ['320 kbps', '16bit 44.1kHz'],
+  },
+  {
+    region: 'kr', name: '유튜브 뮤직', won: 11990, en: 'YouTube Music', lossy: '256 kbps', format: 'AAC',
+    price: '월 11,990원',
+    tiers: ['128 kbps', '256 kbps'],
+  },
+  {
+    region: 'global', name: '타이달', en: 'TIDAL', depth: 24, rate: 192, format: 'FLAC',
+    price: '월 19.99$ (Max)',
+    tiers: ['320 kbps', '16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'global', name: '코부즈', en: 'Qobuz', depth: 24, rate: 192, format: 'FLAC',
+    price: '월 12.99$',
+    tiers: ['16bit 44.1kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
+  {
+    region: 'global', name: '아마존 뮤직', en: 'Amazon Music', depth: 24, rate: 192, format: 'FLAC',
+    price: '월 9.99$ (Unlimited)',
+    tiers: ['16bit 44.1kHz', '24bit 48kHz', '24bit 96kHz', '24bit 192kHz'],
+  },
 ]
+
+/** 코덱 상한 안에 들어오는 가장 높은 단계. 실제로 귀에 닿는 음질입니다. */
+export const bestTier = (service, ceiling) => {
+  if (!ceiling) return null
+  const fitsTier = (tier) => {
+    const depth = tier.match(/(\d+)bit/)
+    const rate = tier.match(/([\d.]+)kHz/)
+    if (!depth || !rate) return true // kbps 단계는 손실 압축이라 상한을 넘지 않습니다
+    return Number(depth[1]) <= ceiling.depth && Number(rate[1]) <= ceiling.rate
+  }
+  const usable = service.tiers.filter(fitsTier)
+  return usable[usable.length - 1] ?? service.tiers[0]
+}
 
 export const REGIONS = [
   { id: 'kr', label: '국내에서 쓸 수 있는 곳' },

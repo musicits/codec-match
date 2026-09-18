@@ -380,29 +380,51 @@ input { caret-color: var(--main); }
 .stream { width: 100%; max-width: 760px; }
 .stream .pair { margin-bottom: 8px; }
 .stream .metrics { margin-top: 32px; }
-.stream__title { margin: 30px 0 0; font-size: clamp(22px, 2.4vw, 27px); line-height: 1.2; font-weight: 800;
+.stream__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.stream__title { margin: 0; font-size: clamp(22px, 2.4vw, 27px); line-height: 1.2; font-weight: 800;
   letter-spacing: -.02em; color: var(--ink); }
-.stream__sub { margin: 6px 0 0; font-size: 13px; color: var(--steel); word-break: keep-all; }
-.stream__table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-.stream__table th { text-align: left; padding: 0 12px 8px 0; border-bottom: 1px solid var(--line);
+.stream__sub { margin: 6px 0 0; font-size: 13px; color: var(--steel); }
+
+/* 표는 유리 판 위에 얹고, 머리줄은 구를 때 위에 붙어 있습니다 */
+.stream__panel { margin-top: 14px; border-radius: var(--r-lg); overflow: hidden;
+  background: color-mix(in srgb, var(--canvas) 52%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim); }
+.stream__table { width: 100%; border-collapse: collapse; }
+.stream__table th { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line);
   font-size: 11.5px; font-weight: 600; color: var(--stone); white-space: nowrap; }
+.stream__table thead th:first-child { padding-left: 16px; }
+.stream__table th button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0;
+  background: transparent; cursor: pointer; font: inherit; color: inherit; }
+.stream__table th button:hover { color: var(--main-deep); }
+.stream__table th button i { font-style: normal; font-size: 9.5px; opacity: .6; }
 .stream__table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--slate); }
+.stream__table td:first-child { padding-left: 16px; }
 .stream__table tbody:last-child tr:last-child td { border-bottom: 0; }
-.stream__group th { padding: 18px 0 7px; border-bottom: 1px solid var(--line);
+.stream__group th { padding: 16px 0 7px 16px; border-bottom: 1px solid var(--line);
   font-size: 11.5px; font-weight: 700; color: var(--main-deep); }
-.stream__table tbody:first-of-type .stream__group th { padding-top: 10px; }
+.stream__table tbody:first-of-type .stream__group th { padding-top: 12px; }
 .stream__table b { font-size: 13.5px; color: var(--ink); }
 .stream__table em { display: block; font-style: normal; font-size: 11.5px; color: var(--stone); }
-.stream__q { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* 음질 단계 — 지금 조합에서 닿는 단계에만 불이 들어옵니다 */
+.stream__tiers { min-width: 268px; }
+td.stream__tiers { display: table-cell; }
+td.stream__tiers span { display: inline-block; margin: 2px 4px 2px 0; padding: 2px 8px; border-radius: 999px;
+  font-size: 11.5px; color: var(--stone); background: color-mix(in srgb, var(--canvas) 60%, transparent);
+  border: 1px solid var(--glass-hairline); font-variant-numeric: tabular-nums; }
+td.stream__tiers span.on { color: var(--main-deep); font-weight: 700; background: var(--tint);
+  border-color: color-mix(in srgb, var(--main) 38%, transparent); }
 .stream__fmt { color: var(--stone); font-size: 12px; }
 .stream__price { font-size: 12.5px; white-space: nowrap; }
-.stream__verdict { text-align: right; white-space: nowrap; }
-.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+.stream__verdict { text-align: right; white-space: nowrap; padding-right: 16px !important; }
+.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700;
+  font-variant-numeric: tabular-nums; }
 .pill--ok { color: var(--main-deep); background: var(--tint); border: 1px solid color-mix(in srgb, var(--main) 35%, transparent); }
 .pill--cut { color: #A5530B; background: rgba(217, 115, 26, .14); border: 1px solid rgba(217, 115, 26, .38); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pill--cut { color: #FFD3A1; } }
 :root[data-theme="dark"] .pill--cut { color: #FFD3A1; }
-.stream__foot { margin: 16px 0 0; font-size: 12.5px; line-height: 1.7; color: var(--steel); word-break: keep-all; }
+.stream__foot { margin: 14px 0 0; font-size: 12.5px; line-height: 1.7; color: var(--steel); word-break: keep-all; }
 
 /* ---- 코덱 등급표 ---- */
 .tiers { margin-top: 16px; padding: 14px 16px; border-radius: var(--r-lg);
@@ -552,7 +574,8 @@ input { caret-color: var(--main); }
   .cats { padding: 7px 10px; gap: 0; }
   .cats button { padding: 8px 12px; font-size: 12.5px; gap: 6px; }
   .stream__price, .stream__fmt { display: none; }
-  .stream__sum { grid-template-columns: 1fr 1fr; }
+  .stream__tiers { min-width: 0; }
+  td.stream__tiers span { font-size: 11px; padding: 2px 6px; }
   .siblings { margin: 0 12px 12px; }
   /* 손가락으로 누르는 것들은 높이를 키웁니다 */
   .chip--btn { min-height: 32px; padding: 5px 12px; font-size: 12.5px; }

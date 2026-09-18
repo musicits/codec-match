@@ -1,25 +1,40 @@
 import { useEffect, useState } from 'react'
 import { CODEC_INFO } from '../data/codecs.js'
 import { sscTier } from '../lib/match.js'
-import { STREAMING, fits, parseCeiling } from '../data/streaming.js'
+import { STREAMING, parseCeiling } from '../data/streaming.js'
 import CodecCompare from './CodecCompare.jsx'
 import CodecTiers from './CodecTiers.jsx'
 import DevicePair from './DevicePair.jsx'
 
-/** 지금 코덱이 그대로 담아내는 스트리밍 서비스를 몇 곳만 걸어 둡니다. */
+/**
+ * 이 조합에 어울리는 스트리밍을 고릅니다.
+ *
+ * '코덱 상한 아래라서 그대로 들어오는 것' 이 아니라 '코덱 상한을 꽉 채우는 것' 이
+ * 어울리는 서비스입니다. 스포티파이(24bit 44.1kHz)가 SSC-UHQ(24bit 96kHz) 아래에
+ * 있다고 해서 그 조합에 어울리는 건 아니니까요 — 그릇이 남습니다.
+ */
 function Recommend({ quality, onOpen }) {
   const ceiling = parseCeiling(quality)
-  const kept = STREAMING.filter((service) => fits(service, ceiling))
-  const best = kept.filter((service) => !service.lossy)
+  const full = ceiling
+    ? STREAMING.filter(
+        (service) => !service.lossy && service.depth >= ceiling.depth && service.rate >= ceiling.rate,
+      )
+    : []
+  const domestic = full.filter((service) => service.region === 'kr')
+  const picks = (domestic.length ? domestic : full).slice(0, 3)
+  // CD 급에서 멈추는 코덱이면 어떤 요금제를 켜도 거기까지입니다.
+  const capped = ceiling && ceiling.depth <= 16 && ceiling.rate <= 48
 
   return (
     <section className="recommend">
       <div>
-        <p className="recommend__label">이 조합에 어울리는 스트리밍</p>
+        <p className="recommend__label">{capped ? '이 조합의 스트리밍 음질' : `${quality} 를 살리는 서비스`}</p>
         <p className="recommend__body">
-          {best.length > 0
-            ? `${best.slice(0, 3).map((service) => service.name).join(' · ')} 는 원본이 그대로 건너갑니다`
-            : '무손실 서비스는 모두 깎여서 들어옵니다 · 손실 압축 서비스로도 차이가 크지 않습니다'}
+          {picks.length === 0
+            ? '공통 코덱 없음'
+            : capped
+              ? `어느 서비스든 ${quality}`
+              : picks.map((service) => service.name).join(' · ')}
         </p>
       </div>
       <button type="button" onClick={onOpen}>스트리밍 음질 보기 →</button>
