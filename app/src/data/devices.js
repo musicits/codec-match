@@ -39,13 +39,16 @@ export const phone = (
  * leAudioNote: LE Audio 하드웨어는 있으나 제조사가 LC3 지원을 명시하지 않은 경우.
  * note: 기기 선택란에 함께 보여줄 한 줄 주석. 코덱 표기만으로 오해가 생기는 기기에 씁니다.
  * aptxLossless: aptX Adaptive 의 무손실 모드까지 지원하는지. 양쪽 다 참일 때만 의미가 있습니다.
+ * multipoint: true(두 기기 동시 연결) | 'auto'(같은 제조사 기기끼리 자동 전환).
+ *   애플·삼성은 일반 멀티포인트가 아니라 자기 기기끼리 넘어가는 방식이라 따로 적습니다.
+ *   모르는 기기는 비워 둡니다 — 비어 있으면 화면에 아무것도 걸리지 않습니다.
  */
 export const audio = (
   year,
   brand,
   codecSet,
   model,
-  { sscMax, leAudioNote = false, note, aptxLossless = false } = {},
+  { sscMax, leAudioNote = false, note, aptxLossless = false, multipoint } = {},
 ) => ({
   id: slugify(`${year}-${model}`),
   name: model,
@@ -56,6 +59,7 @@ export const audio = (
   leAudioNote,
   note,
   aptxLossless,
+  multipoint,
 })
 
 /** 같은 연도·브랜드·코덱셋을 공유하는 모델을 한 번에 정의합니다. */

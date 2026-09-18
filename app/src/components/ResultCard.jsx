@@ -28,7 +28,7 @@ function Recommend({ quality, onOpen }) {
   return (
     <section className="recommend">
       <div>
-        <p className="recommend__label">{capped ? '이 조합의 스트리밍 음질' : `${quality} 를 살리는 서비스`}</p>
+        <p className="recommend__label">{capped ? '이 조합의 스트리밍 음질' : `${quality} 지원 서비스`}</p>
         <p className="recommend__body">
           {picks.length === 0
             ? '공통 코덱 없음'

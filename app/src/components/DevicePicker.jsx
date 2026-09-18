@@ -148,6 +148,25 @@ export default function DevicePicker({ title, formLabel = '형태', formOf, form
         )
       })()}
 
+      {current && (() => {
+        // 코덱 말고도 고를 때 따지는 것들. 모르는 기기는 비워 두었으니 아무것도 걸리지 않습니다.
+        const marks = []
+        if (current.multipoint === true) marks.push('멀티포인트')
+        if (current.multipoint === 'auto') marks.push(`${current.brand} 기기 간 자동 전환`)
+        if (codecsOf(current).includes('LC3')) marks.push('LE Audio')
+        if (!marks.length) return null
+        return (
+          <div className="codec-list">
+            <span className="codec-list__label">기능</span>
+            <div className="codec-list__chips">
+              {marks.map((mark) => (
+                <span key={mark} className="chip chip--mark">{mark}</span>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
+
       {current?.leAudioNote && <p className="device-note">LE Audio 지원 · LC3 명시 없음</p>}
       {current?.note && <p className="device-note">{current.note}</p>}
     </section>

@@ -1,17 +1,13 @@
 // 음악 스트리밍 서비스 화면.
 //
-// 코덱 화면에서 고른 조합이 그대로 넘어옵니다. 서비스마다 음질 단계가 여럿이라
-// (320kbps · CD · 하이레조) 그 단계를 모두 걸어 두고, 지금 코덱으로 실제로 닿는
-// 단계를 따로 표시합니다.
+// 코덱 화면에서 고른 조합이 그대로 넘어옵니다. 서비스 상한과 코덱 상한을 견줘
+// 실제로 귀에 닿는 음질을 적습니다. 국내·해외를 갈라서 보여 주고, 표는 머리를
+// 눌러 정렬할 수 있습니다.
 import { useState } from 'react'
-import { REGIONS, STREAMING, bestTier, fits, parseCeiling } from '../data/streaming.js'
+import { REGIONS, STREAMING, fits, heardQuality, maxQuality, parseCeiling } from '../data/streaming.js'
 import DevicePair from './DevicePair.jsx'
 
-const FILTERS = [
-  { id: 'all', label: '전체' },
-  { id: 'kr', label: '국내' },
-  { id: 'global', label: '해외' },
-]
+const FILTERS = [...REGIONS, { id: 'all', label: '전체' }]
 
 const SORTS = {
   name: (a, b) => a.name.localeCompare(b.name, 'ko'),
@@ -19,36 +15,36 @@ const SORTS = {
   price: (a, b) => (a.won ?? Infinity) - (b.won ?? Infinity),
 }
 
-export default function Streaming({ codec, quality, bitrate, phone, audio, strength = 1 }) {
-  const [filter, setFilter] = useState('all')
+export default function Streaming({ codec, quality, phone, audio, strength = 1 }) {
+  const [filter, setFilter] = useState('kr')
   const [sort, setSort] = useState(null)
 
   const ceiling = parseCeiling(quality)
   const rows = STREAMING.filter((service) => filter === 'all' || service.region === filter).map(
-    (service) => ({ ...service, ok: fits(service, ceiling), heard: bestTier(service, ceiling) }),
+    (service) => ({
+      ...service,
+      ok: fits(service, ceiling),
+      heard: heardQuality(service, ceiling),
+    }),
   )
-
   const sorted = sort ? [...rows].sort((a, b) => SORTS[sort.key](a, b) * sort.dir) : rows
-  // 정렬을 걸지 않았고 전체를 볼 때만 국내·해외로 묶어 보여 줍니다.
   const grouped = !sort && filter === 'all'
 
   const toggle = (key) =>
     setSort((current) =>
       current?.key === key ? (current.dir === 1 ? { key, dir: -1 } : null) : { key, dir: 1 },
     )
-
   const arrow = (key) => (sort?.key === key ? (sort.dir === 1 ? '▲' : '▼') : '⇅')
 
   const Row = ({ row }) => (
     <tr>
-      <td>
+      <td className="stream__name">
         <b>{row.name}</b>
         <em>{row.en}</em>
       </td>
-      <td className="stream__tiers">
-        {row.tiers.map((tier) => (
-          <span key={tier} className={tier === row.heard ? 'on' : undefined}>{tier}</span>
-        ))}
+      <td className="stream__max">
+        <span>{maxQuality(row)}</span>
+        {row.maxNote && <em>{row.maxNote}</em>}
       </td>
       <td className="stream__fmt">{row.format}</td>
       <td className="stream__price">{row.price}</td>
@@ -62,14 +58,10 @@ export default function Streaming({ codec, quality, bitrate, phone, audio, stren
     <div className="stream">
       <DevicePair phone={phone} audio={audio} linked={Boolean(codec)} strength={strength} />
 
-      <dl className="metrics">
+      <dl className="metrics metrics--two">
         <div>
           <dt>연결 코덱</dt>
           <dd>{codec ?? '연결 불가'}</dd>
-        </div>
-        <div>
-          <dt>최대 비트레이트</dt>
-          <dd>{bitrate ?? '—'}</dd>
         </div>
         <div>
           <dt>음질 상한</dt>
@@ -100,11 +92,11 @@ export default function Streaming({ codec, quality, bitrate, phone, audio, stren
         <table className="stream__table">
           <thead>
             <tr>
-              <th>
+              <th className="stream__name">
                 <button type="button" onClick={() => toggle('name')}>서비스 <i>{arrow('name')}</i></button>
               </th>
-              <th className="stream__tiers">
-                <button type="button" onClick={() => toggle('max')}>음질 단계 <i>{arrow('max')}</i></button>
+              <th className="stream__max">
+                <button type="button" onClick={() => toggle('max')}>서비스 상한 <i>{arrow('max')}</i></button>
               </th>
               <th className="stream__fmt">포맷</th>
               <th className="stream__price">
@@ -118,7 +110,7 @@ export default function Streaming({ codec, quality, bitrate, phone, audio, stren
             REGIONS.map((region) => (
               <tbody key={region.id}>
                 <tr className="stream__group">
-                  <th colSpan={5}>{region.label}</th>
+                  <th colSpan={5}>{region.id === 'kr' ? '국내에서 쓸 수 있는 곳' : '해외 전용'}</th>
                 </tr>
                 {sorted
                   .filter((row) => row.region === region.id)
@@ -126,16 +118,11 @@ export default function Streaming({ codec, quality, bitrate, phone, audio, stren
               </tbody>
             ))
           ) : (
-            <tbody>
-              {sorted.map((row) => <Row key={row.name} row={row} />)}
-            </tbody>
+            <tbody>{sorted.map((row) => <Row key={row.name} row={row} />)}</tbody>
           )}
         </table>
       </div>
 
-      <p className="stream__foot">
-        칠해진 단계가 이 조합에서 실제로 닿는 음질입니다 · 원음은 유선 연결에서만
-      </p>
     </div>
   )
 }
