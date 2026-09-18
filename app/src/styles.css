@@ -384,12 +384,9 @@ input { caret-color: var(--main); }
 .recommend button:active { transform: scale(.96); }
 
 /* ---- 스트리밍 음질 화면 ---- */
-.stream { width: 100%; max-width: 760px; }
+/* 결과 판과 같은 폭. 서비스 표만 넓히면 코덱 카드·머리말과 왼쪽 선이 어긋납니다. */
+.stream { width: 100%; max-width: 680px; }
 .stream .pair { margin-bottom: 8px; }
-/* 표는 넓어야 하지만 머리말·지표·코덱 카드는 결과 판(680px)과 같은 폭이어야
-   화면을 바꿔도 글줄과 카드가 제자리에 있습니다. */
-.stream .result__head, .stream .result__codec, .stream .metrics, .stream .picker {
-  max-width: 680px; margin-inline: auto; }
 .stream .metrics { margin-top: 32px; }
 .stream .common { margin-top: 16px; }
 .stream__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
