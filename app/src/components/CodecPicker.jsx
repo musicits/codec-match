@@ -35,7 +35,7 @@ export default function CodecPicker({ common, codec, picked, onPick, qualityOf, 
             <button
               type="button"
               key={item}
-              className={`codecard${item === picked ? ' on' : ''}`}
+              className={`codecard${item === picked ? ' on' : ''}${item === codec ? ' best' : ''}`}
               aria-pressed={item === picked}
               onClick={() => onPick(item)}
             >
