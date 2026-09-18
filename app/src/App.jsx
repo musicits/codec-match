@@ -6,7 +6,7 @@ import { CURRENT_VERSION } from './data/changelog.js'
 import { PHONES } from './data/phones.js'
 import { AUDIO_DEVICES } from './data/audio.js'
 import { brandsOf } from './data/devices.js'
-import { audioForm, phoneForm } from './lib/form.js'
+import { AUDIO_FORMS, PHONE_FORMS, audioForm, phoneForm } from './lib/form.js'
 import { isVerified, resolveMatch } from './lib/match.js'
 
 const PHONE_BRANDS = brandsOf(PHONES)
@@ -46,38 +46,44 @@ export default function App() {
         <p>내 기기 조합에서 들리는 최적의 블루투스 코덱</p>
       </header>
 
-      <main className="work">
-        <section className="stage" aria-label="호환 결과">
-          <ResultCard
-            codec={match.codec}
-            common={match.common}
-            lc3Available={match.lc3Available}
-            losslessAvailable={match.losslessAvailable}
-            verified={isVerified(phoneId, audioId)}
-            phone={phone}
-            audio={audio}
-          />
-        </section>
+      <main>
+        <div className="work">
+          <section className="stage" aria-label="호환 결과">
+            <ResultCard
+              codec={match.codec}
+              common={match.common}
+              lc3Available={match.lc3Available}
+              losslessAvailable={match.losslessAvailable}
+              verified={isVerified(phoneId, audioId)}
+              phone={phone}
+              audio={audio}
+            />
+          </section>
 
-        <aside className="rail" aria-label="기기 선택">
-          <DevicePicker
-            title="스마트폰"
-            formOf={phoneForm}
-            devices={PHONES}
-            selectedId={phoneId}
-            onChange={setPhoneId}
-            brands={PHONE_BRANDS}
-          />
-          <DevicePicker
-            title="이어폰 · 헤드폰"
-            formOf={audioForm}
-            devices={AUDIO_DEVICES}
-            selectedId={audioId}
-            onChange={setAudioId}
-            brands={AUDIO_BRANDS}
-          />
-        </aside>
+          <aside className="rail" aria-label="기기 선택">
+            <DevicePicker
+              title="스마트폰"
+              formOf={phoneForm}
+              forms={PHONE_FORMS}
+              devices={PHONES}
+              selectedId={phoneId}
+              onChange={setPhoneId}
+              brands={PHONE_BRANDS}
+            />
+            <DevicePicker
+              title="이어폰 · 헤드폰"
+              formOf={audioForm}
+              forms={AUDIO_FORMS}
+              devices={AUDIO_DEVICES}
+              selectedId={audioId}
+              onChange={setAudioId}
+              brands={AUDIO_BRANDS}
+            />
+          </aside>
+        </div>
 
+        {/* 업데이트 기록은 붙박이 설정 칸과 같은 격자에 두지 않습니다.
+            같은 격자에 있으면 스크롤할 때 기록 판이 설정 칸 위로 올라타 이어폰 칸이 잘립니다. */}
         <Changelog />
       </main>
 

@@ -88,6 +88,9 @@ input { caret-color: var(--main); }
 .topbar {
   display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap;
   padding: 14px 24px; position: sticky; top: 0; z-index: 30;
+  /* 폰 목업(도움말 단추 34px) · 매거진 커버(테마 단추 줄)와 머리말 높이를 맞춥니다.
+     코덱 매치에는 오른쪽 단추가 없어서 이 값이 없으면 바가 8px 낮아지고 로고도 그만큼 올라붙습니다. */
+  min-height: 63px;
   background: var(--glass-face); -webkit-backdrop-filter: var(--glass); backdrop-filter: var(--glass);
   border-bottom: 1px solid var(--glass-hairline); box-shadow: var(--glass-rim);
 }
@@ -101,7 +104,7 @@ input { caret-color: var(--main); }
 /* ---- 짜임: 왼쪽 결과 판 · 오른쪽 설정 칸 · 아래 업데이트 기록 ---- */
 .work {
   display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px;
-  padding: 16px 20px 20px; align-items: start;
+  padding: 16px 20px 0; align-items: start;
 }
 .stage, .rail, .changelog {
   position: relative; isolation: isolate; border-radius: var(--r-outer);
@@ -120,9 +123,10 @@ input { caret-color: var(--main); }
 }
 .rail {
   padding: 4px 0 8px; position: sticky; top: calc(var(--hh, 60px) + 16px);
-  max-height: calc(100dvh - var(--hh, 60px) - 32px); overflow-y: auto;
+  /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 설정 칸이 제 칸 밖으로 삐져나옵니다. */
+  max-height: calc(100dvh - var(--hh, 60px) - 36px); overflow-y: auto;
 }
-.changelog { grid-column: 1 / -1; padding: 28px 32px 30px; }
+.changelog { margin: 16px 20px 20px; padding: 28px 32px 30px; }
 
 /* ---- 설정 칸 ---- */
 .grp { padding: 18px 20px 20px; border-bottom: 1px solid var(--glass-hairline); }
@@ -134,6 +138,10 @@ input { caret-color: var(--main); }
 }
 .grp__icon .device-icon { width: 24px; height: 24px; }
 .field { display: block; margin-top: 8px; }
+/* 브랜드 · 형태처럼 칸이 둘일 때만 반씩 나눠 한 줄에 놓습니다. 하나뿐이면 그대로 한 칸을 다 씁니다. */
+.field-row { margin-top: 8px; display: grid; gap: 8px; }
+.field-row:has(.field + .field) { grid-template-columns: 1fr 1fr; }
+.field-row .field { margin-top: 0; }
 .field--search { margin-top: 0; }
 .field input, .field select {
   width: 100%; min-height: 40px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: var(--r-md);
@@ -243,10 +251,10 @@ input { caret-color: var(--main); }
   .topbar .logo { height: 19px; }
   .topbar h1 { font-size: 14.5px; padding-left: 10px; }
   .topbar p { font-size: 11.5px; flex: 1 0 100%; }
-  .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px; }
+  .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px 12px 0; }
   .rail { position: static; max-height: none; overflow: visible; order: 1; }
   .stage { order: 2; min-height: 0; padding: 28px 18px 24px; }
-  .changelog { order: 3; padding: 22px 18px 24px; }
+  .changelog { margin: 12px; padding: 22px 18px 24px; }
   .field input, .field select { font-size: 16px; min-height: 44px; }   /* 16px 밑이면 아이폰이 입력할 때 화면을 확대한다 */
   .grp { padding: 16px; }
   .pair__device .device-icon { width: 64px; height: 64px; padding: 10px; border-radius: 18px; }

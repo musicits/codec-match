@@ -4,6 +4,8 @@ import { audio, audioGroup } from './devices.js'
 export const AUDIO_DEVICES = [
   // 2026
   ...audioGroup(2026, '삼성', 'ssc_le', ['갤럭시 버즈4', '갤럭시 버즈4 프로'], { sscMax: 'uhq' }),
+  // 5세대부터 일반·무선충전 모델 모두 ANC 기본 탑재. 코덱은 여전히 SBC/AAC 입니다.
+  audio(2026, '애플', 'aac', '에어팟 5'),
   audio(2026, '소니', 'ldac_le', 'WF-1000XM6'),
   audio(2026, '낫싱', 'ldac', 'Ear (3a)'),
   ...audioGroup(2026, '앤커', 'ldac', ['사운드코어 리버티 5 프로 맥스', '사운드코어 리버티 5 프로']),

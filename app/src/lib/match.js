@@ -61,11 +61,15 @@ export function sscTier(phone, audioDevice) {
 
 // 브랜드명이 모델명에 안 들어가는 기기가 많아서(예: 보스 "QC 울트라 이어버드")
 // 검색어는 모델명과 브랜드명 양쪽에 대조합니다.
-export const filterDevices = (devices, brand, query) => {
+//
+// form 은 겉모양(바형·폴더블·플립 / 이어폰·헤드폰) 필터입니다. 이름 규칙으로 가리기 때문에
+// 판정 함수(formOf)를 함께 받습니다. 비워 두면 형태로는 거르지 않습니다.
+export const filterDevices = (devices, brand, query, form = '', formOf) => {
   const keyword = query.trim().toLowerCase()
   return devices.filter(
     (device) =>
       (!brand || device.brand === brand) &&
+      (!form || !formOf || formOf(device) === form) &&
       (!keyword ||
         device.name.toLowerCase().includes(keyword) ||
         device.brand.toLowerCase().includes(keyword)),

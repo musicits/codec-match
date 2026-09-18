@@ -3,12 +3,16 @@ import { codecsOf } from '../data/codecs.js'
 import { filterDevices } from '../lib/match.js'
 import DeviceIcon from './DeviceIcon.jsx'
 
-export default function DevicePicker({ title, formOf, devices, selectedId, onChange, brands }) {
+export default function DevicePicker({ title, formOf, forms = [], devices, selectedId, onChange, brands }) {
   const [query, setQuery] = useState('')
   const [brand, setBrand] = useState('')
+  const [form, setForm] = useState('')
   const headingId = useId()
 
-  const visible = useMemo(() => filterDevices(devices, brand, query), [devices, brand, query])
+  const visible = useMemo(
+    () => filterDevices(devices, brand, query, form, formOf),
+    [devices, brand, query, form, formOf],
+  )
 
   // 필터 결과에서 벗어난 선택은 목록 첫 항목으로 되돌립니다.
   const currentId = visible.some((device) => device.id === selectedId)
@@ -22,12 +26,17 @@ export default function DevicePicker({ title, formOf, devices, selectedId, onCha
 
   const handleBrand = (value) => {
     setBrand(value)
-    syncSelection(filterDevices(devices, value, query))
+    syncSelection(filterDevices(devices, value, query, form, formOf))
   }
 
   const handleQuery = (value) => {
     setQuery(value)
-    syncSelection(filterDevices(devices, brand, value))
+    syncSelection(filterDevices(devices, brand, value, form, formOf))
+  }
+
+  const handleForm = (value) => {
+    setForm(value)
+    syncSelection(filterDevices(devices, brand, query, value, formOf))
   }
 
   return (
@@ -59,6 +68,18 @@ export default function DevicePicker({ title, formOf, devices, selectedId, onCha
             ))}
           </select>
         </label>
+
+        {forms.length > 0 && (
+          <label className="field">
+            <span className="sr-only">{title} 형태 선택</span>
+            <select value={form} onChange={(event) => handleForm(event.target.value)}>
+              <option value="">형태 전체</option>
+              {forms.map((item) => (
+                <option key={item.id} value={item.id}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
 
       <label className="field">
