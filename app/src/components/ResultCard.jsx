@@ -167,7 +167,7 @@ export default function ResultCard({
           한 줄만 걸고 자세한 것은 스트리밍 음질 화면으로 넘깁니다. */}
       <Recommend quality={tier?.quality ?? info.quality} onOpen={onOpenStreaming} />
 
-      <p className="disclaimer">제조사 공식 스펙 기준 예상값이며 OS 버전·설정에 따라 달라질 수 있습니다</p>
+      <p className="disclaimer">제조사 공개 사양 기준 예상값이며 OS 버전·설정에 따라 달라질 수 있습니다</p>
     </div>
   )
 }
