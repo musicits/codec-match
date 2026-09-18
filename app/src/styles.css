@@ -181,7 +181,9 @@ input { caret-color: var(--main); }
   .stage, .rail, .changelog { corner-shape: squircle; border-radius: 28px; }
 }
 .stage {
-  display: flex; justify-content: center; align-items: center; padding: 40px 32px;
+  /* 세로 가운데 정렬이면 기기마다 내용 높이가 달라질 때(등급표·안내 유무)
+     카드가 위아래로 떠다닙니다. 늘 같은 자리에서 시작하게 위로 붙입니다. */
+  display: flex; justify-content: center; align-items: flex-start; padding: 40px 32px;
   min-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 36px);
 }
 .rail {
