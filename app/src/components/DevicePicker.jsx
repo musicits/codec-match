@@ -7,6 +7,7 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
   const [query, setQuery] = useState('')
   const [brand, setBrand] = useState('')
   const [form, setForm] = useState('')
+  const [allCodecs, setAllCodecs] = useState(false)
   const headingId = useId()
 
   // 형태로 거르기 전의 목록. 여기에 실제로 있는 형태만 드롭다운에 올립니다.
@@ -117,14 +118,31 @@ export default function DevicePicker({ title, formOf, forms = [], devices, selec
 
       {!visible.length && <p className="filter-empty">일치하는 기기가 없어요.</p>}
 
-      {current && (
-        <div className="codec-list">
-          <span className="codec-list__label">지원 코덱</span>
-          {codecsOf(current).map((codec) => (
-            <span key={codec} className="chip">{codec}</span>
-          ))}
-        </div>
-      )}
+      {current && (() => {
+        // 좁은 칸에 칩이 줄줄이 흐르면 마지막 줄에 하나만 남아 지저분합니다.
+        // 다섯 개까지만 보이고 나머지는 '+N' 으로 접어 둡니다.
+        const codecs = codecsOf(current)
+        const shown = allCodecs ? codecs : codecs.slice(0, 5)
+        const rest = codecs.length - shown.length
+        return (
+          <div className="codec-list">
+            <span className="codec-list__label">지원 코덱</span>
+            {shown.map((codec) => (
+              <span key={codec} className="chip">{codec}</span>
+            ))}
+            {rest > 0 && (
+              <button type="button" className="chip chip--btn" onClick={() => setAllCodecs(true)}>
+                +{rest}
+              </button>
+            )}
+            {allCodecs && codecs.length > 5 && (
+              <button type="button" className="chip chip--btn" onClick={() => setAllCodecs(false)}>
+                접기
+              </button>
+            )}
+          </div>
+        )
+      })()}
 
       {current?.leAudioNote && <p className="device-note">LE Audio 지원 · LC3 명시 없음</p>}
       {current?.note && <p className="device-note">{current.note}</p>}

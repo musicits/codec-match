@@ -100,10 +100,11 @@ export default function ResultCard({
 
       {tier?.note && <p className="note">{tier.note}</p>}
 
-      <div className="fallback">
-        <strong>하위 코덱으로 떨어지는 조건</strong>
+      {/* 매번 볼 내용은 아니라 접어 둡니다. 카드가 길어져 모바일에서 스크롤이 늘어났습니다. */}
+      <details className="fallback">
+        <summary>하위 코덱으로 떨어지는 조건</summary>
         <p>{info.fallback}</p>
-      </div>
+      </details>
 
       {audio.leAudioNote && !lc3Available && (
         <p className="note">
