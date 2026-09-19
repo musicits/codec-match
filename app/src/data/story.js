@@ -49,7 +49,7 @@ export const MAKERS = [
   {
     group: 'lossy', codec: 'aptX', by: '퀄컴 (전 CSR · APT)', year: '1988',
     spec: '16bit 48kHz · 최대 352 kbps',
-    body: '소리를 여러 대역으로 나눠 압축하는 서브밴드 ADPCM 방식의 코덱입니다. 영국 퀸즈대 벨파스트에서 개발됐고, 이를 상용화한 APT 가 2010년 CSR 에, CSR 이 2015년 퀄컴에 인수되면서 권리가 퀄컴으로 넘어갔습니다. 스냅드래곤 폰에서 자주 보이는 이유입니다.',
+    body: '소리를 여러 대역으로 나눠 압축하는 서브밴드 ADPCM 방식의 코덱입니다. 영국 퀸즈대 벨파스트에서 개발됐고, 이를 상용화한 APT 가 2010년 CSR 에, CSR 이 2015년 퀄컴에 인수되면서 권리가 퀄컴으로 넘어갔습니다.',
   },
   {
     group: 'hi', codec: 'aptX HD · Adaptive · Lossless', by: '퀄컴', year: '2016 ~',
