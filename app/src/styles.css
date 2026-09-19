@@ -161,10 +161,14 @@ input { caret-color: var(--main); }
 }
 /* 오른쪽 칸. 결과 판과 같은 키로 늘어나, 설정 칸은 맨 위 · 요청 칸은 맨 아래에 섭니다.
    설정 칸(.rail) 이 붙박이로 설 수 있는 거리도 이 칸의 키가 정합니다. */
-.railcol { align-self: stretch; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-/* 설정 칸이 붙박이로 설 수 있는 범위를 요청 칸 위까지로 끊습니다.
-   이 칸이 없으면 창이 낮을 때 붙박이 설정 칸이 요청 칸 위로 올라탑니다. */
-.railslot { flex: 1 1 auto; min-height: 0; }
+/* 오른쪽 칸. 설정 칸과 요청 칸을 한 덩어리로 묶어 통째로 붙박이로 세웁니다.
+   따로 세우면 스크롤할 때 둘이 어긋나거나 겹칩니다. */
+.railcol {
+  align-self: start; display: flex; flex-direction: column; gap: 16px; min-width: 0;
+  position: sticky; top: calc(var(--hh, 60px) + var(--nh, 52px) + 16px);
+  /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 칸이 제 자리 밖으로 삐져나옵니다. */
+  max-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 18px); overflow-y: auto;
+}
 
 .stage, .rail, .ask, .changelog {
   position: relative; isolation: isolate; border-radius: var(--r-outer);
@@ -193,11 +197,7 @@ input { caret-color: var(--main); }
   display: flex; justify-content: center; align-items: flex-start; padding: 40px 32px;
   min-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 36px);
 }
-.rail {
-  padding: 4px 0 8px; position: sticky; top: calc(var(--hh, 60px) + var(--nh, 52px) + 16px);
-  /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 설정 칸이 제 칸 밖으로 삐져나옵니다. */
-  max-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 36px); overflow-y: auto;
-}
+.rail { padding: 4px 0 8px; flex: 0 0 auto; }
 /* 아래 줄: 업데이트 기록 (용어 설명은 머리말 물음표로 옮겼습니다) */
 /* 두 판을 같은 키로 세웁니다. 기록이 몇 줄이든(버전이 늘어도) 아래 선이 맞습니다 —
    남는 키는 용어 설명이 채우고, 넘치는 용어는 안쪽에서 구릅니다. */
@@ -571,7 +571,7 @@ input { caret-color: var(--main); }
 /* ---- 기기 추가 요청: 설정 칸 맨 아래 한 줄 ---- */
 /* 설정 칸은 붙박이라 키가 커질수록 스크롤 끝에서 위가 머리말 밑으로 밀립니다.
    그래서 다른 칸의 절반도 안 되는 키로 둡니다 — 머리말 한 줄 + 입력 칸. */
-.ask { margin-top: auto; padding: 18px 24px 20px; }
+.ask { flex: 0 0 auto; padding: 18px 24px 20px; }
 .ask__title { display: flex; align-items: center; flex-wrap: wrap; gap: 0 6px;
   margin: 0 0 10px; font-size: 13.5px; font-weight: 700; color: var(--slate); }
 .ask__title svg { flex: 0 0 auto; color: var(--main-deep); }
@@ -763,9 +763,7 @@ input { caret-color: var(--main); }
   .topbar h1 { font-size: 14.5px; padding-left: 8px; }
   .topbar p { font-size: 11.5px; flex: 1 0 100%; }
   .work { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 8px 12px 0; }
-  .railcol { order: 1; gap: 12px; }
-  .railslot { flex: 0 0 auto; }
-  .rail { position: static; max-height: none; overflow: visible; }
+  .railcol { order: 1; gap: 12px; position: static; max-height: none; overflow: visible; }
   /* .stage 는 가운데 정렬 flex 라, 되돌아가기 단추를 넣으면 결과 판 옆에 섭니다.
      좁은 화면에서는 세로로 세워 단추가 제 줄을 쓰게 합니다. */
   .stage { order: 2; min-height: 0; padding: 22px 16px 24px;

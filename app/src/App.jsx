@@ -225,7 +225,6 @@ export default function App() {
 
           {(!narrow || !showResult) && (
           <div className="railcol">
-          <div className="railslot">
           <aside className="rail" aria-label="기기 선택">
             <DevicePicker
               title="스마트폰"
@@ -257,10 +256,9 @@ export default function App() {
               </button>
             )}
           </aside>
-          </div>
-          {/* 요청 칸은 설정 칸 안이 아니라 그 아래 칸 바닥에 답니다.
-              설정 칸 안에 넣으면 붙박이 키가 커져 스크롤 끝에서 위가 머리말 밑으로 밀립니다.
-              여기 두면 설정 칸은 그대로고, 스크롤을 내리면 결과 판 아래 선에 딱 맞게 섭니다. */}
+          {/* 요청 칸은 설정 칸 판 안이 아니라 바로 아래에 따로 답니다.
+              판 안에 넣으면 칸 사이 선이 하나 더 생겨 설정 칸이 세 칸짜리로 보입니다.
+              둘을 한 덩어리로 묶어 붙박이로 세워, 스크롤을 내려도 같이 따라옵니다. */}
           <AskDevice />
           </div>
           )}
