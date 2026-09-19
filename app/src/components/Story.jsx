@@ -83,11 +83,7 @@ export default function Story() {
                   <em>{item.by} · {item.year}</em>
                 </p>
                 <p className="story__spec">{item.spec}</p>
-                <dl className="story__facts">
-                  <dt>어떤 코덱</dt><dd>{item.what}</dd>
-                  <dt>쓰려면</dt><dd>{item.need}</dd>
-                  <dt>다른 점</dt><dd>{item.diff}</dd>
-                </dl>
+                <p className="story__body">{item.body}</p>
               </li>
             ))}
           </ul>
