@@ -18,12 +18,13 @@
 export const CHANGELOG = [
   {
     version: '3.20',
-    summary: '구글 픽셀 11 시리즈 추가',
+    summary: '구글 픽셀 11 시리즈 · 픽셀 10a 추가',
     date: '2026-09-19',
-    phones: 139,
+    phones: 140,
     audio: 104,
     changes: [
       '픽셀 11 · 11 프로 · 11 프로 XL · 11 프로 폴드 추가 (8월 12일 공개 · 8월 20일 출시)',
+      '픽셀 10a 추가 (2월 18일 예약 · 3월 5일 출시)',
       '텐서 G6 로 바뀌었지만 코덱은 앞 세대와 같습니다 — SBC · AAC · aptX · aptX HD · LDAC · LC3',
     ],
   },
