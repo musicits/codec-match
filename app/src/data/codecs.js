@@ -130,6 +130,9 @@ export const PHONE_CODEC_SETS = {
   lg_legacy: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC'],
   // 기린 칩은 퀄컴 aptX 라이선스가 없어 LDAC 과 자체 코덱 L2HC 위주입니다 (화웨이 메이트 X7 등)
   kirin_l2hc: ['SBC', 'AAC', 'LDAC', 'L2HC'],
+  // 보급형 스냅드래곤 (POCO M8 5G 의 6 Gen 3 등). aptX 는 되지만 HD·Adaptive 는 없고,
+  // 블루투스 5.1 이라 LE Audio 도 빠집니다.
+  snapdragon_mid: ['SBC', 'AAC', 'aptX', 'LDAC'],
   // aptX Adaptive 없이 aptX HD 까지만 되는 LHDC 조합 (오포 파인드 N5)
   snapdragon_lhdc: ['SBC', 'AAC', 'aptX', 'aptX HD', 'LDAC', 'LHDC'],
 }
