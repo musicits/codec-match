@@ -18,7 +18,6 @@ export default function AskDevice() {
           <path d="M10.5 10.4h4" />
         </svg>
         찾는 기기가 없나요?
-        <em>요청해 주시면 확인 후에 업데이트하겠습니다</em>
       </h2>
       <a className="ask__send" href={REQUEST.url} target="_blank" rel="noopener">
         {REQUEST.name}
