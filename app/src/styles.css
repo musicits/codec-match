@@ -166,8 +166,11 @@ input { caret-color: var(--main); }
 .railcol {
   align-self: start; display: flex; flex-direction: column; gap: 16px; min-width: 0;
   position: sticky; top: calc(var(--hh, 60px) + var(--nh, 52px) + 16px);
-  /* 결과 판(.stage) 의 최소 높이와 같게 둡니다. 여기가 더 크면 칸이 제 자리 밖으로 삐져나옵니다. */
-  max-height: calc(100dvh - var(--hh, 60px) - var(--nh, 52px) - 18px); overflow-y: auto;
+}
+/* 창이 낮아 오른쪽 칸이 한 화면에 안 들어가면, 칸 안에 스크롤을 다는 대신
+   붙박이를 풉니다. 스크롤 막대가 둘로 보이는 것보다 같이 흘러가는 편이 낫습니다. */
+@media (max-height: 940px) {
+  .railcol { position: static; }
 }
 
 .stage, .rail, .ask, .changelog {
@@ -572,6 +575,12 @@ input { caret-color: var(--main); }
 /* 설정 칸은 붙박이라 키가 커질수록 스크롤 끝에서 위가 머리말 밑으로 밀립니다.
    그래서 다른 칸의 절반도 안 되는 키로 둡니다 — 머리말 한 줄 + 입력 칸. */
 .ask { flex: 0 0 auto; padding: 18px 24px 20px; }
+/* 모서리 빛은 판 위 140px 에 뭉칩니다. 그런데 이 칸은 그보다 낮아서 빛이 판
+   밖으로 삐져나가고, 오른쪽 칸이 그만큼 넘친 줄 알고 군더더기 스크롤을 답니다. */
+.ask::before { height: 100%; }
+/* 모서리 빛은 판 위 140px 에 뭉칩니다. 그런데 이 칸은 그보다 낮아서 빛이 판
+   밖으로 삐져나가고, 오른쪽 칸이 그만큼 넘친 줄 알고 군더더기 스크롤을 답니다. */
+.ask::before { height: 100%; }
 .ask__title { display: flex; align-items: center; flex-wrap: wrap; gap: 0 6px;
   margin: 0 0 10px; font-size: 13.5px; font-weight: 700; color: var(--slate); }
 .ask__title svg { flex: 0 0 auto; color: var(--main-deep); }
