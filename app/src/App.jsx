@@ -182,9 +182,9 @@ export default function App() {
 
       <main>
         <div className="work">
-          {(!narrow || showResult) && (
+          {(!narrow || showResult || view !== 'codec') && (
           <section className="stage" aria-label={view === 'codec' ? '호환 결과' : '스트리밍 음질'}>
-            {narrow && (
+            {narrow && view === 'codec' && (
               <button type="button" className="backpick" onClick={() => { setShowResult(false); window.scrollTo({ top: 0 }) }}>
                 <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
                   fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -223,7 +223,7 @@ export default function App() {
           </section>
           )}
 
-          {(!narrow || !showResult) && (
+          {(!narrow || (!showResult && view === 'codec')) && (
           <div className="railcol">
           <aside className="rail" aria-label="기기 선택">
             <DevicePicker
@@ -248,7 +248,7 @@ export default function App() {
             />
             {narrow && (
               <button type="button" className="golook" onClick={() => { setShowResult(true); window.scrollTo({ top: 0 }) }}>
-                {nameOf(match.codec) ? `${nameOf(match.codec)} 로 연결됩니다 — 자세히 보기` : '결과 보기'}
+                {nameOf(match.codec) ? `${nameOf(match.codec)} 로 연결됩니다. 자세히 보기` : '결과 보기'}
                 <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"
                   fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m9 5 7 7-7 7" />
