@@ -4,6 +4,7 @@ import ToolSwitch from './components/ToolSwitch.jsx'
 import Streaming from './components/Streaming.jsx'
 import Story from './components/Story.jsx'
 import DevicePicker from './components/DevicePicker.jsx'
+import AskDevice from './components/AskDevice.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { PHONES } from './data/phones.js'
 import { AUDIO_DEVICES } from './data/audio.js'
@@ -223,6 +224,8 @@ export default function App() {
           )}
 
           {(!narrow || !showResult) && (
+          <div className="railcol">
+          <div className="railslot">
           <aside className="rail" aria-label="기기 선택">
             <DevicePicker
               title="스마트폰"
@@ -254,6 +257,12 @@ export default function App() {
               </button>
             )}
           </aside>
+          </div>
+          {/* 요청 칸은 설정 칸 안이 아니라 그 아래 칸 바닥에 답니다.
+              설정 칸 안에 넣으면 붙박이 키가 커져 스크롤 끝에서 위가 머리말 밑으로 밀립니다.
+              여기 두면 설정 칸은 그대로고, 스크롤을 내리면 결과 판 아래 선에 딱 맞게 섭니다. */}
+          <AskDevice />
+          </div>
           )}
         </div>
 
