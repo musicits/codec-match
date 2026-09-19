@@ -1,21 +1,12 @@
-// 목록에 없는 기기를 적어 두는 칸. 설정 칸 맨 아래에 한 줄짜리로 붙습니다.
+// 목록에 없는 기기를 알려 달라는 칸. 설정 칸 바로 아래에 답니다.
 //
-// 이 판은 붙박이(sticky)라 키가 커지면 스크롤을 내릴 때 위가 머리말 밑으로
-// 밀려 들어갑니다. 그래서 다른 칸처럼 큰 아이콘 머리말을 달지 않고,
-// 줄 하나 + 입력 칸으로만 둡니다.
-import { useId, useState } from 'react'
-import { requestUrl } from '../data/tools.js'
+// 기기 이름은 여기서 받지 않고 네이버 폼에서 받습니다 — 여기서 적고 폼에서
+// 또 적으면 두 번 적는 꼴이라, 이 칸은 안내와 단추만 둡니다.
+import { useId } from 'react'
+import { REQUEST } from '../data/tools.js'
 
 export default function AskDevice() {
-  const [text, setText] = useState('')
   const headingId = useId()
-  const name = text.trim()
-
-  const send = (event) => {
-    event.preventDefault()
-    window.open(requestUrl(name), '_blank', 'noopener')
-    setText('')
-  }
 
   return (
     <section className="ask" aria-labelledby={headingId}>
@@ -26,23 +17,16 @@ export default function AskDevice() {
           <path d="M12.5 8.4v4" />
           <path d="M10.5 10.4h4" />
         </svg>
-        찾는 기기가 없나요
-        <em>적어 주시면 다음 판에 넣습니다</em>
+        찾는 기기가 없나요?
+        <em>요청해 주시면 확인 후에 업데이트하겠습니다</em>
       </h2>
-      <form className="ask__form" onSubmit={send}>
-        <label className="field field--ask">
-          <span className="sr-only">추가를 바라는 기기 이름</span>
-          <input
-            type="text"
-            value={text}
-            onChange={(event) => setText(event.target.value)}
-            placeholder="예: 갤럭시 Z 플립 8"
-          />
-        </label>
-        <button type="submit" className="ask__send" disabled={!name}>
-          요청 남기기
-        </button>
-      </form>
+      <a className="ask__send" href={REQUEST.url} target="_blank" rel="noopener">
+        {REQUEST.name}
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"
+          fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m9 5 7 7-7 7" />
+        </svg>
+      </a>
     </section>
   )
 }

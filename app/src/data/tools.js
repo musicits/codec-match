@@ -50,30 +50,9 @@ export const ME = TOOLS.find((tool) => tool.id === SELF)
 
 export const OTHERS = TOOLS.filter((tool) => tool.id !== SELF)
 
-/** 기기 추가 요청을 받는 곳.
- *  깃허브 이슈는 계정이 있어야 해서, 구글 폼·네이버 폼 주소가 생기면
- *  kind 를 'form' 으로 바꾸고 url 한 줄만 갈아 끼우면 됩니다. */
+/** 기기 추가 요청을 받는 곳 — 네이버 폼.
+ *  짧은 주소라 뒤에 값을 붙일 수 없어, 기기 이름은 폼에서 직접 받습니다. */
 export const REQUEST = {
-  kind: 'github',
-  url: 'https://github.com/musicits/codec-match/issues/new',
-}
-
-/** 적어 준 기기 이름을 요청 창에 미리 채워 둡니다 — 한 번 더 적지 않게. */
-export const requestUrl = (text = '') => {
-  const name = text.trim()
-  if (REQUEST.kind !== 'github') return REQUEST.url
-  const params = new URLSearchParams({
-    title: name ? `기기 추가 요청 — ${name}` : '기기 추가 요청',
-    body: [
-      `추가했으면 하는 기기: ${name}`,
-      '',
-      '함께 쓰는 조합 (알면 적어 주세요)',
-      '- 스마트폰: ',
-      '- 이어폰 · 헤드폰: ',
-      '',
-      '참고할 사양 링크 (있으면)',
-      '- ',
-    ].join('\n'),
-  })
-  return `${REQUEST.url}?${params.toString()}`
+  name: '기기 추가 요청하기',
+  url: 'https://naver.me/GJZusZWk',
 }
