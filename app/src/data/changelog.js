@@ -18,13 +18,15 @@
 export const CHANGELOG = [
   {
     version: '3.20',
-    summary: '구글 픽셀 11 시리즈 · 픽셀 10a 추가',
+    summary: '픽셀 11 시리즈 · 갤럭시 S25 FE · 보스 QC 울트라 헤드폰 2세대 추가',
     date: '2026-09-19',
-    phones: 140,
-    audio: 104,
+    phones: 141,
+    audio: 105,
     changes: [
       '픽셀 11 · 11 프로 · 11 프로 XL · 11 프로 폴드 추가 (8월 12일 공개 · 8월 20일 출시)',
       '픽셀 10a 추가 (2월 18일 예약 · 3월 5일 출시)',
+      '갤럭시 S25 FE 추가 — FE 는 SSC-UHQ 가 빠져 SSC 가 16bit 44.1kHz 까지입니다',
+      '보스 QC 울트라 헤드폰 2세대 추가 — 1세대와 달리 aptX Lossless 까지 올라왔습니다',
       '텐서 G6 로 바뀌었지만 코덱은 앞 세대와 같습니다 — SBC · AAC · aptX · aptX HD · LDAC · LC3',
     ],
   },

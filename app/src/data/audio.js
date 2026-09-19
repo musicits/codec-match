@@ -19,6 +19,11 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2026, '앤커', 'ldac', ['사운드코어 리버티 5 프로 맥스', '사운드코어 리버티 5 프로'], {
     multipoint: true,
   }),
+  // 1세대(2023)와 달리 aptX Lossless 까지 올라왔습니다. 유선은 USB-C 로 24bit 48kHz.
+  audio(2026, '보스', 'aptx_adaptive', 'QC 울트라 헤드폰 2세대', { multipoint: true,
+    aptxLossless: true,
+    note: '유선 USB-C 는 24bit 48kHz',
+  }),
   // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
   audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', { multipoint: true,
     note: 'LE Audio 는 업데이트 예정',

@@ -24,6 +24,8 @@ export const PHONES = [
   ...phoneGroup(2025, '삼성', 'galaxy_le', [
     '갤럭시 S25', '갤럭시 S25+', '갤럭시 S25 울트라', '갤럭시 S25 엣지', '갤럭시 Z 폴드7', '갤럭시 Z 플립7',
   ], { seamless: true }),
+  // FE 는 같은 갤럭시라도 SSC-UHQ 가 빠집니다. seamless 를 켜지 않아 SSC 는 16bit 44.1kHz 까지입니다.
+  phone(2025, '삼성', 'galaxy_le', '갤럭시 S25 FE', { note: 'FE 는 SSC-UHQ 제외' }),
   // 메이트 X7 은 2025년 12월 중국 출시입니다. 기린 칩이라 aptX 계열이 없고 LDAC·L2HC 위주입니다.
   phone(2025, '화웨이', 'kirin_l2hc', '메이트 X7', { note: 'L2HC 는 화웨이 이어폰끼리만' }),
   phone(2025, '오포', 'snapdragon_lhdc', '파인드 N5'),
