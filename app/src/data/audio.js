@@ -20,10 +20,7 @@ export const AUDIO_DEVICES = [
     multipoint: true,
   }),
   // 1세대(2023)와 달리 aptX Lossless 까지 올라왔습니다. 유선은 USB-C 로 24bit 48kHz.
-  audio(2026, '보스', 'aptx_adaptive', 'QC 울트라 헤드폰 2세대', { multipoint: true,
-    aptxLossless: true,
-    note: '유선 USB-C 는 24bit 48kHz',
-  }),
+  audio(2026, '보스', 'aptx_adaptive', 'QC 울트라 헤드폰 2세대', { multipoint: true, aptxLossless: true }),
   // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
   audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', { multipoint: true,
     note: 'LE Audio 는 업데이트 예정',
@@ -37,9 +34,7 @@ export const AUDIO_DEVICES = [
   audio(2025, '소니', 'ldac_le', 'WH-1000XM6', { multipoint: true }),
   audio(2025, '보스', 'aptx_adaptive', 'QC 울트라 이어버드 2세대', { multipoint: true }),
   // 국내 4월 21일 출시. 글로벌판은 LDAC · Hi-Res Wireless 인증, 중국 내수판은 LHDC 입니다.
-  audio(2025, '샤오미', 'ldac', '레드미 버즈 6 프로', { multipoint: true,
-    note: '국내판 기준 · 중국 내수판은 LHDC',
-  }),
+  audio(2025, '샤오미', 'ldac', '레드미 버즈 6 프로', { multipoint: true }),
   audio(2025, '낫싱', 'ldac', '헤드폰 (1)', { multipoint: true }),
   audio(2025, '낫싱', 'ldac', 'Ear (3)', { multipoint: true }),
   audio(2025, '테크닉스', 'ldac_le', 'EAH-AZ100', { multipoint: true }),
@@ -56,9 +51,7 @@ export const AUDIO_DEVICES = [
   // 링크버즈 S 를 잇는 모델. 소니 공식 도움말 기준 SBC · AAC · LDAC · LC3.
   audio(2024, '소니', 'ldac_le', '링크버즈 핏', { multipoint: true }),
   // 귀를 막지 않는 열린 모양. 같은 링크버즈라도 LDAC 이 빠집니다 (SBC · AAC · LC3).
-  audio(2024, '소니', 'aac_le', '링크버즈 오픈', { multipoint: true,
-    note: '열린 모양이라 LDAC 없음',
-  }),
+  audio(2024, '소니', 'aac_le', '링크버즈 오픈', { multipoint: true }),
   audio(2024, '삼성', 'ssc', '갤럭시 버즈3 FE', { sscMax: 'hifi', multipoint: 'auto' }),
   ...audioGroup(2024, '삼성', 'ssc_le', ['갤럭시 버즈3', '갤럭시 버즈3 프로'], { sscMax: 'uhq', multipoint: 'auto' }),
   audio(2024, '보스', 'aac', 'QC 헤드폰', { multipoint: true }),

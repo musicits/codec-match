@@ -9,7 +9,7 @@ export const PHONES = [
   ], { seamless: true }),
   // 같은 POCO 라도 M8 은 퀄컴(스냅드래곤 6 Gen 3)이라 aptX 가 살아 있습니다.
   // 대신 블루투스 5.1 이라 LE Audio 가 빠지고, aptX 도 클래식까지입니다.
-  phone(2026, '샤오미', 'snapdragon_mid', 'POCO M8 5G', { note: '블루투스 5.1 이라 LE Audio 없음' }),
+  phone(2026, '샤오미', 'snapdragon_mid', 'POCO M8 5G'),
   // 샤오미는 16 을 건너뛰고 17 로 갔습니다. 아이폰과 번호를 맞추려는 것입니다.
   // 국내 정식 출시분만 올립니다 — 17 · 17 울트라는 3월 6일, 17T 는 5월 28일.
   ...phoneGroup(2026, '샤오미', 'snapdragon_flagship', ['샤오미 17', '샤오미 17 울트라'], {
@@ -17,10 +17,8 @@ export const PHONES = [
   }),
   // 아래 넷은 미디어텍 칩이라 같은 샤오미라도 aptX 계열이 통째로 빠집니다.
   // POCO X8 프로 맥스 공식 사양: SBC / AAC / LDAC / LHDC 5.0 / LC3
-  phone(2026, '샤오미', 'mediatek_hires', '샤오미 17T', { note: '미디어텍 칩이라 aptX 계열 없음' }),
-  ...phoneGroup(2026, '샤오미', 'mediatek_hires', ['POCO X8 프로 맥스', 'POCO X8 프로'], {
-    note: '미디어텍 칩이라 aptX 계열 없음',
-  }),
+  phone(2026, '샤오미', 'mediatek_hires', '샤오미 17T'),
+  ...phoneGroup(2026, '샤오미', 'mediatek_hires', ['POCO X8 프로 맥스', 'POCO X8 프로']),
 
   // 픽셀 11 은 8월 20일, 아이폰 18 프로는 9월이라 구글이 앞에 옵니다.
   // 텐서 G6 로 바뀌었지만 코덱은 앞 세대와 같습니다.
@@ -40,7 +38,7 @@ export const PHONES = [
     '갤럭시 S25', '갤럭시 S25+', '갤럭시 S25 울트라', '갤럭시 S25 엣지', '갤럭시 Z 폴드7', '갤럭시 Z 플립7',
   ], { seamless: true }),
   // FE 는 같은 갤럭시라도 SSC-UHQ 가 빠집니다. seamless 를 켜지 않아 SSC 는 16bit 44.1kHz 까지입니다.
-  phone(2025, '삼성', 'galaxy_le', '갤럭시 S25 FE', { note: 'FE 는 SSC-UHQ 제외' }),
+  phone(2025, '삼성', 'galaxy_le', '갤럭시 S25 FE'),
   // 메이트 X7 은 2025년 12월 중국 출시입니다. 기린 칩이라 aptX 계열이 없고 LDAC·L2HC 위주입니다.
   phone(2025, '화웨이', 'kirin_l2hc', '메이트 X7', { note: 'L2HC 는 화웨이 이어폰끼리만' }),
   phone(2025, '오포', 'snapdragon_lhdc', '파인드 N5'),
