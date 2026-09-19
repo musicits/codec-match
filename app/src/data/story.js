@@ -53,7 +53,7 @@ export const MAKERS = [
   },
   {
     group: 'hi', codec: 'aptX HD · Adaptive · Lossless', by: '퀄컴', year: '2016 ~',
-    spec: 'HD 24bit 48kHz · Adaptive 24bit 96kHz',
+    spec: 'HD\u00a024bit\u00a048kHz · Adaptive\u00a024bit\u00a096kHz',
     body: 'aptX 를 세 갈래로 넓힌 퀄컴의 상위 코덱입니다. HD 부터 24bit 를 지원하고, Adaptive 는 전파 상태에 따라 전송률을 바꾸며, Lossless 는 CD 음질을 손실 없이 보냅니다. HD 는 오픈소스로 공개돼 양쪽이 지원하기만 하면 되지만, Adaptive 와 Lossless 는 폰과 이어폰이 모두 스냅드래곤 사운드 인증을 받아야 합니다.',
   },
   {
@@ -63,7 +63,7 @@ export const MAKERS = [
   },
   {
     group: 'hi', codec: 'SSC', by: '삼성', year: '2018',
-    spec: 'Scalable 16bit 44.1kHz · Seamless 24bit 48kHz · UHQ 24bit 96kHz',
+    spec: 'Scalable\u00a016bit\u00a044.1kHz · Seamless\u00a024bit\u00a048kHz · UHQ\u00a024bit\u00a096kHz',
     body: '삼성이 갤럭시 기기 사이에 쓰는 코덱으로, 정식 이름은 Samsung Seamless Codec 입니다. 폰과 이어폰이 모두 갤럭시여야 하고, 가장 높은 UHQ 등급은 갤럭시 웨어러블 앱에서 고급 음질을 켜야 적용됩니다. 갤럭시가 아닌 폰에 버즈를 연결하면 AAC 나 SBC 로 연결됩니다. 삼성은 2016년 하만을 인수해 AKG·JBL 의 음향 기술을 갤럭시 제품에 적용하고 있습니다.',
   },
   {
