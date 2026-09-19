@@ -71,13 +71,17 @@ export function sscTier(phone, audioDevice) {
 // form 은 겉모양(바형·폴더블·플립 / 이어폰·헤드폰) 필터입니다. 이름 규칙으로 가리기 때문에
 // 판정 함수(formOf)를 함께 받습니다. 비워 두면 형태로는 거르지 않습니다.
 export const filterDevices = (devices, brand, query, form = '', formOf) => {
-  const keyword = query.trim().toLowerCase()
-  return devices.filter(
-    (device) =>
-      (!brand || device.brand === brand) &&
-      (!form || !formOf || formOf(device) === form) &&
-      (!keyword ||
-        device.name.toLowerCase().includes(keyword) ||
-        device.brand.toLowerCase().includes(keyword)),
-  )
+  // 적은 그대로 맞춰 보지 않고 낱말로 쪼개 찾습니다. 사람들은 이름을 제 순서대로
+  // 적지 않습니다 — '픽셀 프로 8' 로 쳐도 '픽셀 8 프로' 가 나와야 합니다.
+  // 띄어쓰기를 안 한 '픽셀8프로' 도 공백을 지운 채로 한 번 더 맞춰 봅니다.
+  const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
+  const flatQuery = words.join('')
+  return devices.filter((device) => {
+    if (brand && device.brand !== brand) return false
+    if (form && formOf && formOf(device) !== form) return false
+    if (!words.length) return true
+    const text = `${device.name} ${device.brand}`.toLowerCase()
+    if (words.every((word) => text.includes(word))) return true
+    return text.replace(/\s+/g, '').includes(flatQuery)
+  })
 }
