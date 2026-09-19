@@ -7,6 +7,18 @@ export const PHONES = [
     '갤럭시 S26', '갤럭시 S26+', '갤럭시 S26 울트라',
     '갤럭시 Z 폴드8', '갤럭시 Z 폴드8 울트라', '갤럭시 Z 플립8',
   ], { seamless: true }),
+  // 샤오미는 16 을 건너뛰고 17 로 갔습니다. 아이폰과 번호를 맞추려는 것입니다.
+  // 국내 정식 출시분만 올립니다 — 17 · 17 울트라는 3월 6일, 17T 는 5월 28일.
+  ...phoneGroup(2026, '샤오미', 'snapdragon_flagship', ['샤오미 17', '샤오미 17 울트라'], {
+    aptxLossless: true,
+  }),
+  // 아래 넷은 미디어텍 칩이라 같은 샤오미라도 aptX 계열이 통째로 빠집니다.
+  // POCO X8 프로 맥스 공식 사양: SBC / AAC / LDAC / LHDC 5.0 / LC3
+  phone(2026, '샤오미', 'mediatek_hires', '샤오미 17T', { note: '미디어텍 칩이라 aptX 계열 없음' }),
+  ...phoneGroup(2026, '샤오미', 'mediatek_hires', ['POCO X8 프로 맥스', 'POCO X8 프로'], {
+    note: '미디어텍 칩이라 aptX 계열 없음',
+  }),
+
   // 픽셀 11 은 8월 20일, 아이폰 18 프로는 9월이라 구글이 앞에 옵니다.
   // 텐서 G6 로 바뀌었지만 코덱은 앞 세대와 같습니다.
   ...phoneGroup(2026, '구글', 'pixel_le', [
@@ -35,6 +47,8 @@ export const PHONES = [
   ...phoneGroup(2025, '샤오미', 'snapdragon_flagship', [
     '샤오미 15', '샤오미 15 프로', '샤오미 15 울트라',
   ], { aptxLossless: true }),
+  // F 시리즈는 X·M 과 달리 스냅드래곤입니다 — F7 프로는 8 Gen 3.
+  phone(2025, '샤오미', 'snapdragon_flagship', 'POCO F7 프로'),
   ...phoneGroup(2025, '소니', 'xperia_le', ['엑스페리아 1 VII'], { aptxLossless: true }),
   ...phoneGroup(2025, '낫싱', 'snapdragon_flagship', [
     '낫싱 폰 (3)', '낫싱 폰 (3a)', '낫싱 폰 (3a) 프로',
