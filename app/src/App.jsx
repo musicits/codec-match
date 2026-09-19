@@ -248,7 +248,7 @@ export default function App() {
             />
             {narrow && (
               <button type="button" className="golook" onClick={() => { setShowResult(true); window.scrollTo({ top: 0 }) }}>
-                {nameOf(match.codec) ? `${nameOf(match.codec)} 로 연결됩니다. 자세히 보기` : '결과 보기'}
+                결과 보기
                 <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"
                   fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m9 5 7 7-7 7" />
