@@ -687,6 +687,14 @@ input { caret-color: var(--main); }
 
 .story__list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
 .story__list .story__body { margin-top: 8px; }
+/* 만든 곳 · 어떤 코덱 · 쓰려면 · 다른 점 — 이름표 칸을 고정 폭으로 두어
+   코덱이 달라도 설명 글의 왼쪽 끝이 한 줄로 섭니다. */
+.story__facts { margin: 9px 0 0; display: grid; grid-template-columns: 58px minmax(0, 1fr);
+  gap: 6px 10px; align-items: baseline; }
+.story__facts dt { font-size: 11.5px; font-weight: 700; color: var(--main-deep);
+  white-space: nowrap; }
+.story__facts dd { margin: 0; font-size: 13px; line-height: 1.7; color: var(--steel);
+  word-break: keep-all; }
 .story__list li { padding: 15px 17px 16px; border-radius: var(--r-lg);
   background: color-mix(in srgb, var(--canvas) 52%, transparent);
   border: 1px solid var(--glass-hairline); }

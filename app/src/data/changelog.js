@@ -17,6 +17,16 @@
 
 export const CHANGELOG = [
   {
+    version: '3.21',
+    summary: '코덱 이야기 설명을 네 칸 구조로 정리',
+    date: '2026-09-19',
+    phones: 148,
+    audio: 110,
+    changes: [
+      '코덱마다 만든 곳 · 어떤 코덱 · 쓰려면 · 다른 점으로 나눠 적습니다',
+    ],
+  },
+  {
     version: '3.20',
     summary: '픽셀 11 시리즈 · 샤오미 국내 출시분 · 갤럭시 S25 FE 추가',
     date: '2026-09-19',
