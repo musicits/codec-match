@@ -38,6 +38,20 @@ export const AUDIO_DEVICES = [
   audio(2026, '젠하이저', 'aptx_adaptive', '모멘텀 트루 와이어리스 5', { multipoint: true, aptxLossless: true,
     note: 'LE Audio 는 업데이트 예정',
   }),
+  // 귀찌형. 소니 공식 도움말 기준 SBC · AAC 만 (LDAC · LC3 없음). 국내 1월 출시.
+  audio(2026, '소니', 'aac', '링크버즈 클립', { multipoint: true }),
+  // 귀찌형. 공식 사양 SBC · AAC · LDAC, 블루투스 6.0. 국내 10월 앤커 공식스토어 출시.
+  audio(2026, '앤커', 'ldac', '사운드코어 에어로클립 2', { multipoint: true }),
+  // 샥즈 — 샥즈코리아 공식몰 사양 기준. 골전도 밴드형(오픈런)은 SBC 만, 열린 이어폰(오픈핏 · 오픈닷)은 SBC · AAC.
+  ...audioGroup(2026, '샥즈', 'aac', ['오픈핏 프로', '오픈핏 에어 2', '오픈닷 2', '오픈닷 에어'], { multipoint: true }),
+  audio(2026, '샥즈', 'sbc_only', '오픈런 에어 2', { multipoint: true }),
+  // 베이스어스 귀찌형 — baseus.com 사양 · 지원센터 기준. 국내는 공식 브랜드스토어 판매분만.
+  ...audioGroup(2026, '베이스어스', 'ldac', ['Bowie MC2'], { multipoint: true }),
+  // MC2 NC · BC2 는 공식 사양에 멀티포인트 항목이 없어 비워 둡니다.
+  ...audioGroup(2026, '베이스어스', 'ldac', ['Bowie MC2 NC', 'Bass BC2']),
+  // 에디파이어 귀찌형 — edifier.com 글로벌 사양 기준. 공식 출시 연도 표기가 없어 국내 판매 시점으로 둡니다.
+  audio(2026, '에디파이어', 'ldac', 'Comfo Bass Pro', { multipoint: true }),
+  audio(2026, '에디파이어', 'aac', 'Comfo Bass', { multipoint: true }),
   // 3월 공개. 낫싱 공식 도움말 기준 LDAC · AAC · SBC, 듀얼 커넥션.
   audio(2026, '낫싱', 'ldac', '헤드폰 (a)', { multipoint: true }),
 
@@ -46,6 +60,11 @@ export const AUDIO_DEVICES = [
   audio(2025, '애플', 'aac', '파워비츠 프로 2'),
   audio(2025, '삼성', 'ssc', '갤럭시 버즈 코어', { sscMax: 'scalable', multipoint: 'auto', leAudioNote: true }),
   audio(2025, '소니', 'ldac_le', 'WH-1000XM6', { multipoint: true }),
+  ...audioGroup(2025, '샥즈', 'aac', ['오픈핏 2+', '오픈닷 원'], { multipoint: true }),
+  ...audioGroup(2025, '베이스어스', 'ldac', ['Bowie MC1 Pro', 'Inspire XC1'], { multipoint: true }),
+  audio(2025, '베이스어스', 'aac', 'Bowie MC1', { multipoint: true }),
+  // 귀찌형. 화웨이 공식 사양 SBC · AAC · L2HC (LDAC · LHDC · aptX 없음).
+  audio(2025, '화웨이', 'aac_l2hc', '프리클립 2', { multipoint: true, note: 'L2HC 는 화웨이 기기끼리만' }),
   audio(2025, '보스', 'aptx_adaptive', 'QC 울트라 이어버드 2세대', { multipoint: true }),
   // 국내 4월 21일 출시. 글로벌판은 LDAC · Hi-Res Wireless 인증, 중국 내수판은 LHDC 입니다.
   audio(2025, '샤오미', 'ldac', '레드미 버즈 6 프로', { multipoint: true }),
@@ -78,6 +97,9 @@ export const AUDIO_DEVICES = [
   ...audioGroup(2024, '앤커', 'ldac', ['사운드코어 리버티 4 프로', '사운드코어 스페이스 원 프로'], {
     multipoint: true,
   }),
+  audio(2024, '샥즈', 'sbc_only', '오픈런 프로 2', { multipoint: true }),
+  // 수영용 골전도. 같은 골전도라도 오픈스윔 프로는 AAC 까지 됩니다.
+  audio(2024, '샥즈', 'aac', '오픈스윔 프로', { multipoint: true }),
   // P 시리즈 보급형은 LDAC 없이 SBC/AAC 입니다. (P31i 는 LDAC 지원)
   ...audioGroup(2024, '앤커', 'aac', ['사운드코어 P40i', '사운드코어 P30i']),
   audio(2024, 'LG', 'aptx_adaptive', '톤프리 T80S', { multipoint: true }),
@@ -99,6 +121,8 @@ export const AUDIO_DEVICES = [
 
   // 2023
   audio(2023, '삼성', 'ssc', '갤럭시 버즈 FE', { sscMax: 'scalable', multipoint: 'auto' }),
+  // 화웨이 첫 귀찌형. 한국 공식 사양 SBC · AAC · L2HC.
+  audio(2023, '화웨이', 'aac_l2hc', '프리클립', { multipoint: true, note: 'L2HC 는 화웨이 기기끼리만' }),
   audio(2023, '소니', 'ldac', 'WF-1000XM5', { multipoint: true }),
   audio(2023, '보스', 'aptx_adaptive', 'QC 울트라 이어버드'),
   audio(2023, '보스', 'aptx_adaptive', 'QC 울트라 헤드폰', { multipoint: true }),
@@ -150,6 +174,7 @@ export const AUDIO_DEVICES = [
   audio(2020, '자브라', 'aac', '엘리트 85t', { multipoint: true }),
   audio(2020, '마샬', 'sbc_only', '모니터 II A.N.C.', { note: 'SBC 전용' }),
   audio(2020, '슈어', 'aptx_full', 'AONIC 50', { multipoint: true }),
+  audio(2020, '샥즈', 'sbc_only', '오픈무브', { multipoint: true }),
   ...audioGroup(2019, '애플', 'aac', ['에어팟 2세대', '에어팟 프로']),
   audio(2019, '삼성', 'ssc', '갤럭시 버즈', { sscMax: 'scalable', multipoint: 'auto' }),
   audio(2016, '애플', 'aac', '에어팟 1세대'),

@@ -35,12 +35,20 @@ export const phoneScale = (device) => {
   return 1
 }
 
-// 귀 가장자리에 끼우는 클립형. 아이콘이 달라서 따로 가립니다.
-const CLIP = /버즈 온/
+// 귀를 막지 않는 열린 이어폰은 거는 방식에 따라 둘로 나눕니다. 제조사 공식 설명으로 확인한 것만 넣습니다.
+//   귀찌형  귀 가장자리에 끼우는 것 (갤럭시 버즈 온 · 보스 울트라 오픈 이어버드)
+//   귀걸이형  고리를 귀 위로 걸치는 것 (파워비츠 프로 · 샥즈 오픈핏)
+//   골전도  머리 뒤로 두르는 밴드에 귀 앞 진동판 (샥즈 오픈런)
+// 다 아니면 귀 안에 넣는 무선 이어폰으로 봅니다.
+const CUFF = /버즈 온|울트라 오픈 이어버드|스포츠 오픈 이어버드|링크버즈 클립|프리클립|에어로클립|오픈닷|^Bowie MC|^Inspire XC|^Bass BC|^Comfo Bass/
+const HOOK = /파워비츠|^Ear \(open\)$|오픈핏/
+const BONE = /오픈런|오픈스윔|오픈무브/
 
 export const audioForm = (device) => {
   const name = model(device)
-  if (CLIP.test(name)) return 'clip'
+  if (CUFF.test(name)) return 'cuff'
+  if (HOOK.test(name)) return 'hook'
+  if (BONE.test(name)) return 'bone'
   return HEADPHONE.test(name) ? 'headphones' : 'earbuds'
 }
 
@@ -54,5 +62,7 @@ export const PHONE_FORMS = [
 export const AUDIO_FORMS = [
   { id: 'earbuds', label: '무선 이어폰' },
   { id: 'headphones', label: '헤드폰' },
-  { id: 'clip', label: '클립형' },
+  { id: 'hook', label: '귀걸이형' },
+  { id: 'cuff', label: '귀찌형' },
+  { id: 'bone', label: '골전도' },
 ]

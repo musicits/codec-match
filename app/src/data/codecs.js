@@ -150,6 +150,8 @@ export const AUDIO_CODEC_SETS = {
   lhdc: ['SBC', 'AAC', 'LHDC'],
   ldac_lhdc: ['SBC', 'AAC', 'LDAC', 'LHDC'],
   ldac_l2hc: ['SBC', 'AAC', 'LDAC', 'L2HC'],
+  // LDAC 없이 화웨이 자체 코덱만 더한 조합 (화웨이 프리클립)
+  aac_l2hc: ['SBC', 'AAC', 'L2HC'],
   aptx_classic: ['SBC', 'AAC', 'aptX'],
   aptx_adaptive: ['SBC', 'AAC', 'aptX', 'aptX Adaptive'],
   aptx_adaptive_le: ['SBC', 'AAC', 'aptX', 'aptX Adaptive', 'LC3'],
