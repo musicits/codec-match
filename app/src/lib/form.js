@@ -35,7 +35,14 @@ export const phoneScale = (device) => {
   return 1
 }
 
-export const audioForm = (device) => (HEADPHONE.test(model(device)) ? 'headphones' : 'earbuds')
+// 귀 가장자리에 끼우는 클립형. 아이콘이 달라서 따로 가립니다.
+const CLIP = /버즈 온/
+
+export const audioForm = (device) => {
+  const name = model(device)
+  if (CLIP.test(name)) return 'clip'
+  return HEADPHONE.test(name) ? 'headphones' : 'earbuds'
+}
 
 // 형태 고르기 드롭다운에 쓰는 목록. 순서가 곧 화면 순서입니다.
 export const PHONE_FORMS = [
@@ -47,4 +54,5 @@ export const PHONE_FORMS = [
 export const AUDIO_FORMS = [
   { id: 'earbuds', label: '무선 이어폰' },
   { id: 'headphones', label: '헤드폰' },
+  { id: 'clip', label: '클립형' },
 ]

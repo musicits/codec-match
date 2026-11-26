@@ -4,6 +4,8 @@ import { audio, audioGroup } from './devices.js'
 export const AUDIO_DEVICES = [
   // 2026
   ...audioGroup(2026, '삼성', 'ssc_le', ['갤럭시 버즈4', '갤럭시 버즈4 프로'], { sscMax: 'uhq', multipoint: 'auto' }),
+  // 갤럭시 첫 클립형. 국내 10월 27일 출시. 삼성닷컴 사양: AAC · SBC · SSC · SSC-UHQ · LC3.
+  audio(2026, '삼성', 'ssc_le', '갤럭시 버즈 온', { sscMax: 'uhq', multipoint: 'auto' }),
   // 5세대부터 일반·무선충전 모델 모두 ANC 기본 탑재. 코덱은 여전히 SBC/AAC 입니다.
   audio(2026, '애플', 'aac', '에어팟 5'),
   audio(2026, '애플', 'aac', '에어팟 맥스 2', {
@@ -20,12 +22,24 @@ export const AUDIO_DEVICES = [
     multipoint: true,
   }),
   // 1세대(2023)와 달리 aptX Lossless 까지 올라왔습니다. 유선은 USB-C 로 24bit 48kHz.
-  audio(2026, '보스', 'aptx_adaptive', 'QC 울트라 헤드폰 2세대', { multipoint: true, aptxLossless: true }),
-  // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
-  audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', { multipoint: true,
-    note: 'LE Audio 는 업데이트 예정',
-    aptxLossless: true,
+  // 펌웨어 10.12.12(2026년 9월 8일)에서 LE Audio · LC3 가 베타로 들어왔습니다. 안드로이드 13 이상.
+  audio(2026, '보스', 'aptx_adaptive_le', 'QC 울트라 헤드폰 2세대', { multipoint: true, aptxLossless: true,
+    note: 'LE Audio 는 베타',
   }),
+  // 귀를 막지 않는 열린 모양. 2세대부터 Snapdragon Sound(aptX Adaptive)가 들어왔습니다. 국내 9월 출시.
+  audio(2026, '보스', 'aptx_adaptive', '울트라 오픈 이어버드 2세대', { multipoint: true }),
+  // 같은 날 나온 운동용 열린 이어폰. aptX 없이 SBC · AAC 입니다.
+  audio(2026, '보스', 'aac', '스포츠 오픈 이어버드', { multipoint: true }),
+  // 오버이어. 완전무선 MTW5 는 아직 미출시라 MTW4 가 그쪽 최신입니다.
+  // 공식 사양: SBC · AAC · aptX · aptX HD · aptX Adaptive · aptX Lossless. 추후 업데이트로 약속한 것은
+  // 블루투스 6.0 이고 LE Audio 는 공식 문서에 없습니다.
+  audio(2026, '젠하이저', 'aptx_adaptive_hd', '모멘텀 5 와이어리스', { multipoint: true, aptxLossless: true }),
+  // 9월 3일 출시. aptX HD 는 없고 aptX Adaptive · Lossless 까지. LC3 는 하드웨어만 있고 추후 펌웨어로 켭니다.
+  audio(2026, '젠하이저', 'aptx_adaptive', '모멘텀 트루 와이어리스 5', { multipoint: true, aptxLossless: true,
+    note: 'LE Audio 는 업데이트 예정',
+  }),
+  // 3월 공개. 낫싱 공식 도움말 기준 LDAC · AAC · SBC, 듀얼 커넥션.
+  audio(2026, '낫싱', 'ldac', '헤드폰 (a)', { multipoint: true }),
 
   // 2025
   audio(2025, '애플', 'aac', '에어팟 프로 3'),
